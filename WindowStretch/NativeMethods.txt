@@ -1,0 +1,8 @@
+﻿GetWindowRect
+GetClientRect
+SetWindowPos
+ClientToScreen
+HWND_BOTTOM
+HWND_NOTOPMOST
+HWND_TOP
+HWND_TOPMOST
