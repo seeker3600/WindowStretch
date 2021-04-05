@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using WindowStretch.Core;
 using WindowStretch.Properties;
 
@@ -46,10 +44,9 @@ namespace WindowStretch.Main
 
         private float? BeforeRatio = null;
 
-        public void Update()
+        public void Refresh()
         {
             BeforeRatio = null;
-            Tick();
         }
 
 #if DEBUG
