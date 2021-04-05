@@ -61,31 +61,36 @@ namespace WindowStretch.Main
         // TODO fat vm
         public void Tick()
         {
-            var procs = Process.GetProcessesByName(ProcessName);
+            var proc = Process.GetProcessesByName(ProcessName).FirstOrDefault();
+            var hwnd = proc?.MainWindowHandle ?? IntPtr.Zero; // WaitForInputIdleは「権限がない」エラーになった
 
-            if (procs.Length == 0)
+            if (hwnd == IntPtr.Zero)
             {
-                StatusMsg.Value = $"アプリ {ProcessName} が見つかりません。本ツールが管理者権限で起動していないかもしれません。";
+                StatusMsg.Value = $"アプリ {ProcessName} が見つかりません。";
                 return;
             }
 
-            procs[0].WaitForInputIdle();
-
-            var hwnd = procs[0].MainWindowHandle;
-            var ratio = StretchUtils.GetWindowAspectRatio(hwnd);
-
-            if (!BeforeRatio.HasValue || BeforeRatio != ratio)
+            try
             {
-                if (ratio >= 1.0f)
-                    StretchUtils.Stretch(hwnd, Wide.ToPattern());
-                else
-                    StretchUtils.Stretch(hwnd, Tall.ToPattern());
+                var ratio = StretchUtils.GetWindowAspectRatio(hwnd);
 
-                BeforeRatio = ratio;
-                StatusMsg.Value = $"アプリ {ProcessName} のウィンドウサイズを変更しました。";
+                if (!BeforeRatio.HasValue || BeforeRatio != ratio)
+                {
+                    if (ratio >= 1.0f)
+                        StretchUtils.Stretch(hwnd, Wide.ToPattern());
+                    else
+                        StretchUtils.Stretch(hwnd, Tall.ToPattern());
+
+                    BeforeRatio = ratio;
+                    StatusMsg.Value = $"アプリ {ProcessName} のウィンドウサイズを変更しました。";
+                }
+                else
+                    StatusMsg.Value = $"アプリ {ProcessName} を監視しています。";
             }
-            else
-                StatusMsg.Value = $"アプリ {ProcessName} を監視しています。";
+            catch (Exception)
+            {
+                StatusMsg.Value = $"アプリ {ProcessName} の監視が失敗しました。管理者権限が必要かもしれません。";
+            }
         }
 
         public void Load()
