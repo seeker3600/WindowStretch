@@ -1,6 +1,4 @@
-﻿using Reactive.Bindings;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace WindowStretch.Main
 {
@@ -41,11 +39,9 @@ namespace WindowStretch.Main
             Vm.Tick();
         }
 
-        private async void updateBtn_Click(object sender, System.EventArgs e)
+        private void updateBtn_Click(object sender, System.EventArgs e)
         {
-            // TODO changed event in vm
-            await Task.Delay(100);
-            Vm.Update();
+            Vm.Refresh();
         }
 
         private void MainForm_Resize(object sender, System.EventArgs e)
