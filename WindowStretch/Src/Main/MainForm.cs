@@ -9,11 +9,13 @@ namespace WindowStretch.Main
         private static Binding Bind(string propertyName, object dataSource) =>
             new(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
 
-        private readonly StretchVm Vm = new();
+        private readonly StretchVm Vm;
 
         public MainForm()
         {
             InitializeComponent();
+
+            Vm = new(this);
 
             modeBoxW.DisplayMember = "Text";
             modeBoxW.ValueMember = "Mode";
@@ -48,16 +50,12 @@ namespace WindowStretch.Main
 
         private void MainForm_Resize(object sender, System.EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
-                Visible = false;
+            Vm.WindowState.Value = WindowState;
         }
 
         private void notifyIcon1_Click(object sender, System.EventArgs e)
         {
-            Visible = true;
-            if (WindowState == FormWindowState.Minimized)
-                WindowState = FormWindowState.Normal;
-            Activate();
+            Vm.WindowState.Value = FormWindowState.Normal;
         }
 
         private void MainForm_Load(object sender, System.EventArgs e)
