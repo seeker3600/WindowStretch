@@ -46,6 +46,8 @@ namespace WindowStretch.Main
                 return;
             }
 
+            procs[0].WaitForInputIdle();
+
             var hwnd = procs[0].MainWindowHandle;
             var ratio = StretchUtils.GetWindowAspectRatio(hwnd);
 
