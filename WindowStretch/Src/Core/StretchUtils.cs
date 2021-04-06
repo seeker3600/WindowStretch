@@ -14,6 +14,10 @@ namespace WindowStretch.Core
 
     public static class StretchUtils
     {
+        /// <summary>
+        /// 指定されたウィンドウを、パターンに従ってサイズ変更する。
+        /// </summary>
+        /// <exception cref="InvalidOperationException">WindowsAPI呼び出しに失敗した。</exception>
         public static void Stretch(IntPtr hwndIp, StretchPattern pat)
         {
             var hwnd = new HWND(hwndIp);
@@ -49,10 +53,14 @@ namespace WindowStretch.Core
             if (!resetPosition)
                 flags |= SetWindowPos_uFlags.SWP_NOMOVE;
 
-            PInvoke.SetWindowPos(hwnd, hwndTop, rect.X, rect.Y, rect.Width, rect.Height, flags);
+            if (!PInvoke.SetWindowPos(hwnd, hwndTop, rect.X, rect.Y, rect.Width, rect.Height, flags))
+                throw new InvalidOperationException(nameof(PInvoke.SetWindowPos));
         }
 
-        // ratio > 1 なら横長、ratio < 1 なら縦長
+        /// <summary>
+        /// 指定されたウィンドウの縦横比を計算する。
+        /// </summary>
+        /// <returns>縦横比。ratio ＞ 1 なら横長、ratio ＜ 1 なら縦長</returns>
         public static float GetWindowAspectRatio(IntPtr hwndIp)
         {
             if (!PInvoke.GetWindowRect(new HWND(hwndIp), out var rect))
@@ -64,6 +72,13 @@ namespace WindowStretch.Core
             return res;
         }
 
+        /// <summary>
+        /// 指定されたウィンドウを、縦横比を維持して最大化表示する位置とサイズを計算する。
+        /// </summary>
+        /// <remarks>
+        /// ウィンドウ領域（枠線やタイトルバーを含む）を、画面の作業領域（タスクバーなどを除く）に最大化する。
+        /// 画面の中央に移動する。
+        /// </remarks>
         private static Rectangle GetAfterSizeWhenMaxOnDesktop(HWND hwnd)
         {
             var ratio = GetWindowAspectRatio(hwnd);
@@ -80,6 +95,13 @@ namespace WindowStretch.Core
             return new Rectangle(left, top, width, height);
         }
 
+        /// <summary>
+        /// 指定されたウィンドウの枠の太さを取得する。
+        /// </summary>
+        /// <returns>
+        /// 上下左右それぞれ、クライアント領域の縁からウィンドウ領域の縁までの長さを返す。
+        /// <c>left</c>と<c>top</c>は負数が想定される。これにより、<c>Width</c>と<c>Height</c>は正しい値を返す。
+        /// </returns>
         private static Rectangle GetBorder(HWND hwnd)
         {
             // クライアント領域の寸法を取得
@@ -109,6 +131,14 @@ namespace WindowStretch.Core
             );
         }
 
+        /// <summary>
+        /// 指定されたウィンドウを、縦横比を維持してフルスクリーン表示する位置とサイズを計算する。
+        /// </summary>
+        /// <remarks>
+        /// クライアント領域（枠線やタイトルバーを除く）を、画面全体に最大化する。
+        /// ウィンドウ領域としては、画面全体より大きいサイズにしようとする。対象アプリによっては失敗するかもしれない。
+        /// タスクバーなどを無視するため、最前面にする必要がある。
+        /// </remarks>
         private static Rectangle GetAfterSizeWhenFullScreen(HWND hwnd)
         {
             var ratio = GetWindowAspectRatio(hwnd);
@@ -126,6 +156,10 @@ namespace WindowStretch.Core
             return new Rectangle(left, top, width, height);
         }
 
+        /// <summary>
+        /// <paramref name="width"/> × <paramref name="height"/>の枠内に収まる、
+        /// 縦横比<paramref name="ratio"/>かつ最大面積の長方形を計算する。
+        /// </summary>
         private static (int width, int height) GetInnerMaxSize(int width, int height, float ratio)
         {
             if (width / ratio <= height)
