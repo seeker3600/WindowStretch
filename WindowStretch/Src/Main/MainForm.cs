@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 
+#pragma warning disable IDE1006 // 命名スタイル
+
 namespace WindowStretch.Main
 {
     public partial class MainForm : Form
@@ -11,9 +13,9 @@ namespace WindowStretch.Main
 
         public MainForm()
         {
-            InitializeComponent();
-
             Vm = new(this);
+
+            InitializeComponent();
 
             modeBoxW.DisplayMember = "Text";
             modeBoxW.ValueMember = "Mode";
