@@ -94,5 +94,29 @@ namespace WindowStretch.Properties {
                 this["WindowState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WideAllowExcess {
+            get {
+                return ((bool)(this["WideAllowExcess"]));
+            }
+            set {
+                this["WideAllowExcess"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TallAllowExcess {
+            get {
+                return ((bool)(this["TallAllowExcess"]));
+            }
+            set {
+                this["TallAllowExcess"] = value;
+            }
+        }
     }
 }

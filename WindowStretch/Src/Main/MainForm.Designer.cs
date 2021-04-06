@@ -38,10 +38,12 @@ namespace WindowStretch.Main
             this.label2 = new System.Windows.Forms.Label();
             this.modeBoxT = new System.Windows.Forms.ComboBox();
             this.alwaysTopChkT = new System.Windows.Forms.CheckBox();
+            this.allowExcessChkT = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.modeBoxW = new System.Windows.Forms.ComboBox();
             this.alwaysTopChkW = new System.Windows.Forms.CheckBox();
+            this.allowExcessChkW = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.leftNumW = new System.Windows.Forms.NumericUpDown();
             this.watchTimer = new System.Windows.Forms.Timer(this.components);
@@ -89,7 +91,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 142);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 167);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -100,15 +102,16 @@ namespace WindowStretch.Main
             this.tableLayoutPanel4.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.modeBoxT, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.alwaysTopChkT, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.allowExcessChkT, 0, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 38);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowCount = 4;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(198, 101);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(198, 126);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // label2
@@ -143,6 +146,16 @@ namespace WindowStretch.Main
             this.alwaysTopChkT.UseVisualStyleBackColor = true;
             this.alwaysTopChkT.CheckedChanged += new System.EventHandler(this.updateBtn_Click);
             // 
+            // allowExcessChkT
+            // 
+            this.allowExcessChkT.AutoSize = true;
+            this.allowExcessChkT.Location = new System.Drawing.Point(3, 104);
+            this.allowExcessChkT.Name = "allowExcessChkT";
+            this.allowExcessChkT.Size = new System.Drawing.Size(130, 19);
+            this.allowExcessChkT.TabIndex = 3;
+            this.allowExcessChkT.Text = "少しのはみ出しを許容";
+            this.allowExcessChkT.UseVisualStyleBackColor = true;
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.AutoSize = true;
@@ -151,15 +164,16 @@ namespace WindowStretch.Main
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.modeBoxW, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.alwaysTopChkW, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.allowExcessChkW, 0, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(207, 38);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(198, 101);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(198, 126);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -193,6 +207,16 @@ namespace WindowStretch.Main
             this.alwaysTopChkW.Text = "最前面";
             this.alwaysTopChkW.UseVisualStyleBackColor = true;
             this.alwaysTopChkW.CheckedChanged += new System.EventHandler(this.updateBtn_Click);
+            // 
+            // allowExcessChkW
+            // 
+            this.allowExcessChkW.AutoSize = true;
+            this.allowExcessChkW.Location = new System.Drawing.Point(3, 104);
+            this.allowExcessChkW.Name = "allowExcessChkW";
+            this.allowExcessChkW.Size = new System.Drawing.Size(130, 19);
+            this.allowExcessChkW.TabIndex = 3;
+            this.allowExcessChkW.Text = "少しのはみ出しを許容";
+            this.allowExcessChkW.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel1
             // 
@@ -231,7 +255,7 @@ namespace WindowStretch.Main
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(460, 179);
+            this.ClientSize = new System.Drawing.Size(431, 218);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -272,6 +296,8 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.CheckBox allowExcessChkT;
+        private System.Windows.Forms.CheckBox allowExcessChkW;
     }
 }
 
