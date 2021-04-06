@@ -94,8 +94,10 @@ namespace WindowStretch.Main
         {
             Wide.Mode.Value = (StretchMode)Settings.Default.WideMode;
             Wide.AlwaysTop.Value = Settings.Default.WideAlwaysTop;
+            Wide.AllowExcess.Value = Settings.Default.WideAllowExcess;
             Tall.Mode.Value = (StretchMode)Settings.Default.TallMode;
             Tall.AlwaysTop.Value = Settings.Default.TallAlwaysTop;
+            Tall.AllowExcess.Value = Settings.Default.TallAllowExcess;
 
             WindowState.Value = (FormWindowState)Settings.Default.WindowState;
         }
@@ -104,8 +106,10 @@ namespace WindowStretch.Main
         {
             Settings.Default.WideMode = (int)Wide.Mode.Value;
             Settings.Default.WideAlwaysTop = Wide.AlwaysTop.Value;
+            Settings.Default.WideAllowExcess = Wide.AllowExcess.Value;
             Settings.Default.TallMode = (int)Tall.Mode.Value;
             Settings.Default.TallAlwaysTop = Tall.AlwaysTop.Value;
+            Settings.Default.TallAllowExcess = Tall.AllowExcess.Value;
 
             Settings.Default.WindowState = (int)WindowState.Value;
 
@@ -119,20 +123,24 @@ namespace WindowStretch.Main
 
         public ReactivePropertySlim<bool> AlwaysTop { get; } = new();
 
-        public ReactivePropertySlim<int> ManualWidth { get; } = new();
-
-        public ReactivePropertySlim<int> ManualHeight { get; } = new();
+        public ReactivePropertySlim<bool> AllowExcess { get; } = new();
 
         public ReadOnlyReactivePropertySlim<bool> AlwaysTopEnabled { get; }
+
+        public ReadOnlyReactivePropertySlim<bool> AllowExcessEnabled { get; }
 
         public StretchPatternVm()
         {
             AlwaysTopEnabled = Mode
                 .Select(m => m != StretchMode.FullScreen && m != StretchMode.None)
                 .ToReadOnlyReactivePropertySlim();
+
+            AllowExcessEnabled = Mode
+                .Select(m => m == StretchMode.FullScreen)
+                .ToReadOnlyReactivePropertySlim();
         }
 
         public StretchPattern ToPattern() =>
-            new(Mode.Value, AlwaysTop.Value, ManualWidth.Value, ManualHeight.Value);
+            new(Mode.Value, AlwaysTop.Value, AllowExcess.Value);
     }
 }

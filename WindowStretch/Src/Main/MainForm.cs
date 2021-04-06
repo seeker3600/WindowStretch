@@ -28,10 +28,14 @@ namespace WindowStretch.Main
             modeBoxW.DataBindings.Add(Bind(nameof(modeBoxW.SelectedValue), Vm.Wide.Mode));
             alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Checked), Vm.Wide.AlwaysTop));
             alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Enabled), Vm.Wide.AlwaysTopEnabled));
+            allowExcessChkW.DataBindings.Add(Bind(nameof(allowExcessChkW.Checked), Vm.Wide.AllowExcess));
+            allowExcessChkW.DataBindings.Add(Bind(nameof(allowExcessChkW.Enabled), Vm.Wide.AllowExcessEnabled));
 
             modeBoxT.DataBindings.Add(Bind(nameof(modeBoxT.SelectedValue), Vm.Tall.Mode));
             alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Checked), Vm.Tall.AlwaysTop));
             alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Enabled), Vm.Tall.AlwaysTopEnabled));
+            allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Checked), Vm.Tall.AllowExcess));
+            allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Enabled), Vm.Tall.AllowExcessEnabled));
 
             statusLbl.DataBindings.Add(Bind(nameof(statusLbl.Text), Vm.StatusMsg));
         }

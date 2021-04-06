@@ -4,23 +4,26 @@ namespace WindowStretch.Core
 {
     public class StretchPattern
     {
-        public StretchPattern(StretchMode mode, bool alwaysTop, int manualWidth, int manualHeight)
+        public StretchPattern(StretchMode mode, bool alwaysTop, bool excess)
         {
-            if (mode == StretchMode.Manual)
-            {
-                if (manualWidth <= 0) throw new ArgumentOutOfRangeException(nameof(manualWidth));
-                if (manualHeight <= 0) throw new ArgumentOutOfRangeException(nameof(manualHeight));
-            }
+            //if (mode == StretchMode.Manual)
+            //{
+            //    if (manualWidth <= 0) throw new ArgumentOutOfRangeException(nameof(manualWidth));
+            //    if (manualHeight <= 0) throw new ArgumentOutOfRangeException(nameof(manualHeight));
+            //}
 
             Mode = mode;
             AlwaysTop = alwaysTop;
-            ManualWidth = manualWidth;
-            ManualHeight = manualHeight;
+            Excess = excess;
+            ManualWidth = 0;
+            ManualHeight = 0;
         }
 
         public StretchMode Mode { get; }
 
         public bool AlwaysTop { get; }
+
+        public bool Excess { get; }
 
         public int ManualWidth { get; }
 
