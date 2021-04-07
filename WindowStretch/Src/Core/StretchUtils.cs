@@ -141,16 +141,22 @@ namespace WindowStretch.Core
         /// </remarks>
         private static Rectangle GetAfterSizeWhenFullScreen(HWND hwnd)
         {
-            var ratio = GetWindowAspectRatio(hwnd);
 
-            // ウィンドウ領域の寸法を計算
+            // スクリーン領域の寸法を計算
+            // 実際の画面全体にウィンドウの枠線分を追加することで、
+            // ウィンドウ領域をスクリーン領域いっぱいに拡大＝クライアント領域が実際の画面全体に拡大される
             var area = Screen.FromHandle(hwnd).Bounds;
             var border = GetBorder(hwnd);
-            var (width, height) = GetInnerMaxSize(area.Width + border.Width, area.Height + border.Height, ratio);
+            area.Offset(border.Location);
+            area.Size += border.Size;
+
+            // ウィンドウ領域の寸法を計算
+            var ratio = GetWindowAspectRatio(hwnd);
+            var (width, height) = GetInnerMaxSize(area.Width, area.Height, ratio);
 
             // ウィンドウ位置を計算
-            var left = area.X + (area.Width + border.Width - width) / 2 + border.Left;
-            var top = area.Y + (area.Height + border.Height - height) / 2 + border.Top;
+            var left = area.X + (area.Width - width) / 2;
+            var top = area.Y + (area.Height - height) / 2;
 
             // ウィンドウ領域を返却
             return new Rectangle(left, top, width, height);
