@@ -155,6 +155,7 @@ namespace WindowStretch.Main
             this.allowExcessChkT.TabIndex = 3;
             this.allowExcessChkT.Text = "少しのはみ出しを許容";
             this.allowExcessChkT.UseVisualStyleBackColor = true;
+            this.allowExcessChkT.CheckedChanged += new System.EventHandler(this.updateBtn_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -217,6 +218,7 @@ namespace WindowStretch.Main
             this.allowExcessChkW.TabIndex = 3;
             this.allowExcessChkW.Text = "少しのはみ出しを許容";
             this.allowExcessChkW.UseVisualStyleBackColor = true;
+            this.allowExcessChkW.CheckedChanged += new System.EventHandler(this.updateBtn_Click);
             // 
             // flowLayoutPanel1
             // 
