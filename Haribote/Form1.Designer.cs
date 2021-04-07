@@ -36,6 +36,8 @@ namespace Haribote
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.sizeLabel = new System.Windows.Forms.Label();
+            this.smallBtn = new System.Windows.Forms.Button();
+            this.scrRatioBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -93,6 +95,8 @@ namespace Haribote
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.smallBtn, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.scrRatioBtn, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(30, 30);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -119,6 +123,26 @@ namespace Haribote
             this.sizeLabel.Size = new System.Drawing.Size(49, 15);
             this.sizeLabel.TabIndex = 0;
             this.sizeLabel.Text = "??? x ???";
+            // 
+            // smallBtn
+            // 
+            this.smallBtn.Location = new System.Drawing.Point(3, 147);
+            this.smallBtn.Name = "smallBtn";
+            this.smallBtn.Size = new System.Drawing.Size(129, 36);
+            this.smallBtn.TabIndex = 5;
+            this.smallBtn.Text = "小さく＆縦長へ";
+            this.smallBtn.UseVisualStyleBackColor = true;
+            this.smallBtn.Click += new System.EventHandler(this.smallBtn_Click);
+            // 
+            // scrRatioBtn
+            // 
+            this.scrRatioBtn.Location = new System.Drawing.Point(320, 147);
+            this.scrRatioBtn.Name = "scrRatioBtn";
+            this.scrRatioBtn.Size = new System.Drawing.Size(122, 36);
+            this.scrRatioBtn.TabIndex = 6;
+            this.scrRatioBtn.Text = "画面と同じ比率へ";
+            this.scrRatioBtn.UseVisualStyleBackColor = true;
+            this.scrRatioBtn.Click += new System.EventHandler(this.scrRatioBtn_Click);
             // 
             // Form1
             // 
@@ -151,6 +175,8 @@ namespace Haribote
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label sizeLabel;
+        private System.Windows.Forms.Button smallBtn;
+        private System.Windows.Forms.Button scrRatioBtn;
     }
 }
 
