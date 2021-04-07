@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Windows.Sdk;
 using System.Drawing;
@@ -31,7 +27,7 @@ namespace WindowStretch.Core
                 case FullScreen:
                     alwaysTop = true;
                     resetPosition = true;
-                    rect = GetAfterSizeWhenFullScreen(hwnd);
+                    rect = GetAfterSizeWhenFullScreen(hwnd, pat.Excess);
                     break;
 
                 case MaxOnDesktop:
@@ -85,7 +81,7 @@ namespace WindowStretch.Core
 
             // ウィンドウ領域の寸法を計算
             var area = Screen.FromHandle(hwnd).WorkingArea;
-            var (width, height) = GetInnerMaxSize(area.Width, area.Height, ratio);
+            var (width, height) = GetTangentSize(area.Size, ratio);
 
             // ウィンドウ位置を計算
             var left = area.X + (area.Width - width) / 2;
@@ -134,12 +130,13 @@ namespace WindowStretch.Core
         /// <summary>
         /// 指定されたウィンドウを、縦横比を維持してフルスクリーン表示する位置とサイズを計算する。
         /// </summary>
+        /// <param name="excess">端に少し隙間ができるとき、はみ出しを許容して隙間を埋める</param>
         /// <remarks>
         /// クライアント領域（枠線やタイトルバーを除く）を、画面全体に最大化する。
         /// ウィンドウ領域としては、画面全体より大きいサイズにしようとする。対象アプリによっては失敗するかもしれない。
         /// タスクバーなどを無視するため、最前面にする必要がある。
         /// </remarks>
-        private static Rectangle GetAfterSizeWhenFullScreen(HWND hwnd)
+        private static Rectangle GetAfterSizeWhenFullScreen(HWND hwnd, bool excess)
         {
 
             // スクリーン領域の寸法を計算
@@ -150,9 +147,13 @@ namespace WindowStretch.Core
             area.Offset(border.Location);
             area.Size += border.Size;
 
-            // ウィンドウ領域の寸法を計算
+            // 幅を合わせたときの高さのズレが、固定パーセント以下か判定
+            var inscribe = true;
             var ratio = GetWindowAspectRatio(hwnd);
-            var (width, height) = GetInnerMaxSize(area.Width, area.Height, ratio);
+            if (excess && Math.Abs(area.Width / ratio - area.Height) < (area.Height * 0.05)) inscribe = false;
+
+            // ウィンドウ領域の寸法を計算
+            var (width, height) = GetTangentSize(area.Size, ratio, inscribe);
 
             // ウィンドウ位置を計算
             var left = area.X + (area.Width - width) / 2;
@@ -163,16 +164,21 @@ namespace WindowStretch.Core
         }
 
         /// <summary>
-        /// <paramref name="width"/> × <paramref name="height"/>の枠内に収まる、
-        /// 縦横比<paramref name="ratio"/>かつ最大面積の長方形を計算する。
+        /// <paramref name="rect"/>に内接or外接する、縦横比<paramref name="ratio"/>の長方形を計算する。
         /// </summary>
-        private static (int width, int height) GetInnerMaxSize(int width, int height, float ratio)
+        /// <returns>
+        /// <paramref name="inscribe"/>が<c>true</c>(デフォルト値)の場合、内接する(内側に収まる)長方形を返す。
+        /// <c>false</c>の場合、外接する長方形を返す。
+        /// </returns>
+        private static (int width, int height) GetTangentSize(Size rect, float ratio, bool inscribe = true)
         {
-            if (width / ratio <= height)
-                return (width, (int)(width / ratio));
-            else
-                return ((int)(height * ratio), height);
-        }
+            // 横幅を揃えたとき、高さがheightより低くなるならtrue
+            var shortHeight = rect.Width / ratio <= rect.Height;
 
+            if (shortHeight == inscribe)
+                return (rect.Width, (int)(rect.Width / ratio));
+            else
+                return ((int)(rect.Height * ratio), rect.Height);
+        }
     }
 }

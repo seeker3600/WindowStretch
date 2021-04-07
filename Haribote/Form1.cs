@@ -1,52 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+#pragma warning disable IDE1006 // 命名スタイル
 
 namespace Haribote
 {
     public partial class Form1 : Form
     {
-        //private float FixedRatio;
-
-        //private Size BeforeSize;
-
         public Form1()
         {
             InitializeComponent();
-
-            //FixedRatio = 2.0f;
-            //Height = (int)(Width / FixedRatio);
-            //BeforeSize = Size;
         }
-
-        private bool EnableEvent = true;
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
-            //if (BeforeSize.Width != Width)
-            //{
-            //    var n = new Size(Width, (int)(Width / FixedRatio));
-            //    Size = n;
-            //    BeforeSize = Size;
-            //}
-            //else if (BeforeSize.Height != Height)
-            //{
-            //    Width = (int)(Height * FixedRatio);
-            //    BeforeSize = Size;
-            //}
-            EnableEvent = false;
             if (Width > Height)
                 wideRadio.Checked = true;
             else
                 tallRatio.Checked = true;
-            EnableEvent = true;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -56,10 +28,21 @@ namespace Haribote
 
         private void ratioRadio_CheckedChanged(object sender, EventArgs e)
         {
-            if (!EnableEvent) return;
-            //FixedRatio = wideRadio.Checked ? 2.0f : 0.5f;
-            Size = new Size(Height, Width);
+            if (Width > Height != wideRadio.Checked)
+                Size = new Size(Height, Width);
         }
 
+        private void smallBtn_Click(object sender, EventArgs e)
+        {
+            Size = new Size(300, 600);
+            Form1_ResizeEnd(sender, e);
+        }
+
+        private void scrRatioBtn_Click(object sender, EventArgs e)
+        {
+            var area = Screen.FromControl(this).Bounds;
+            Size = new Size(area.Width / 3, area.Height / 3);
+            Form1_ResizeEnd(sender, e);
+        }
     }
 }
