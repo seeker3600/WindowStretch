@@ -43,7 +43,6 @@ namespace WindowStretch.Main
             this.modeBoxW = new System.Windows.Forms.ComboBox();
             this.alwaysTopChkW = new System.Windows.Forms.CheckBox();
             this.allowExcessChkW = new System.Windows.Forms.CheckBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.leftNumW = new System.Windows.Forms.NumericUpDown();
             this.watchTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -59,7 +58,6 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftNumW)).BeginInit();
             this.mainTabs.SuspendLayout();
             this.resizeTab.SuspendLayout();
@@ -87,13 +85,14 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.updateBtn, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(408, 167);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(423, 191);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -106,14 +105,14 @@ namespace WindowStretch.Main
             this.tableLayoutPanel4.Controls.Add(this.alwaysTopChkT, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.allowExcessChkT, 0, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 38);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 32);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 4;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(198, 126);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(205, 126);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // label2
@@ -168,14 +167,14 @@ namespace WindowStretch.Main
             this.tableLayoutPanel2.Controls.Add(this.alwaysTopChkW, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.allowExcessChkW, 0, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(207, 38);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(214, 32);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(198, 126);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(206, 126);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -220,16 +219,6 @@ namespace WindowStretch.Main
             this.allowExcessChkW.UseVisualStyleBackColor = true;
             this.allowExcessChkW.CheckedChanged += new System.EventHandler(this.updateBtn_Click);
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 2);
-            this.flowLayoutPanel1.Controls.Add(this.updateBtn);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(81, 29);
-            this.flowLayoutPanel1.TabIndex = 2;
-            // 
             // leftNumW
             // 
             this.leftNumW.Location = new System.Drawing.Point(157, 3);
@@ -258,7 +247,7 @@ namespace WindowStretch.Main
             this.mainTabs.Location = new System.Drawing.Point(0, 0);
             this.mainTabs.Name = "mainTabs";
             this.mainTabs.SelectedIndex = 0;
-            this.mainTabs.Size = new System.Drawing.Size(425, 228);
+            this.mainTabs.Size = new System.Drawing.Size(437, 225);
             this.mainTabs.TabIndex = 3;
             // 
             // resizeTab
@@ -267,7 +256,7 @@ namespace WindowStretch.Main
             this.resizeTab.Location = new System.Drawing.Point(4, 24);
             this.resizeTab.Name = "resizeTab";
             this.resizeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.resizeTab.Size = new System.Drawing.Size(417, 200);
+            this.resizeTab.Size = new System.Drawing.Size(429, 197);
             this.resizeTab.TabIndex = 1;
             this.resizeTab.Text = "サイズの自動調整";
             this.resizeTab.UseVisualStyleBackColor = true;
@@ -278,7 +267,7 @@ namespace WindowStretch.Main
             this.startTab.Location = new System.Drawing.Point(4, 24);
             this.startTab.Name = "startTab";
             this.startTab.Padding = new System.Windows.Forms.Padding(3);
-            this.startTab.Size = new System.Drawing.Size(417, 200);
+            this.startTab.Size = new System.Drawing.Size(429, 197);
             this.startTab.TabIndex = 0;
             this.startTab.Text = "対象アプリの起動";
             this.startTab.UseVisualStyleBackColor = true;
@@ -299,23 +288,21 @@ namespace WindowStretch.Main
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(411, 54);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(423, 54);
             this.tableLayoutPanel3.TabIndex = 3;
-            this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
             // 
             // appUriTxt
             // 
             this.appUriTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.appUriTxt.Location = new System.Drawing.Point(3, 3);
-            this.appUriTxt.MinimumSize = new System.Drawing.Size(300, 4);
             this.appUriTxt.Name = "appUriTxt";
-            this.appUriTxt.Size = new System.Drawing.Size(324, 23);
+            this.appUriTxt.Size = new System.Drawing.Size(336, 23);
             this.appUriTxt.TabIndex = 0;
             // 
             // startBtn
             // 
-            this.startBtn.Location = new System.Drawing.Point(333, 3);
+            this.startBtn.Location = new System.Drawing.Point(345, 3);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(75, 23);
             this.startBtn.TabIndex = 1;
@@ -337,9 +324,9 @@ namespace WindowStretch.Main
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLbl});
-            this.statusBar.Location = new System.Drawing.Point(0, 206);
+            this.statusBar.Location = new System.Drawing.Point(0, 203);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(425, 22);
+            this.statusBar.Size = new System.Drawing.Size(437, 22);
             this.statusBar.SizingGrip = false;
             this.statusBar.TabIndex = 4;
             this.statusBar.Text = "sss";
@@ -355,7 +342,7 @@ namespace WindowStretch.Main
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(425, 228);
+            this.ClientSize = new System.Drawing.Size(437, 225);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.mainTabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -373,7 +360,6 @@ namespace WindowStretch.Main
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.leftNumW)).EndInit();
             this.mainTabs.ResumeLayout(false);
             this.resizeTab.ResumeLayout(false);
@@ -403,7 +389,6 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Timer watchTimer;
         private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.CheckBox allowExcessChkT;
         private System.Windows.Forms.CheckBox allowExcessChkW;
         private System.Windows.Forms.TabControl mainTabs;

@@ -90,11 +90,6 @@ namespace WindowStretch.Main
             SreVm.Refresh();
         }
 
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void startBtn_Click(object sender, EventArgs e)
         {
             SttVm.Start();
