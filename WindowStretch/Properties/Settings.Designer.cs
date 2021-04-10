@@ -118,5 +118,29 @@ namespace WindowStretch.Properties {
                 this["TallAllowExcess"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartAppUri {
+            get {
+                return ((string)(this["StartAppUri"]));
+            }
+            set {
+                this["StartAppUri"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StartWithMe {
+            get {
+                return ((bool)(this["StartWithMe"]));
+            }
+            set {
+                this["StartWithMe"] = value;
+            }
+        }
     }
 }

@@ -32,7 +32,6 @@ namespace WindowStretch.Main
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.updateBtn = new System.Windows.Forms.Button();
-            this.statusLbl = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
@@ -48,11 +47,25 @@ namespace WindowStretch.Main
             this.leftNumW = new System.Windows.Forms.NumericUpDown();
             this.watchTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.mainTabs = new System.Windows.Forms.TabControl();
+            this.resizeTab = new System.Windows.Forms.TabPage();
+            this.startTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.appUriTxt = new System.Windows.Forms.TextBox();
+            this.startBtn = new System.Windows.Forms.Button();
+            this.startWithMeChk = new System.Windows.Forms.CheckBox();
+            this.statusBar = new System.Windows.Forms.StatusStrip();
+            this.statusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftNumW)).BeginInit();
+            this.mainTabs.SuspendLayout();
+            this.resizeTab.SuspendLayout();
+            this.startTab.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateBtn
@@ -65,17 +78,6 @@ namespace WindowStretch.Main
             this.updateBtn.UseVisualStyleBackColor = true;
             this.updateBtn.Click += new System.EventHandler(this.updateBtn_Click);
             // 
-            // statusLbl
-            // 
-            this.statusLbl.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.statusLbl.AutoSize = true;
-            this.statusLbl.Location = new System.Drawing.Point(84, 7);
-            this.statusLbl.Name = "statusLbl";
-            this.statusLbl.Size = new System.Drawing.Size(51, 15);
-            this.statusLbl.TabIndex = 2;
-            this.statusLbl.Text = "ステータス";
-            this.statusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
@@ -86,7 +88,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -117,11 +119,10 @@ namespace WindowStretch.Main
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Yu Gothic UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 47);
+            this.label2.Size = new System.Drawing.Size(170, 47);
             this.label2.TabIndex = 0;
             this.label2.Text = "縦長のとき";
             // 
@@ -180,11 +181,10 @@ namespace WindowStretch.Main
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 47);
+            this.label1.Size = new System.Drawing.Size(170, 47);
             this.label1.TabIndex = 0;
             this.label1.Text = "横長のとき";
             // 
@@ -225,10 +225,9 @@ namespace WindowStretch.Main
             this.flowLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 2);
             this.flowLayoutPanel1.Controls.Add(this.updateBtn);
-            this.flowLayoutPanel1.Controls.Add(this.statusLbl);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(138, 29);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(81, 29);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // leftNumW
@@ -251,14 +250,114 @@ namespace WindowStretch.Main
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
+            // mainTabs
+            // 
+            this.mainTabs.Controls.Add(this.resizeTab);
+            this.mainTabs.Controls.Add(this.startTab);
+            this.mainTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainTabs.Location = new System.Drawing.Point(0, 0);
+            this.mainTabs.Name = "mainTabs";
+            this.mainTabs.SelectedIndex = 0;
+            this.mainTabs.Size = new System.Drawing.Size(425, 228);
+            this.mainTabs.TabIndex = 3;
+            // 
+            // resizeTab
+            // 
+            this.resizeTab.Controls.Add(this.tableLayoutPanel1);
+            this.resizeTab.Location = new System.Drawing.Point(4, 24);
+            this.resizeTab.Name = "resizeTab";
+            this.resizeTab.Padding = new System.Windows.Forms.Padding(3);
+            this.resizeTab.Size = new System.Drawing.Size(417, 200);
+            this.resizeTab.TabIndex = 1;
+            this.resizeTab.Text = "サイズの自動調整";
+            this.resizeTab.UseVisualStyleBackColor = true;
+            // 
+            // startTab
+            // 
+            this.startTab.Controls.Add(this.tableLayoutPanel3);
+            this.startTab.Location = new System.Drawing.Point(4, 24);
+            this.startTab.Name = "startTab";
+            this.startTab.Padding = new System.Windows.Forms.Padding(3);
+            this.startTab.Size = new System.Drawing.Size(417, 200);
+            this.startTab.TabIndex = 0;
+            this.startTab.Text = "対象アプリの起動";
+            this.startTab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.AutoSize = true;
+            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.Controls.Add(this.appUriTxt, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.startBtn, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.startWithMeChk, 0, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(411, 54);
+            this.tableLayoutPanel3.TabIndex = 3;
+            this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
+            // 
+            // appUriTxt
+            // 
+            this.appUriTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.appUriTxt.Location = new System.Drawing.Point(3, 3);
+            this.appUriTxt.MinimumSize = new System.Drawing.Size(300, 4);
+            this.appUriTxt.Name = "appUriTxt";
+            this.appUriTxt.Size = new System.Drawing.Size(324, 23);
+            this.appUriTxt.TabIndex = 0;
+            // 
+            // startBtn
+            // 
+            this.startBtn.Location = new System.Drawing.Point(333, 3);
+            this.startBtn.Name = "startBtn";
+            this.startBtn.Size = new System.Drawing.Size(75, 23);
+            this.startBtn.TabIndex = 1;
+            this.startBtn.Text = "起動する";
+            this.startBtn.UseVisualStyleBackColor = true;
+            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
+            // 
+            // startWithMeChk
+            // 
+            this.startWithMeChk.AutoSize = true;
+            this.startWithMeChk.Location = new System.Drawing.Point(3, 32);
+            this.startWithMeChk.Name = "startWithMeChk";
+            this.startWithMeChk.Size = new System.Drawing.Size(155, 19);
+            this.startWithMeChk.TabIndex = 2;
+            this.startWithMeChk.Text = "ツール起動時に一緒に起動";
+            this.startWithMeChk.UseVisualStyleBackColor = true;
+            // 
+            // statusBar
+            // 
+            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLbl});
+            this.statusBar.Location = new System.Drawing.Point(0, 206);
+            this.statusBar.Name = "statusBar";
+            this.statusBar.Size = new System.Drawing.Size(425, 22);
+            this.statusBar.SizingGrip = false;
+            this.statusBar.TabIndex = 4;
+            this.statusBar.Text = "sss";
+            // 
+            // statusLbl
+            // 
+            this.statusLbl.Name = "statusLbl";
+            this.statusLbl.Size = new System.Drawing.Size(51, 17);
+            this.statusLbl.Text = "ステータス";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(431, 218);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(425, 228);
+            this.Controls.Add(this.statusBar);
+            this.Controls.Add(this.mainTabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -275,8 +374,16 @@ namespace WindowStretch.Main
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftNumW)).EndInit();
+            this.mainTabs.ResumeLayout(false);
+            this.resizeTab.ResumeLayout(false);
+            this.resizeTab.PerformLayout();
+            this.startTab.ResumeLayout(false);
+            this.startTab.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.statusBar.ResumeLayout(false);
+            this.statusBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,13 +400,21 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox modeBoxT;
         private System.Windows.Forms.CheckBox alwaysTopChkT;
-        private System.Windows.Forms.Label statusLbl;
         private System.Windows.Forms.Timer watchTimer;
         private System.Windows.Forms.Button updateBtn;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.CheckBox allowExcessChkT;
         private System.Windows.Forms.CheckBox allowExcessChkW;
+        private System.Windows.Forms.TabControl mainTabs;
+        private System.Windows.Forms.TabPage startTab;
+        private System.Windows.Forms.TabPage resizeTab;
+        private System.Windows.Forms.StatusStrip statusBar;
+        private System.Windows.Forms.ToolStripStatusLabel statusLbl;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TextBox appUriTxt;
+        private System.Windows.Forms.CheckBox startWithMeChk;
+        private System.Windows.Forms.Button startBtn;
     }
 }
 
