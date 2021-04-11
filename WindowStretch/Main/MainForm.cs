@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Windows.Forms;
-using WindowStretch.Src.Main;
 
 #pragma warning disable IDE1006 // 命名スタイル
 
