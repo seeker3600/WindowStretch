@@ -3,6 +3,7 @@ using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Forms;
@@ -42,12 +43,9 @@ namespace WindowStretch.Main
                 });
         }
 
-        private float? BeforeRatio = null;
+        private Size? BeforeSize = null;
 
-        public void Refresh()
-        {
-            BeforeRatio = null;
-        }
+        public void Refresh() => BeforeSize = null;
 
 #if DEBUG
         public const string ProcessName = "Haribote";
@@ -58,6 +56,12 @@ namespace WindowStretch.Main
         // TODO fat vm
         public void Tick()
         {
+            if (Control.MouseButtons.HasFlag(MouseButtons.Left))
+            {
+                StatusMsg.Value = $"監視を一時停止しています。";
+                return;
+            }
+
             var proc = Process.GetProcessesByName(ProcessName).FirstOrDefault();
             var hwnd = proc?.MainWindowHandle ?? IntPtr.Zero; // WaitForInputIdleは「権限がない」エラーになった
 
@@ -69,16 +73,16 @@ namespace WindowStretch.Main
 
             try
             {
-                var ratio = StretchUtils.GetWindowAspectRatio(hwnd);
+                var size = StretchUtils.GetWindowSize(hwnd);
 
-                if (!BeforeRatio.HasValue || BeforeRatio != ratio)
+                if (BeforeSize != size)
                 {
-                    if (ratio >= 1.0f)
+                    if (size.Width >= size.Height)
                         StretchUtils.Stretch(hwnd, Wide.ToPattern());
                     else
                         StretchUtils.Stretch(hwnd, Tall.ToPattern());
 
-                    BeforeRatio = ratio;
+                    BeforeSize = size;
                     StatusMsg.Value = $"アプリ {ProcessName} のウィンドウサイズを変更しました。";
                 }
                 else
