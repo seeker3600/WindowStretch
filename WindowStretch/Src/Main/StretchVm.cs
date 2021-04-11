@@ -26,6 +26,8 @@ namespace WindowStretch.Main
 
         public ReactivePropertySlim<FormWindowState> WindowState { get; } = new();
 
+        public ReactivePropertySlim<Rectangle> WindowRect { get; } = new();
+
         public StretchVm(MainForm form)
         {
             WindowState
@@ -87,6 +89,8 @@ namespace WindowStretch.Main
                 }
                 else
                     StatusMsg.Value = $"アプリ {ProcessName} を監視しています。";
+
+                WindowRect.Value = OverlapUtils.GetNonOverlap(hwnd, WindowRect.Value);
             }
             catch (Exception)
             {

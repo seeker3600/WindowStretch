@@ -55,10 +55,11 @@ namespace WindowStretch.Main
             // ステータスラベル
             SreVm.StatusMsg
                 .Merge(SttVm.Status)
-                .Subscribe(msg => Invoke((MethodInvoker)delegate
-            {
-                statusLbl.Text = msg;
-            }));
+                .Subscribe(msg => statusLbl.Text = msg);
+
+            SreVm.WindowRect
+                .Where(newRect => Location != newRect.Location)
+                .Subscribe(newRect => Location = newRect.Location);
 
             SreVm.Load();
             SttVm.Load();
@@ -73,6 +74,11 @@ namespace WindowStretch.Main
         private void MainForm_Resize(object sender, System.EventArgs e)
         {
             SreVm.WindowState.Value = WindowState;
+        }
+
+        private void MainForm_LocationChanged(object sender, EventArgs e)
+        {
+            SreVm.WindowRect.Value = Bounds;
         }
 
         private void notifyIcon1_Click(object sender, System.EventArgs e)
