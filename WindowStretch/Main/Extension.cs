@@ -1,6 +1,6 @@
 ﻿using Reactive.Bindings;
 
-namespace WindowStretch.Src.Main
+namespace WindowStretch.Main
 {
     public static class Extension
     {
