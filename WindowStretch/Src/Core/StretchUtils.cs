@@ -54,18 +54,24 @@ namespace WindowStretch.Core
         }
 
         /// <summary>
-        /// 指定されたウィンドウの縦横比を計算する。
+        /// 指定されたウィンドウのサイズを取得する。
         /// </summary>
-        /// <returns>縦横比。ratio ＞ 1 なら横長、ratio ＜ 1 なら縦長</returns>
-        public static float GetWindowAspectRatio(IntPtr hwndIp)
+        public static Size GetWindowSize(IntPtr hwndIp)
         {
             if (!PInvoke.GetWindowRect(new HWND(hwndIp), out var rect))
                 throw new InvalidOperationException(nameof(PInvoke.GetWindowRect));
 
-            var res = (float)(rect.right - rect.left) / (rect.bottom - rect.top);
-            Debug.Assert(res > 0);
+            return new(rect.right - rect.left, rect.bottom - rect.top);
+        }
 
-            return res;
+        /// <summary>
+        /// 指定されたウィンドウの縦横比を計算する。
+        /// </summary>
+        /// <returns>縦横比。ratio ＞ 1 なら横長、ratio ＜ 1 なら縦長</returns>
+        private static float GetWindowAspectRatio(HWND hwnd)
+        {
+            var size = GetWindowSize(hwnd);
+            return (float)size.Width / size.Height;
         }
 
         /// <summary>
