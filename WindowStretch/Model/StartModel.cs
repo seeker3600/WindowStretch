@@ -3,9 +3,11 @@ using System;
 using System.Diagnostics;
 using WindowStretch.Properties;
 
-namespace WindowStretch.Main
+namespace WindowStretch.Model
 {
-    public class StartVm
+    using static Settings;
+
+    public class StartModel
     {
         public ReactivePropertySlim<string> Uri { get; } = new();
 
@@ -15,18 +17,18 @@ namespace WindowStretch.Main
 
         public void Load()
         {
-            Uri.Value = Settings.Default.StartAppUri;
-            StartWithMe.Value = Settings.Default.StartWithMe;
+            Uri.Value = Default.StartAppUri;
+            StartWithMe.Value = Default.StartWithMe;
 
             if (StartWithMe.Value) Start();
         }
 
         public void Save()
         {
-            Settings.Default.StartAppUri = Uri.Value;
-            Settings.Default.StartWithMe = StartWithMe.Value;
+            Default.StartAppUri = Uri.Value;
+            Default.StartWithMe = StartWithMe.Value;
 
-            Settings.Default.Save();
+            Default.Save();
         }
 
         public void Start()

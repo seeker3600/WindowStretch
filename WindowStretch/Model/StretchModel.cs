@@ -1,5 +1,4 @@
 ﻿using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,11 +9,11 @@ using System.Windows.Forms;
 using WindowStretch.Core;
 using WindowStretch.Properties;
 
-namespace WindowStretch.Main
+namespace WindowStretch.Model
 {
     using static Settings;
 
-    public class StretchVm
+    public class StretchModel
     {
         public static List<StretchModeEntry> ModeEntries() => StretchModeEntry.Entries();
 
@@ -36,7 +35,6 @@ namespace WindowStretch.Main
         public const string ProcessName = "umamusume";
 #endif
 
-        // TODO fat vm
         public void Tick()
         {
             if (Control.MouseButtons.HasFlag(MouseButtons.Left))

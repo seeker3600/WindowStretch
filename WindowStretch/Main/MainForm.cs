@@ -12,9 +12,9 @@ namespace WindowStretch.Main
         private static Binding Bind(string propertyName, object dataSource) =>
             new(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
 
-        private readonly StretchVm SreVm;
+        private readonly StretchModel SreVm;
 
-        private readonly StartVm SttVm;
+        private readonly StartModel SttVm;
 
         private readonly WindowCtlModel Ctl;
 
@@ -48,11 +48,11 @@ namespace WindowStretch.Main
             // サイズ変更タブのバインド
             modeBoxW.DisplayMember = "Text";
             modeBoxW.ValueMember = "Mode";
-            modeBoxW.DataSource = StretchVm.ModeEntries();
+            modeBoxW.DataSource = StretchModel.ModeEntries();
 
             modeBoxT.DisplayMember = "Text";
             modeBoxT.ValueMember = "Mode";
-            modeBoxT.DataSource = StretchVm.ModeEntries();
+            modeBoxT.DataSource = StretchModel.ModeEntries();
 
             modeBoxW.DataBindings.Add(Bind(nameof(modeBoxW.SelectedValue), SreVm.Wide.Mode));
             alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Checked), SreVm.Wide.AlwaysTop));
