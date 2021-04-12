@@ -12,6 +12,8 @@ using WindowStretch.Properties;
 
 namespace WindowStretch.Main
 {
+    using static Settings;
+
     public class StretchVm
     {
         public static List<StretchModeEntry> ModeEntries() => StretchModeEntry.Entries();
@@ -76,24 +78,24 @@ namespace WindowStretch.Main
 
         public void Load()
         {
-            Wide.Mode.Value = (StretchMode)Settings.Default.WideMode;
-            Wide.AlwaysTop.Value = Settings.Default.WideAlwaysTop;
-            Wide.AllowExcess.Value = Settings.Default.WideAllowExcess;
-            Tall.Mode.Value = (StretchMode)Settings.Default.TallMode;
-            Tall.AlwaysTop.Value = Settings.Default.TallAlwaysTop;
-            Tall.AllowExcess.Value = Settings.Default.TallAllowExcess;
+            Wide.Mode.Value = Default.WideMode;
+            Wide.AlwaysTop.Value = Default.WideAlwaysTop;
+            Wide.AllowExcess.Value = Default.WideAllowExcess;
+            Tall.Mode.Value = Default.TallMode;
+            Tall.AlwaysTop.Value = Default.TallAlwaysTop;
+            Tall.AllowExcess.Value = Default.TallAllowExcess;
         }
 
         public void Save()
         {
-            Settings.Default.WideMode = (int)Wide.Mode.Value;
-            Settings.Default.WideAlwaysTop = Wide.AlwaysTop.Value;
-            Settings.Default.WideAllowExcess = Wide.AllowExcess.Value;
-            Settings.Default.TallMode = (int)Tall.Mode.Value;
-            Settings.Default.TallAlwaysTop = Tall.AlwaysTop.Value;
-            Settings.Default.TallAllowExcess = Tall.AllowExcess.Value;
+            Default.WideMode = Wide.Mode.Value;
+            Default.WideAlwaysTop = Wide.AlwaysTop.Value;
+            Default.WideAllowExcess = Wide.AllowExcess.Value;
+            Default.TallMode = Tall.Mode.Value;
+            Default.TallAlwaysTop = Tall.AlwaysTop.Value;
+            Default.TallAllowExcess = Tall.AllowExcess.Value;
 
-            Settings.Default.Save();
+            Default.Save();
         }
     }
 

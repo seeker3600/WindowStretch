@@ -5,19 +5,19 @@
     <Setting Name="Ver" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="WideMode" Type="System.Int32" Scope="User">
+    <Setting Name="WideMode" Type="WindowStretch.Core.StretchMode" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="WideAlwaysTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="TallMode" Type="System.Int32" Scope="User">
+    <Setting Name="TallMode" Type="WindowStretch.Core.StretchMode" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="TallAlwaysTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="WindowState" Type="System.Int32" Scope="User">
+    <Setting Name="WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="WideAllowExcess" Type="System.Boolean" Scope="User">

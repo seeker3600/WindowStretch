@@ -38,9 +38,9 @@ namespace WindowStretch.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int WideMode {
+        public global::WindowStretch.Core.StretchMode WideMode {
             get {
-                return ((int)(this["WideMode"]));
+                return ((global::WindowStretch.Core.StretchMode)(this["WideMode"]));
             }
             set {
                 this["WideMode"] = value;
@@ -62,9 +62,9 @@ namespace WindowStretch.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int TallMode {
+        public global::WindowStretch.Core.StretchMode TallMode {
             get {
-                return ((int)(this["TallMode"]));
+                return ((global::WindowStretch.Core.StretchMode)(this["TallMode"]));
             }
             set {
                 this["TallMode"] = value;
@@ -86,9 +86,9 @@ namespace WindowStretch.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int WindowState {
+        public global::System.Windows.Forms.FormWindowState WindowState {
             get {
-                return ((int)(this["WindowState"]));
+                return ((global::System.Windows.Forms.FormWindowState)(this["WindowState"]));
             }
             set {
                 this["WindowState"] = value;

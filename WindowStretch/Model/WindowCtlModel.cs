@@ -24,12 +24,12 @@ namespace WindowStretch.Model
 
         public void Load()
         {
-            WindowState.Value = (FormWindowState)Default.WindowState;
+            WindowState.Value = Default.WindowState;
         }
 
         public void Save()
         {
-            Default.WindowState = (int)WindowState.Value;
+            Default.WindowState = WindowState.Value;
         }
     }
 }
