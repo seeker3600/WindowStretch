@@ -1,16 +1,17 @@
-﻿dotnet publish -c Release |
-    where { $_.Contains("publish") } |
-    select -Last 1 {
-        $published_path = $_.Substring($_.IndexOf("D:"))
-        $desktop_path = [System.Environment]::GetFolderPath("Desktop")
+﻿cd $PSScriptRoot
 
-        Get-ChildItem $published_path |
-            where { $_.Extension -ne ".pdb" } | 
-            Compress-Archive -DestinationPath $desktop_path\WindowStretch.zip
-        
-        Copy-Item $published_path $desktop_path -Recurse
-        Rename-Item $desktop_path\publish WindowStretch
-    }
+$publish_base_path = [System.Environment]::GetFolderPath("Desktop")
+$publish_path = "$publish_base_path\WindowStretch"
+$archive_file = "$publish_base_path\WindowStretch.zip"
+
+Remove-Item $publish_path -Recurse -Force
+Remove-Item $archive_file
+
+dotnet publish -o $publish_path -c Release -p:ApplicationManifest=app.manifest
+
+Get-ChildItem $publish_path |
+    where { $_.Extension -ne ".pdb" } | 
+    Compress-Archive -DestinationPath $archive_file
 
 # 70MB近くになる
 # dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true /p:TrimMode=Link
