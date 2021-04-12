@@ -30,6 +30,8 @@ namespace WindowStretch.Model
         public void Save()
         {
             Default.WindowState = WindowState.Value;
+
+            Default.Save();
         }
     }
 }
