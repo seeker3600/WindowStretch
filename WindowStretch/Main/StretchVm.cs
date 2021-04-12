@@ -12,8 +12,6 @@ using WindowStretch.Properties;
 
 namespace WindowStretch.Main
 {
-    using static FormWindowState;
-
     public class StretchVm
     {
         public static List<StretchModeEntry> ModeEntries() => StretchModeEntry.Entries();
@@ -24,26 +22,7 @@ namespace WindowStretch.Main
 
         public ReactivePropertySlim<string> StatusMsg { get; } = new();
 
-        public ReactivePropertySlim<FormWindowState> WindowState { get; } = new();
-
         public ReactivePropertySlim<Rectangle> WindowRect { get; } = new();
-
-        public StretchVm(MainForm form)
-        {
-            WindowState
-                .Where(st => st == Minimized)
-                .Subscribe(_ => form.Visible = false);
-
-            WindowState
-                .Pairwise()
-                .Where(st => st.OldItem != Normal && st.NewItem == Normal)
-                .Subscribe(_ =>
-                {
-                    form.Visible = true;
-                    form.WindowState = Normal;
-                    form.Activate();
-                });
-        }
 
         private Size? BeforeSize = null;
 
@@ -103,8 +82,6 @@ namespace WindowStretch.Main
             Tall.Mode.Value = (StretchMode)Settings.Default.TallMode;
             Tall.AlwaysTop.Value = Settings.Default.TallAlwaysTop;
             Tall.AllowExcess.Value = Settings.Default.TallAllowExcess;
-
-            WindowState.Value = (FormWindowState)Settings.Default.WindowState;
         }
 
         public void Save()
@@ -115,8 +92,6 @@ namespace WindowStretch.Main
             Settings.Default.TallMode = (int)Tall.Mode.Value;
             Settings.Default.TallAlwaysTop = Tall.AlwaysTop.Value;
             Settings.Default.TallAllowExcess = Tall.AllowExcess.Value;
-
-            Settings.Default.WindowState = (int)WindowState.Value;
 
             Settings.Default.Save();
         }

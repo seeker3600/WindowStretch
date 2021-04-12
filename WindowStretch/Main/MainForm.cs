@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Windows.Forms;
+using WindowStretch.Model;
 
 #pragma warning disable IDE1006 // 命名スタイル
 
@@ -11,21 +12,39 @@ namespace WindowStretch.Main
         private static Binding Bind(string propertyName, object dataSource) =>
             new(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
 
-
         private readonly StretchVm SreVm;
 
         private readonly StartVm SttVm;
 
+        private readonly WindowCtlModel Ctl;
+
         public MainForm()
         {
-            SreVm = new(this);
-            SttVm = new();
-
             InitializeComponent();
+
+            SreVm = new();
+            SttVm = new();
+            Ctl = new();
         }
 
-        private void MainForm_Load(object sender, System.EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
+            // 画面制御データのバインド
+            Ctl.WindowVisible.Subscribe(visible =>
+            {
+                if (visible)
+                {
+                    Visible = true;
+                    WindowState = FormWindowState.Normal;
+                    Activate();
+                }
+                else
+                {
+                    WindowState = FormWindowState.Minimized;
+                    Visible = false;
+                }
+            });
+
             // サイズ変更タブのバインド
             modeBoxW.DisplayMember = "Text";
             modeBoxW.ValueMember = "Mode";
@@ -62,17 +81,24 @@ namespace WindowStretch.Main
 
             SreVm.Load();
             SttVm.Load();
+            Ctl.Load();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Ctl.Save();
             SreVm.Save();
             SttVm.Save();
         }
 
-        private void MainForm_Resize(object sender, System.EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
-            SreVm.WindowState.Value = WindowState;
+            Ctl.WindowState.Value = WindowState;
+        }
+
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+            Ctl.WindowState.Value = FormWindowState.Normal;
         }
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
@@ -80,17 +106,12 @@ namespace WindowStretch.Main
             SreVm.WindowRect.Value = Bounds;
         }
 
-        private void notifyIcon1_Click(object sender, System.EventArgs e)
-        {
-            SreVm.WindowState.Value = FormWindowState.Normal;
-        }
-
-        private void watchTimer_Tick(object sender, System.EventArgs e)
+        private void watchTimer_Tick(object sender, EventArgs e)
         {
             SreVm.Tick();
         }
 
-        private void updateBtn_Click(object sender, System.EventArgs e)
+        private void updateBtn_Click(object sender, EventArgs e)
         {
             SreVm.Refresh();
         }
