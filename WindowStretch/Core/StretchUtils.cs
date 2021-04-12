@@ -13,8 +13,12 @@ namespace WindowStretch.Core
         /// <summary>
         /// 指定されたウィンドウを、パターンに従ってサイズ変更する。
         /// </summary>
+        /// <returns>
+        /// サイズ変更後のウィンドウサイズ。未変更のときは <see cref="Size.Empty"/> 。
+        /// 権限の不足で、実際にはサイズが変更できていないかもしれない。
+        /// </returns>
         /// <exception cref="InvalidOperationException">WindowsAPI呼び出しに失敗した。</exception>
-        public static void Stretch(IntPtr hwndIp, StretchPattern pat)
+        public static Size Stretch(IntPtr hwndIp, StretchPattern pat)
         {
             var hwnd = new HWND(hwndIp);
 
@@ -40,7 +44,7 @@ namespace WindowStretch.Core
                     break;
 
                 default:
-                    return;
+                    return Size.Empty;
             }
 
             var hwndTop = alwaysTop ? Constants.HWND_TOPMOST : Constants.HWND_NOTOPMOST;
@@ -51,6 +55,8 @@ namespace WindowStretch.Core
 
             if (!PInvoke.SetWindowPos(hwnd, hwndTop, rect.X, rect.Y, rect.Width, rect.Height, flags))
                 throw new InvalidOperationException(nameof(PInvoke.SetWindowPos));
+
+            return rect.Size;
         }
 
         /// <summary>

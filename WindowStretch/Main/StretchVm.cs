@@ -79,12 +79,9 @@ namespace WindowStretch.Main
 
                 if (BeforeSize != size)
                 {
-                    if (size.Width >= size.Height)
-                        StretchUtils.Stretch(hwnd, Wide.ToPattern());
-                    else
-                        StretchUtils.Stretch(hwnd, Tall.ToPattern());
+                    var ptnVm = size.Width >= size.Height ? Wide : Tall;
+                    BeforeSize = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
 
-                    BeforeSize = size;
                     StatusMsg.Value = $"アプリ {ProcessName} のウィンドウサイズを変更しました。";
                 }
                 else
