@@ -46,6 +46,12 @@ namespace WindowStretch.Main
             this.leftNumW = new System.Windows.Forms.NumericUpDown();
             this.watchTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyIconMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showToolMitem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameStartMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabs = new System.Windows.Forms.TabControl();
             this.resizeTab = new System.Windows.Forms.TabPage();
             this.startTab = new System.Windows.Forms.TabPage();
@@ -59,6 +65,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftNumW)).BeginInit();
+            this.notifyIconMenu.SuspendLayout();
             this.mainTabs.SuspendLayout();
             this.resizeTab.SuspendLayout();
             this.startTab.SuspendLayout();
@@ -234,10 +241,55 @@ namespace WindowStretch.Main
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.ContextMenuStrip = this.notifyIconMenu;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "WindowStretch";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
+            // 
+            // notifyIconMenu
+            // 
+            this.notifyIconMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshMItem,
+            this.showToolMitem,
+            this.gameStartMItem,
+            this.toolStripSeparator1,
+            this.exitMItem});
+            this.notifyIconMenu.Name = "notifyIconMenu";
+            this.notifyIconMenu.Size = new System.Drawing.Size(206, 98);
+            // 
+            // refreshMItem
+            // 
+            this.refreshMItem.Name = "refreshMItem";
+            this.refreshMItem.Size = new System.Drawing.Size(205, 22);
+            this.refreshMItem.Text = "サイズ変更の設定を再適用";
+            this.refreshMItem.Click += new System.EventHandler(this.updateBtn_Click);
+            // 
+            // showToolMitem
+            // 
+            this.showToolMitem.Name = "showToolMitem";
+            this.showToolMitem.Size = new System.Drawing.Size(205, 22);
+            this.showToolMitem.Text = "ツールの設定を表示";
+            this.showToolMitem.Click += new System.EventHandler(this.showToolMitem_Click);
+            // 
+            // gameStartMItem
+            // 
+            this.gameStartMItem.Name = "gameStartMItem";
+            this.gameStartMItem.Size = new System.Drawing.Size(205, 22);
+            this.gameStartMItem.Text = "ゲームを起動する";
+            this.gameStartMItem.Click += new System.EventHandler(this.startBtn_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
+            // exitMItem
+            // 
+            this.exitMItem.Name = "exitMItem";
+            this.exitMItem.Size = new System.Drawing.Size(205, 22);
+            this.exitMItem.Text = "ツールを終了";
+            this.exitMItem.Click += new System.EventHandler(this.exitMItem_Click);
             // 
             // mainTabs
             // 
@@ -361,6 +413,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.leftNumW)).EndInit();
+            this.notifyIconMenu.ResumeLayout(false);
             this.mainTabs.ResumeLayout(false);
             this.resizeTab.ResumeLayout(false);
             this.resizeTab.PerformLayout();
@@ -400,6 +453,12 @@ namespace WindowStretch.Main
         private System.Windows.Forms.TextBox appUriTxt;
         private System.Windows.Forms.CheckBox startWithMeChk;
         private System.Windows.Forms.Button startBtn;
+        private System.Windows.Forms.ContextMenuStrip notifyIconMenu;
+        private System.Windows.Forms.ToolStripMenuItem refreshMItem;
+        private System.Windows.Forms.ToolStripMenuItem showToolMitem;
+        private System.Windows.Forms.ToolStripMenuItem gameStartMItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exitMItem;
     }
 }
 

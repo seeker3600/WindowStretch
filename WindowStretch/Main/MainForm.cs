@@ -55,9 +55,20 @@ namespace WindowStretch.Main
             Ctl.WindowState.Value = WindowState;
         }
 
-        private void notifyIcon1_Click(object sender, EventArgs e)
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button.HasFlag(MouseButtons.Left))
+                Ctl.WindowState.Value = FormWindowState.Normal;
+        }
+
+        private void showToolMitem_Click(object sender, EventArgs e)
         {
             Ctl.WindowState.Value = FormWindowState.Normal;
+        }
+
+        private void exitMItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
