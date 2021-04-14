@@ -9,11 +9,11 @@ namespace WindowStretch.Model
 
     public class StartModel
     {
-        public ReactivePropertySlim<string> Uri { get; } = new();
+        public ReactivePropertySlim<string> Uri { get; } = new ReactivePropertySlim<string>();
 
-        public ReactivePropertySlim<bool> StartWithMe { get; } = new();
+        public ReactivePropertySlim<bool> StartWithMe { get; } = new ReactivePropertySlim<bool>();
 
-        public ReactivePropertySlim<string> Status { get; } = new();
+        public ReactivePropertySlim<string> Status { get; } = new ReactivePropertySlim<string>();
 
         public void Load()
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WindowStretch.Core
 {
@@ -10,9 +11,19 @@ namespace WindowStretch.Core
         Manual
     }
 
-    public record StretchModeEntry(string Text, StretchMode Mode)
+    public class StretchModeEntry
     {
-        public static List<StretchModeEntry> Entries() => new()
+        public string Text { get; }
+
+        public StretchMode Mode { get; }
+
+        public StretchModeEntry(string text, StretchMode mode)
+        {
+            Text = text ?? throw new ArgumentNullException(nameof(text));
+            Mode = mode;
+        }
+
+        public static List<StretchModeEntry> Entries() => new List<StretchModeEntry>()
         {
             new StretchModeEntry("何もしない", StretchMode.None),
             new StretchModeEntry("全画面で表示する", StretchMode.FullScreen),

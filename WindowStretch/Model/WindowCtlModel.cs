@@ -11,7 +11,7 @@ namespace WindowStretch.Model
 
     public class WindowCtlModel
     {
-        public ReactivePropertySlim<FormWindowState> WindowState { get; } = new();
+        public ReactivePropertySlim<FormWindowState> WindowState { get; } = new ReactivePropertySlim<FormWindowState>();
 
         public ReadOnlyReactivePropertySlim<bool> WindowVisible { get; }
 
