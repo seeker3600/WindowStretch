@@ -19,20 +19,32 @@ namespace WindowStretch.Main
         private void MainForm_Load(object sender, EventArgs e)
         {
             // 画面制御データのバインド
-            Ctl.WindowVisible.Subscribe(visible =>
-            {
-                if (visible)
+            // 画面表示直後の非表示設定はうまくいかない。初回のみ待ちを入れる
+            var first = Ctl.WindowVisible
+                .Take(1)
+                .Delay(TimeSpan.FromMilliseconds(250))
+                .Do(_ => Resize += MainForm_Resize);
+
+            Ctl.WindowVisible
+                .Skip(1)
+                .Merge(first)
+                .Subscribe(visible =>
                 {
-                    Visible = true;
-                    WindowState = FormWindowState.Normal;
-                    Activate();
-                }
-                else
-                {
-                    WindowState = FormWindowState.Minimized;
-                    Visible = false;
-                }
-            });
+                    BeginInvoke((MethodInvoker)(() =>
+                    {
+                        if (visible)
+                        {
+                            Visible = true;
+                            WindowState = FormWindowState.Normal;
+                            Activate();
+                        }
+                        else
+                        {
+                            WindowState = FormWindowState.Minimized;
+                            Visible = false;
+                        }
+                    }));
+                });
 
             // ステータスラベルのバインド
             SreVm.StatusMsg
@@ -50,7 +62,7 @@ namespace WindowStretch.Main
             FormClosed += (_, __) => Ctl.Save();
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
+        private void MainForm_Resize(object? sender, EventArgs e)
         {
             Ctl.WindowState.Value = WindowState;
         }
@@ -70,5 +82,6 @@ namespace WindowStretch.Main
         {
             Close();
         }
+
     }
 }
