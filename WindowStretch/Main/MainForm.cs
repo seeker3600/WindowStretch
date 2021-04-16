@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using WindowStretch.Model;
 
@@ -28,22 +29,20 @@ namespace WindowStretch.Main
             Ctl.WindowVisible
                 .Skip(1)
                 .Merge(first)
+                .ObserveOn(SynchronizationContext.Current ?? throw new NullReferenceException())
                 .Subscribe(visible =>
                 {
-                    BeginInvoke((MethodInvoker)(() =>
+                    if (visible)
                     {
-                        if (visible)
-                        {
-                            Visible = true;
-                            WindowState = FormWindowState.Normal;
-                            Activate();
-                        }
-                        else
-                        {
-                            WindowState = FormWindowState.Minimized;
-                            Visible = false;
-                        }
-                    }));
+                        Visible = true;
+                        WindowState = FormWindowState.Normal;
+                        Activate();
+                    }
+                    else
+                    {
+                        WindowState = FormWindowState.Minimized;
+                        Visible = false;
+                    }
                 });
 
             // ステータスラベルのバインド
