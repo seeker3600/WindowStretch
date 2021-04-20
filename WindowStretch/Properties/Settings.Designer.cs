@@ -142,5 +142,29 @@ namespace WindowStretch.Properties {
                 this["StartWithMe"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ShotSaveFolder {
+            get {
+                return ((string)(this["ShotSaveFolder"]));
+            }
+            set {
+                this["ShotSaveFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShotOpenViewer {
+            get {
+                return ((bool)(this["ShotOpenViewer"]));
+            }
+            set {
+                this["ShotOpenViewer"] = value;
+            }
+        }
     }
 }

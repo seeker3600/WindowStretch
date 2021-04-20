@@ -59,8 +59,20 @@ namespace WindowStretch.Main
             this.appUriTxt = new System.Windows.Forms.TextBox();
             this.startBtn = new System.Windows.Forms.Button();
             this.startWithMeChk = new System.Windows.Forms.CheckBox();
+            this.screenshotTab = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.scrshotSaveTxt = new System.Windows.Forms.TextBox();
+            this.selectScrshotFolderBtn = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.takeScrshotBtn = new System.Windows.Forms.Button();
+            this.scrshotDragLbl = new System.Windows.Forms.Label();
+            this.scrshotTakeAndOpenChk = new System.Windows.Forms.CheckBox();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusLbl = new System.Windows.Forms.ToolStripStatusLabel();
+            this.scrshotFolderDlg = new System.Windows.Forms.FolderBrowserDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -70,6 +82,12 @@ namespace WindowStretch.Main
             this.resizeTab.SuspendLayout();
             this.startTab.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.screenshotTab.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,7 +117,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(423, 191);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(446, 181);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -119,7 +137,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(205, 126);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(217, 126);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // label2
@@ -174,14 +192,14 @@ namespace WindowStretch.Main
             this.tableLayoutPanel2.Controls.Add(this.alwaysTopChkW, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.allowExcessChkW, 0, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(214, 32);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(226, 32);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(206, 126);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(217, 126);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -295,11 +313,12 @@ namespace WindowStretch.Main
             // 
             this.mainTabs.Controls.Add(this.resizeTab);
             this.mainTabs.Controls.Add(this.startTab);
+            this.mainTabs.Controls.Add(this.screenshotTab);
             this.mainTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabs.Location = new System.Drawing.Point(0, 0);
             this.mainTabs.Name = "mainTabs";
             this.mainTabs.SelectedIndex = 0;
-            this.mainTabs.Size = new System.Drawing.Size(437, 225);
+            this.mainTabs.Size = new System.Drawing.Size(460, 215);
             this.mainTabs.TabIndex = 3;
             // 
             // resizeTab
@@ -308,7 +327,7 @@ namespace WindowStretch.Main
             this.resizeTab.Location = new System.Drawing.Point(4, 24);
             this.resizeTab.Name = "resizeTab";
             this.resizeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.resizeTab.Size = new System.Drawing.Size(429, 197);
+            this.resizeTab.Size = new System.Drawing.Size(452, 187);
             this.resizeTab.TabIndex = 1;
             this.resizeTab.Text = "サイズの自動調整";
             this.resizeTab.UseVisualStyleBackColor = true;
@@ -319,7 +338,7 @@ namespace WindowStretch.Main
             this.startTab.Location = new System.Drawing.Point(4, 24);
             this.startTab.Name = "startTab";
             this.startTab.Padding = new System.Windows.Forms.Padding(3);
-            this.startTab.Size = new System.Drawing.Size(429, 197);
+            this.startTab.Size = new System.Drawing.Size(452, 187);
             this.startTab.TabIndex = 0;
             this.startTab.Text = "対象アプリの起動";
             this.startTab.UseVisualStyleBackColor = true;
@@ -340,7 +359,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(423, 54);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(446, 54);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // appUriTxt
@@ -349,12 +368,12 @@ namespace WindowStretch.Main
             | System.Windows.Forms.AnchorStyles.Right)));
             this.appUriTxt.Location = new System.Drawing.Point(3, 3);
             this.appUriTxt.Name = "appUriTxt";
-            this.appUriTxt.Size = new System.Drawing.Size(336, 23);
+            this.appUriTxt.Size = new System.Drawing.Size(359, 23);
             this.appUriTxt.TabIndex = 0;
             // 
             // startBtn
             // 
-            this.startBtn.Location = new System.Drawing.Point(345, 3);
+            this.startBtn.Location = new System.Drawing.Point(368, 3);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(75, 23);
             this.startBtn.TabIndex = 1;
@@ -372,13 +391,154 @@ namespace WindowStretch.Main
             this.startWithMeChk.Text = "ツール起動時に一緒に起動";
             this.startWithMeChk.UseVisualStyleBackColor = true;
             // 
+            // screenshotTab
+            // 
+            this.screenshotTab.Controls.Add(this.tableLayoutPanel7);
+            this.screenshotTab.Location = new System.Drawing.Point(4, 24);
+            this.screenshotTab.Name = "screenshotTab";
+            this.screenshotTab.Padding = new System.Windows.Forms.Padding(3);
+            this.screenshotTab.Size = new System.Drawing.Size(452, 187);
+            this.screenshotTab.TabIndex = 2;
+            this.screenshotTab.Text = "スクリーンショット";
+            this.screenshotTab.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.groupBox2, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 2;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(446, 181);
+            this.tableLayoutPanel7.TabIndex = 4;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.tableLayoutPanel5);
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(440, 51);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "保存するフォルダ";
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.Controls.Add(this.scrshotSaveTxt, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.selectScrshotFolderBtn, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(434, 29);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // scrshotSaveTxt
+            // 
+            this.scrshotSaveTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scrshotSaveTxt.Location = new System.Drawing.Point(3, 3);
+            this.scrshotSaveTxt.Name = "scrshotSaveTxt";
+            this.scrshotSaveTxt.Size = new System.Drawing.Size(347, 23);
+            this.scrshotSaveTxt.TabIndex = 1;
+            // 
+            // selectScrshotFolderBtn
+            // 
+            this.selectScrshotFolderBtn.Location = new System.Drawing.Point(356, 3);
+            this.selectScrshotFolderBtn.Name = "selectScrshotFolderBtn";
+            this.selectScrshotFolderBtn.Size = new System.Drawing.Size(75, 23);
+            this.selectScrshotFolderBtn.TabIndex = 2;
+            this.selectScrshotFolderBtn.Text = "選択...";
+            this.selectScrshotFolderBtn.UseVisualStyleBackColor = true;
+            this.selectScrshotFolderBtn.Click += new System.EventHandler(this.selectScrshotFolderBtn_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.tableLayoutPanel6);
+            this.groupBox1.Location = new System.Drawing.Point(3, 60);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(440, 80);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "操作";
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.AutoSize = true;
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Controls.Add(this.takeScrshotBtn, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.scrshotDragLbl, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.scrshotTakeAndOpenChk, 0, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(434, 58);
+            this.tableLayoutPanel6.TabIndex = 1;
+            // 
+            // takeScrshotBtn
+            // 
+            this.takeScrshotBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.takeScrshotBtn.Location = new System.Drawing.Point(59, 3);
+            this.takeScrshotBtn.Name = "takeScrshotBtn";
+            this.takeScrshotBtn.Size = new System.Drawing.Size(99, 27);
+            this.takeScrshotBtn.TabIndex = 0;
+            this.takeScrshotBtn.Text = "撮影";
+            this.takeScrshotBtn.UseVisualStyleBackColor = true;
+            this.takeScrshotBtn.Click += new System.EventHandler(this.takeScrshotBtn_Click);
+            // 
+            // scrshotDragLbl
+            // 
+            this.scrshotDragLbl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.scrshotDragLbl.AutoSize = true;
+            this.scrshotDragLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scrshotDragLbl.Location = new System.Drawing.Point(220, 0);
+            this.scrshotDragLbl.Name = "scrshotDragLbl";
+            this.scrshotDragLbl.Size = new System.Drawing.Size(211, 32);
+            this.scrshotDragLbl.TabIndex = 1;
+            this.scrshotDragLbl.Text = "ここからドラッグすると、ほかのアプリに画像を貼り付けます。";
+            this.scrshotDragLbl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scrshotDragLbl_MouseDown);
+            // 
+            // scrshotTakeAndOpenChk
+            // 
+            this.scrshotTakeAndOpenChk.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.scrshotTakeAndOpenChk.AutoSize = true;
+            this.scrshotTakeAndOpenChk.Location = new System.Drawing.Point(25, 36);
+            this.scrshotTakeAndOpenChk.Name = "scrshotTakeAndOpenChk";
+            this.scrshotTakeAndOpenChk.Size = new System.Drawing.Size(166, 19);
+            this.scrshotTakeAndOpenChk.TabIndex = 2;
+            this.scrshotTakeAndOpenChk.Text = "撮影時に画像をビューワで開く";
+            this.scrshotTakeAndOpenChk.UseVisualStyleBackColor = true;
+            // 
             // statusBar
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLbl});
-            this.statusBar.Location = new System.Drawing.Point(0, 203);
+            this.statusBar.Location = new System.Drawing.Point(0, 193);
             this.statusBar.Name = "statusBar";
-            this.statusBar.Size = new System.Drawing.Size(437, 22);
+            this.statusBar.Size = new System.Drawing.Size(460, 22);
             this.statusBar.SizingGrip = false;
             this.statusBar.TabIndex = 4;
             this.statusBar.Text = "sss";
@@ -389,12 +549,16 @@ namespace WindowStretch.Main
             this.statusLbl.Size = new System.Drawing.Size(51, 17);
             this.statusLbl.Text = "ステータス";
             // 
+            // scrshotFolderDlg
+            // 
+            this.scrshotFolderDlg.Description = "スクリーンショットを保存するフォルダを指定してください。";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(437, 225);
+            this.ClientSize = new System.Drawing.Size(460, 215);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.mainTabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -419,6 +583,17 @@ namespace WindowStretch.Main
             this.startTab.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.screenshotTab.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
             this.ResumeLayout(false);
@@ -457,6 +632,18 @@ namespace WindowStretch.Main
         private System.Windows.Forms.ToolStripMenuItem gameStartMItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitMItem;
+        private System.Windows.Forms.TabPage screenshotTab;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TextBox scrshotSaveTxt;
+        private System.Windows.Forms.Button selectScrshotFolderBtn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Button takeScrshotBtn;
+        private System.Windows.Forms.Label scrshotDragLbl;
+        private System.Windows.Forms.CheckBox scrshotTakeAndOpenChk;
+        private System.Windows.Forms.FolderBrowserDialog scrshotFolderDlg;
     }
 }
 
