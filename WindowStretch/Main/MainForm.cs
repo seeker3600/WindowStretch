@@ -45,12 +45,6 @@ namespace WindowStretch.Main
                     }
                 });
 
-            // ステータスラベルのバインド
-            SreVm.StatusMsg
-                .Merge(SttVm.Status)
-                .Merge(Scrshot.StatusMsg)
-                .Subscribe(msg => statusLbl.Text = msg);
-
             // サイズ変更タブのバインド
             SetupStretchModel();
 
@@ -59,6 +53,12 @@ namespace WindowStretch.Main
 
             // スクリーンショットタブのバインド
             SetupScreenshotModel();
+
+            // ステータスラベルのバインド
+            SreVm.StatusMsg
+                .Merge(SttVm.Status)
+                .Merge(Scrshot.StatusMsg)
+                .Subscribe(msg => statusLbl.Text = msg);
 
             Ctl.Load();
 

@@ -5,6 +5,8 @@ using System.IO;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading;
+using System.Windows.Forms;
 using WindowStretch.Core;
 using WindowStretch.Properties;
 
@@ -20,9 +22,9 @@ namespace WindowStretch.Model
 
         public ReactiveCommand SaveToSpecified { get; } = new();
 
-        public ReactiveCommand SaveToTemp { get; } = new();
+        public ReactiveCommand<MouseEventArgs> DragAreaMouseMove { get; } = new();
 
-        public IObservable<string> CompleteSaveToTemp { get; }
+        public event Action<string> CompleteSaveToTemp = _ => { };
 
         public IObservable<string> StatusMsg { get; }
 
@@ -42,8 +44,11 @@ namespace WindowStretch.Model
 
             var result = new Subject<string>().AddTo(Disposer);
 
-            SaveToTemp
+            DragAreaMouseMove
+                .Where(e => e.Button.HasFlag(MouseButtons.Left))
                 .Select(_ => ScreenshotUtils.Take(Path.GetTempPath()))
+                .ObserveOn(SynchronizationContext.Current!)
+                .Do(f => CompleteSaveToTemp?.Invoke(f))
                 .Catch(Observable.Return(""))
                 .Repeat()
                 .Subscribe(result)
@@ -55,12 +60,12 @@ namespace WindowStretch.Model
                 .Subscribe(status)
                 .AddTo(Disposer);
 
-            CompleteSaveToTemp = result
-                .Where(f => !string.IsNullOrEmpty(f));
-
-            CompleteSaveToTemp
-                .Delay(TimeSpan.FromSeconds(10))
-                .Subscribe(FileDelete)
+            result
+                .Where(f => !string.IsNullOrEmpty(f))
+                .Delay(TimeSpan.FromSeconds(5))
+                .Do(File.Delete)
+                .Repeat()
+                .Subscribe()
                 .AddTo(Disposer);
         }
 
@@ -81,17 +86,6 @@ namespace WindowStretch.Model
         private void OpenImageFile(string filename)
         {
             if (OpenViewer.Value) WindowUtils.ExecuteUsingShell(filename);
-        }
-
-        private static void FileDelete(string filename)
-        {
-            try
-            {
-                File.Delete(filename);
-            }
-            catch (Exception)
-            {
-            }
         }
 
         private readonly CompositeDisposable Disposer = new();
