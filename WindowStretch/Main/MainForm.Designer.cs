@@ -507,7 +507,6 @@ namespace WindowStretch.Main
             this.takeScrshotBtn.TabIndex = 0;
             this.takeScrshotBtn.Text = "撮影";
             this.takeScrshotBtn.UseVisualStyleBackColor = true;
-            this.takeScrshotBtn.Click += new System.EventHandler(this.takeScrshotBtn_Click);
             // 
             // scrshotDragLbl
             // 
@@ -519,7 +518,6 @@ namespace WindowStretch.Main
             this.scrshotDragLbl.Size = new System.Drawing.Size(211, 32);
             this.scrshotDragLbl.TabIndex = 1;
             this.scrshotDragLbl.Text = "ここからドラッグすると、ほかのアプリに画像を貼り付けます。";
-            this.scrshotDragLbl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.scrshotDragLbl_MouseDown);
             // 
             // scrshotTakeAndOpenChk
             // 

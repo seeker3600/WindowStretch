@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,8 +20,22 @@ namespace WindowStretch.Main
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // 画面制御データのバインド
-            // 画面表示直後の非表示設定はうまくいかない。初回のみ待ちを入れる
+            // サイズ変更タブのバインド
+            SetupStretchModel();
+
+            // アプリ起動タブのバインド
+            SetupStartModel();
+
+            // スクリーンショットタブのバインド
+            var sts3 = SetupScreenshotModel();
+
+            // メイン画面のバインド
+            SetupMainForm(SreVm.StatusMsg, SttVm.Status, sts3);
+        }
+
+        private void SetupMainForm(params IObservable<string>[] states)
+        {
+            // WindowState, Visible のバインド
             var first = Ctl.WindowVisible
                 .Take(1)
                 .Delay(TimeSpan.FromMilliseconds(250))
@@ -29,7 +44,7 @@ namespace WindowStretch.Main
             Ctl.WindowVisible
                 .Skip(1)
                 .Merge(first)
-                .ObserveOn(SynchronizationContext.Current ?? throw new NullReferenceException())
+                .ObserveOn(SynchronizationContext.Current!)
                 .Subscribe(visible =>
                 {
                     if (visible)
@@ -45,19 +60,9 @@ namespace WindowStretch.Main
                     }
                 });
 
-            // サイズ変更タブのバインド
-            SetupStretchModel();
-
-            // アプリ起動タブのバインド
-            SetupStartModel();
-
-            // スクリーンショットタブのバインド
-            SetupScreenshotModel();
-
             // ステータスラベルのバインド
-            SreVm.StatusMsg
-                .Merge(SttVm.Status)
-                .Merge(Scrshot.StatusMsg)
+            states.Aggregate((a, b) => a.Merge(b))
+                .DistinctUntilChanged()
                 .Subscribe(msg => statusLbl.Text = msg);
 
             Ctl.Load();

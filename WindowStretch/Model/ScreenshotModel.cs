@@ -67,15 +67,17 @@ namespace WindowStretch.Model
                 .Repeat()
                 .Subscribe()
                 .AddTo(Disposer);
+
+            Load();
         }
 
-        public void Load()
+        private void Load()
         {
             SaveFolder.Value = Default.ShotSaveFolder;
             OpenViewer.Value = Default.ShotOpenViewer;
         }
 
-        public void Save()
+        private void Save()
         {
             Default.ShotSaveFolder = SaveFolder.Value;
             Default.ShotOpenViewer = OpenViewer.Value;
@@ -92,6 +94,7 @@ namespace WindowStretch.Model
 
         public void Dispose()
         {
+            Save();
             Disposer.Dispose();
         }
     }

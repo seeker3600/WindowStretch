@@ -12,25 +12,20 @@ namespace WindowStretch.Main
 
     public partial class MainForm
     {
-        private ScreenshotModel Scrshot;
-
-        private void SetupScreenshotModel()
+        private IObservable<string> SetupScreenshotModel()
         {
-            Scrshot = new();
+            var model = new ScreenshotModel();
 
-            scrshotSaveTxt.DataBindings.Add(Bind(nameof(scrshotSaveTxt.Text), Scrshot.SaveFolder));
-            scrshotTakeAndOpenChk.DataBindings.Add(Bind(nameof(scrshotTakeAndOpenChk.Checked), Scrshot.OpenViewer));
+            scrshotSaveTxt.DataBindings.Add(Bind(nameof(scrshotSaveTxt.Text), model.SaveFolder));
+            scrshotTakeAndOpenChk.DataBindings.Add(Bind(nameof(scrshotTakeAndOpenChk.Checked), model.OpenViewer));
 
-            Scrshot.Load();
+            takeScrshotBtn.Click += (_, _) => model.SaveToSpecified.Execute();
+            scrshotDragLbl.MouseDown += (_, e) => model.DragAreaMouseMove.Execute(e);
+            FormClosed += (_, __) => model.Dispose();
 
-            Scrshot.CompleteSaveToTemp += DragImageFileFromArea;
+            model.CompleteSaveToTemp += DragImageFileFromArea;
 
-            FormClosed += (_, __) => Scrshot.Save();
-        }
-
-        private void takeScrshotBtn_Click(object sender, EventArgs e)
-        {
-            Scrshot.SaveToSpecified.Execute();
+            return model.StatusMsg;
         }
 
         private void selectScrshotFolderBtn_Click(object sender, EventArgs e)
@@ -38,11 +33,6 @@ namespace WindowStretch.Main
             scrshotFolderDlg.SelectedPath = scrshotSaveTxt.Text;
             if (scrshotFolderDlg.ShowDialog() == DialogResult.OK)
                 scrshotSaveTxt.Text = scrshotFolderDlg.SelectedPath;
-        }
-
-        private void scrshotDragLbl_MouseDown(object sender, MouseEventArgs e)
-        {
-            Scrshot.DragAreaMouseMove.Execute(e);
         }
 
         private void DragImageFileFromArea(string filename)
