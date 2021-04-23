@@ -1,6 +1,7 @@
 ﻿using Reactive.Bindings;
 using System;
 using System.Diagnostics;
+using System.Reactive.Subjects;
 using WindowStretch.Properties;
 
 namespace WindowStretch.Model
@@ -13,7 +14,9 @@ namespace WindowStretch.Model
 
         public ReactivePropertySlim<bool> StartWithMe { get; } = new();
 
-        public ReactivePropertySlim<string> Status { get; } = new();
+        public IObservable<string> StatusMsg => Status;
+
+        private readonly Subject<string> Status = new();
 
         public void Load()
         {
@@ -42,11 +45,11 @@ namespace WindowStretch.Model
 
                 Process.Start(info);
 
-                Status.Value = "アプリを起動しました。";
+                Status.OnNext("アプリを起動しました。");
             }
             catch (Exception)
             {
-                Status.Value = "アプリの起動に失敗しました。タイプミス、管理者権限などを確認してください。";
+                Status.OnNext("アプリの起動に失敗しました。タイプミス、管理者権限などを確認してください。");
             }
         }
     }

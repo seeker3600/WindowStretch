@@ -30,7 +30,7 @@ namespace WindowStretch.Main
             var sts3 = SetupScreenshotModel();
 
             // メイン画面のバインド
-            SetupMainForm(SreVm.StatusMsg, SttVm.Status, sts3);
+            SetupMainForm(SreVm.StatusMsg, SttVm.StatusMsg, sts3);
         }
 
         private void SetupMainForm(params IObservable<string>[] states)
@@ -61,8 +61,9 @@ namespace WindowStretch.Main
                 });
 
             // ステータスラベルのバインド
-            states.Aggregate((a, b) => a.Merge(b))
+            Observable.Merge(states)
                 .DistinctUntilChanged()
+                .ObserveOn(SynchronizationContext.Current!)
                 .Subscribe(msg => statusLbl.Text = msg);
 
             Ctl.Load();

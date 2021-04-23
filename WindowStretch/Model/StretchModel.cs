@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows.Forms;
 using WindowStretch.Core;
 using WindowStretch.Properties;
@@ -21,7 +22,9 @@ namespace WindowStretch.Model
 
         public StretchPatternVm Tall { get; } = new();
 
-        public ReactivePropertySlim<string> StatusMsg { get; } = new();
+        public IObservable<string> StatusMsg => Status;
+
+        private readonly Subject<string> Status = new();
 
         public ReactivePropertySlim<Rectangle> WindowRect { get; } = new();
 
@@ -39,7 +42,7 @@ namespace WindowStretch.Model
         {
             if (Control.MouseButtons.HasFlag(MouseButtons.Left))
             {
-                StatusMsg.Value = $"監視を一時停止しています。";
+                Status.OnNext($"監視を一時停止しています。");
                 return;
             }
 
@@ -48,7 +51,7 @@ namespace WindowStretch.Model
 
             if (hwnd == IntPtr.Zero)
             {
-                StatusMsg.Value = $"アプリ {ProcessName} が見つかりません。";
+                Status.OnNext($"アプリ {ProcessName} が見つかりません。");
                 return;
             }
 
@@ -61,16 +64,16 @@ namespace WindowStretch.Model
                     var ptnVm = size.Width >= size.Height ? Wide : Tall;
                     BeforeSize = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
 
-                    StatusMsg.Value = $"アプリ {ProcessName} のウィンドウサイズを変更しました。";
+                    Status.OnNext($"アプリ {ProcessName} のウィンドウサイズを変更しました。");
                 }
                 else
-                    StatusMsg.Value = $"アプリ {ProcessName} を監視しています。";
+                    Status.OnNext($"アプリ {ProcessName} を監視しています。");
 
                 WindowRect.Value = OverlapUtils.GetNonOverlap(hwnd, WindowRect.Value);
             }
             catch (Exception)
             {
-                StatusMsg.Value = $"アプリ {ProcessName} の監視が失敗しました。管理者権限が必要かもしれません。";
+                Status.OnNext($"アプリ {ProcessName} の監視が失敗しました。管理者権限が必要かもしれません。");
             }
         }
 

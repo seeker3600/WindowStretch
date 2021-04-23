@@ -1,4 +1,8 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowStretch.Main
 {
@@ -7,5 +11,4 @@ namespace WindowStretch.Main
         public static Binding Bind(string propertyName, object dataSource) =>
             new(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
     }
-
 }
