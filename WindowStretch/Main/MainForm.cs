@@ -36,14 +36,7 @@ namespace WindowStretch.Main
         private void SetupMainForm(params IObservable<string>[] states)
         {
             // WindowState, Visible のバインド
-            var first = Ctl.WindowVisible
-                .Take(1)
-                .Delay(TimeSpan.FromMilliseconds(250))
-                .Do(_ => Resize += MainForm_Resize);
-
             Ctl.WindowVisible
-                .Skip(1)
-                .Merge(first)
                 .ObserveOn(SynchronizationContext.Current!)
                 .Subscribe(visible =>
                 {

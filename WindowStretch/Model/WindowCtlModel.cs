@@ -19,7 +19,7 @@ namespace WindowStretch.Model
         {
             WindowVisible = WindowState
                 .Select(state => state != Minimized)
-                .ToReadOnlyReactivePropertySlim();
+                .ToReadOnlyReactivePropertySlim(mode: ReactivePropertyMode.DistinctUntilChanged);
         }
 
         public void Load()
