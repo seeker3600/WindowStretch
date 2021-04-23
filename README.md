@@ -3,7 +3,9 @@
 
 ## インストール
 1. [.NET 5.0 Runtime](https://dotnet.microsoft.com/download/dotnet/5.0/runtime/) をインストールしてください。
-2. [Releases](https://github.com/seeker3600/WindowStretch/releases) から最新版のバイナリをダウンロードし、中身を解凍してください。
+	* 「Run desktop apps」のDownload x64 or x86 をクリックすると、インストーラをダウンロードできます。
+2. [Releases](https://github.com/seeker3600/WindowStretch/releases/) から最新版のバイナリをダウンロードし、中身を解凍してください。
+	* Assets を展開して、中の「WindowStretch.zip」をダウンロードしてください。
 
 ## アンインストール
 解凍したフォルダを削除してください。設定データはAppData内に保存していますので、別途削除が必要です。
@@ -37,6 +39,11 @@
 * 画像を保存するフォルダを指定して「撮影」ボタンを押すと、ウマ娘のスクリーンショットを撮ります。
 * 左下のチェックを入れると、撮影時に画像をビューワで開きます。
 * 右の領域から別のアプリにドラッグ＆ドロップできます。ブラウザに画像を直接投稿するときに便利です。
+
+## 対応環境
+
+Windows 10 Pro バージョン 2004 で動作を確認しています。
+それ以外の環境で動く／動かない場合はご連絡ください。
 
 ## TODO
 * [x] アプリの起動
