@@ -6,13 +6,13 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="WideMode" Type="WindowStretch.Core.StretchMode" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">FullScreen</Value>
     </Setting>
     <Setting Name="WideAlwaysTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="TallMode" Type="WindowStretch.Core.StretchMode" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">MaxOnDesktop</Value>
     </Setting>
     <Setting Name="TallAlwaysTop" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -21,13 +21,13 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="WideAllowExcess" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="TallAllowExcess" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="StartAppUri" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">dmmgameplayer://umamusume/cl/general/umamusume</Value>
     </Setting>
     <Setting Name="StartWithMe" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -36,7 +36,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ShotOpenViewer" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

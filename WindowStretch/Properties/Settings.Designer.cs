@@ -37,7 +37,7 @@ namespace WindowStretch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FullScreen")]
         public global::WindowStretch.Core.StretchMode WideMode {
             get {
                 return ((global::WindowStretch.Core.StretchMode)(this["WideMode"]));
@@ -61,7 +61,7 @@ namespace WindowStretch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MaxOnDesktop")]
         public global::WindowStretch.Core.StretchMode TallMode {
             get {
                 return ((global::WindowStretch.Core.StretchMode)(this["TallMode"]));
@@ -97,7 +97,7 @@ namespace WindowStretch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool WideAllowExcess {
             get {
                 return ((bool)(this["WideAllowExcess"]));
@@ -121,7 +121,7 @@ namespace WindowStretch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("dmmgameplayer://umamusume/cl/general/umamusume")]
         public string StartAppUri {
             get {
                 return ((string)(this["StartAppUri"]));
@@ -157,7 +157,7 @@ namespace WindowStretch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShotOpenViewer {
             get {
                 return ((bool)(this["ShotOpenViewer"]));

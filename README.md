@@ -1,17 +1,17 @@
 # WindowStretch
-ウィンドウサイズと位置を、縦横比を維持しつつ最大化します。現在はWin版「ウマ娘 プリティーダービー」用。
+ゲーム画面のウィンドウサイズを、縦横比を維持しつつ最大化します。現在はDMM版「ウマ娘 プリティーダービー」用。
 
 ## インストール
-1. [.NET 5.0 Runtime](https://dotnet.microsoft.com/download/dotnet/5.0/runtime/) をインストールしてください。
-	* 「Run desktop apps」のDownload x64 or x86 をクリックすると、インストーラをダウンロードできます。
-2. [Releases](https://github.com/seeker3600/WindowStretch/releases/) から最新版のバイナリをダウンロードし、中身を解凍してください。
-	* Assets を展開して、中の「WindowStretch.zip」をダウンロードしてください。
+
+[こちら](https://github.com/seeker3600/WindowStretch/releases/download/v0.6.0/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
+
+Windows8.1、または 10 の古いバージョンをご利用の方は、 [.net framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-web-installer) をインストールしてください。
 
 ## アンインストール
 解凍したフォルダを削除してください。設定データはAppData内に保存していますので、別途削除が必要です。
 
 ## 使い方
-* 本ツールを管理者権限で起動してください。ウマ娘を操作するには管理者権限が必要です。
+* 「WindowStretch.exe」を管理者権限で起動してください。ウマ娘を操作するには管理者権限が必要です。
 * 最小化すると、タスクトレイに格納されます。
 	* トレイアイコンをクリックすると再度表示します。
 	* トレイアイコンを右クリックすると、コンテキストメニューを表示します。
