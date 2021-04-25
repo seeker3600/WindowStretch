@@ -10,7 +10,7 @@ namespace WindowStretch.Main
 
     public partial class MainForm
     {
-        private readonly StretchModel SreVm = new();
+        private readonly StretchModel SreVm = new StretchModel();
 
         private void SetupStretchModel()
         {

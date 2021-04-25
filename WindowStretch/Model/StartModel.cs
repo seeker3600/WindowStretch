@@ -10,13 +10,13 @@ namespace WindowStretch.Model
 
     public class StartModel
     {
-        public ReactivePropertySlim<string> Uri { get; } = new();
+        public ReactivePropertySlim<string> Uri { get; } = new ReactivePropertySlim<string>();
 
-        public ReactivePropertySlim<bool> StartWithMe { get; } = new();
+        public ReactivePropertySlim<bool> StartWithMe { get; } = new ReactivePropertySlim<bool>();
 
         public IObservable<string> StatusMsg => Status;
 
-        private readonly Subject<string> Status = new();
+        private readonly Subject<string> Status = new Subject<string>();
 
         public void Load()
         {

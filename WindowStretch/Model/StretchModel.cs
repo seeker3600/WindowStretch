@@ -18,15 +18,15 @@ namespace WindowStretch.Model
     {
         public static List<StretchModeEntry> ModeEntries() => StretchModeEntry.Entries();
 
-        public StretchPatternVm Wide { get; } = new();
+        public StretchPatternVm Wide { get; } = new StretchPatternVm();
 
-        public StretchPatternVm Tall { get; } = new();
+        public StretchPatternVm Tall { get; } = new StretchPatternVm();
 
         public IObservable<string> StatusMsg => Status;
 
-        private readonly Subject<string> Status = new();
+        private readonly Subject<string> Status = new Subject<string>();
 
-        public ReactivePropertySlim<Rectangle> WindowRect { get; } = new();
+        public ReactivePropertySlim<Rectangle> WindowRect { get; } = new ReactivePropertySlim<Rectangle>();
 
         private Size? BeforeSize = null;
 
@@ -102,11 +102,11 @@ namespace WindowStretch.Model
 
     public class StretchPatternVm
     {
-        public ReactivePropertySlim<StretchMode> Mode { get; } = new();
+        public ReactivePropertySlim<StretchMode> Mode { get; } = new ReactivePropertySlim<StretchMode>();
 
-        public ReactivePropertySlim<bool> AlwaysTop { get; } = new();
+        public ReactivePropertySlim<bool> AlwaysTop { get; } = new ReactivePropertySlim<bool>();
 
-        public ReactivePropertySlim<bool> AllowExcess { get; } = new();
+        public ReactivePropertySlim<bool> AllowExcess { get; } = new ReactivePropertySlim<bool>();
 
         public ReadOnlyReactivePropertySlim<bool> AlwaysTopEnabled { get; }
 
@@ -124,6 +124,6 @@ namespace WindowStretch.Model
         }
 
         public StretchPattern ToPattern() =>
-            new(Mode.Value, AlwaysTop.Value, AllowExcess.Value);
+            new StretchPattern(Mode.Value, AlwaysTop.Value, AllowExcess.Value);
     }
 }

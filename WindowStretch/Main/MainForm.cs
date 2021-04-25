@@ -11,7 +11,7 @@ namespace WindowStretch.Main
 {
     public partial class MainForm : Form
     {
-        private readonly WindowCtlModel Ctl = new();
+        private readonly WindowCtlModel Ctl = new WindowCtlModel();
 
         public MainForm()
         {

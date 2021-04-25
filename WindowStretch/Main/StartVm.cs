@@ -10,7 +10,7 @@ namespace WindowStretch.Main
 
     public partial class MainForm
     {
-        private readonly StartModel SttVm = new();
+        private readonly StartModel SttVm = new StartModel();
 
         private void SetupStartModel()
         {

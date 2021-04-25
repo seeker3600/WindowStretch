@@ -67,7 +67,7 @@ namespace WindowStretch.Core
             if (!PInvoke.GetWindowRect(new HWND(hwndIp), out var rect))
                 throw new InvalidOperationException(nameof(PInvoke.GetWindowRect));
 
-            return new(rect.right - rect.left, rect.bottom - rect.top);
+            return new Size(rect.right - rect.left, rect.bottom - rect.top);
         }
 
         /// <summary>
