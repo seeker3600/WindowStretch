@@ -55,12 +55,13 @@ namespace WindowStretch.Core
             var bmp = new Bitmap(bounds.Width, bounds.Height);
 
             //Graphicsの作成
-            using var g = Graphics.FromImage(bmp);
+            using (var g = Graphics.FromImage(bmp))
+            {
+                //画面全体をコピーする
+                g.CopyFromScreen(bounds.Location, new Point(0, 0), bmp.Size);
 
-            //画面全体をコピーする
-            g.CopyFromScreen(bounds.Location, new Point(0, 0), bmp.Size);
-
-            return bmp;
+                return bmp;
+            }
         }
     }
 }

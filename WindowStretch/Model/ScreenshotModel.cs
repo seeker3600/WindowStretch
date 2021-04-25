@@ -16,13 +16,13 @@ namespace WindowStretch.Model
 
     public sealed class ScreenshotModel : IDisposable
     {
-        public ReactivePropertySlim<string> SaveFolder { get; } = new();
+        public ReactivePropertySlim<string> SaveFolder { get; } = new ReactivePropertySlim<string>();
 
-        public ReactivePropertySlim<bool> OpenViewer { get; } = new();
+        public ReactivePropertySlim<bool> OpenViewer { get; } = new ReactivePropertySlim<bool>();
 
-        public ReactiveCommand SaveToSpecified { get; } = new();
+        public ReactiveCommand SaveToSpecified { get; } = new ReactiveCommand();
 
-        public ReactiveCommand<MouseEventArgs> DragAreaMouseMove { get; } = new();
+        public ReactiveCommand<MouseEventArgs> DragAreaMouseMove { get; } = new ReactiveCommand<MouseEventArgs>();
 
         public event Action<string> CompleteSaveToTemp = _ => { };
 
@@ -47,7 +47,7 @@ namespace WindowStretch.Model
             DragAreaMouseMove
                 .Where(e => e.Button.HasFlag(MouseButtons.Left))
                 .Select(_ => ScreenshotUtils.Take(Path.GetTempPath()))
-                .ObserveOn(SynchronizationContext.Current!)
+                .ObserveOn(SynchronizationContext.Current)
                 .Do(f => CompleteSaveToTemp?.Invoke(f))
                 .Catch(Observable.Return(""))
                 .Repeat()
@@ -90,7 +90,7 @@ namespace WindowStretch.Model
             if (OpenViewer.Value) WindowUtils.ExecuteUsingShell(filename);
         }
 
-        private readonly CompositeDisposable Disposer = new();
+        private readonly CompositeDisposable Disposer = new CompositeDisposable();
 
         public void Dispose()
         {

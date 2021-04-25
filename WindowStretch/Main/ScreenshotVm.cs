@@ -19,7 +19,7 @@ namespace WindowStretch.Main
             scrshotSaveTxt.DataBindings.Add(Bind(nameof(scrshotSaveTxt.Text), model.SaveFolder));
             scrshotTakeAndOpenChk.DataBindings.Add(Bind(nameof(scrshotTakeAndOpenChk.Checked), model.OpenViewer));
 
-            takeScrshotBtn.Click += (_, _) => model.SaveToSpecified.Execute();
+            takeScrshotBtn.Click += (_, __) => model.SaveToSpecified.Execute();
             scrshotDragLbl.MouseDown += (_, e) => model.DragAreaMouseMove.Execute(e);
             FormClosed += (_, __) => model.Dispose();
 

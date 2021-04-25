@@ -37,7 +37,7 @@ namespace WindowStretch.Main
         {
             // WindowState, Visible のバインド
             Ctl.WindowVisible
-                .ObserveOn(SynchronizationContext.Current!)
+                .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(visible =>
                 {
                     if (visible)
@@ -56,7 +56,7 @@ namespace WindowStretch.Main
             // ステータスラベルのバインド
             Observable.Merge(states)
                 .DistinctUntilChanged()
-                .ObserveOn(SynchronizationContext.Current!)
+                .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(msg => statusLbl.Text = msg);
 
             Ctl.Load();
@@ -64,7 +64,7 @@ namespace WindowStretch.Main
             FormClosed += (_, __) => Ctl.Save();
         }
 
-        private void MainForm_Resize(object? sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             Ctl.WindowState.Value = WindowState;
         }
