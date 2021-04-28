@@ -73,6 +73,8 @@ namespace WindowStretch.Main
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.scrshotFolderDlg = new System.Windows.Forms.FolderBrowserDialog();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -89,6 +91,7 @@ namespace WindowStretch.Main
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.statusBar.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateBtn
@@ -119,7 +122,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(430, 169);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(430, 148);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -324,12 +327,13 @@ namespace WindowStretch.Main
             this.mainTabs.Controls.Add(this.resizeTab);
             this.mainTabs.Controls.Add(this.startTab);
             this.mainTabs.Controls.Add(this.screenshotTab);
+            this.mainTabs.Controls.Add(this.tabPage1);
             this.mainTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabs.Location = new System.Drawing.Point(0, 0);
             this.mainTabs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mainTabs.Name = "mainTabs";
             this.mainTabs.SelectedIndex = 0;
-            this.mainTabs.Size = new System.Drawing.Size(444, 199);
+            this.mainTabs.Size = new System.Drawing.Size(444, 178);
             this.mainTabs.TabIndex = 3;
             // 
             // resizeTab
@@ -339,7 +343,7 @@ namespace WindowStretch.Main
             this.resizeTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.resizeTab.Name = "resizeTab";
             this.resizeTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.resizeTab.Size = new System.Drawing.Size(436, 173);
+            this.resizeTab.Size = new System.Drawing.Size(436, 152);
             this.resizeTab.TabIndex = 1;
             this.resizeTab.Text = "サイズの自動調整";
             this.resizeTab.UseVisualStyleBackColor = true;
@@ -351,7 +355,7 @@ namespace WindowStretch.Main
             this.startTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.startTab.Name = "startTab";
             this.startTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.startTab.Size = new System.Drawing.Size(436, 173);
+            this.startTab.Size = new System.Drawing.Size(436, 152);
             this.startTab.TabIndex = 0;
             this.startTab.Text = "対象アプリの起動";
             this.startTab.UseVisualStyleBackColor = true;
@@ -415,7 +419,7 @@ namespace WindowStretch.Main
             this.screenshotTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.screenshotTab.Name = "screenshotTab";
             this.screenshotTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.screenshotTab.Size = new System.Drawing.Size(436, 173);
+            this.screenshotTab.Size = new System.Drawing.Size(436, 152);
             this.screenshotTab.TabIndex = 2;
             this.screenshotTab.Text = "スクリーンショット";
             this.screenshotTab.UseVisualStyleBackColor = true;
@@ -433,7 +437,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(430, 169);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(430, 148);
             this.tableLayoutPanel7.TabIndex = 4;
             // 
             // groupBox2
@@ -563,7 +567,7 @@ namespace WindowStretch.Main
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLbl});
-            this.statusBar.Location = new System.Drawing.Point(0, 177);
+            this.statusBar.Location = new System.Drawing.Point(0, 178);
             this.statusBar.Name = "statusBar";
             this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
             this.statusBar.Size = new System.Drawing.Size(444, 22);
@@ -581,14 +585,38 @@ namespace WindowStretch.Main
             // 
             this.scrshotFolderDlg.Description = "スクリーンショットを保存するフォルダを指定してください。";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(436, 152);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "ライセンス";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(430, 146);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.WordWrap = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(444, 199);
-            this.Controls.Add(this.statusBar);
+            this.ClientSize = new System.Drawing.Size(444, 200);
             this.Controls.Add(this.mainTabs);
+            this.Controls.Add(this.statusBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
@@ -626,6 +654,8 @@ namespace WindowStretch.Main
             this.tableLayoutPanel6.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -674,6 +704,8 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Label scrshotDragLbl;
         private System.Windows.Forms.CheckBox scrshotTakeAndOpenChk;
         private System.Windows.Forms.FolderBrowserDialog scrshotFolderDlg;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

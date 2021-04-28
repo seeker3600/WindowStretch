@@ -151,6 +151,33 @@
         AAAAAAAA//8AAA==
 </value>
   </data>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>WindowStretch
+    MIT License Copyright (c) 2021 seeker3600
+    https://github.com/seeker3600/WindowStretch/blob/master/LICENSE
+
+    ソースコード等は以下を参照してください。
+    https://github.com/seeker3600/WindowStretch
+
+
+
+依存ソフトウェア
+
+.NET Runtime
+    The MIT License (MIT)  Copyright (c) .NET Foundation and Contributors
+    https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+
+Microsoft.Windows.CsWin32
+    The MIT License (MIT)  Copyright (c) Microsoft Corporation
+    https://github.com/microsoft/CsWin32/blob/main/LICENSE
+
+    本ツール用の改変を行っています。内容は以下を参照してください。
+    https://github.com/seeker3600/CsWin32
+
+ReactiveProperty
+    The MIT License (MIT)  Copyright (c) 2018 neuecc, xin9le, okazuki
+    https://github.com/runceel/ReactiveProperty/blob/main/LICENSE.txt</value>
+  </data>
   <metadata name="statusBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>382, 17</value>
   </metadata>
