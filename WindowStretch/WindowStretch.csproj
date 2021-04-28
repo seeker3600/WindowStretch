@@ -9,6 +9,10 @@
     <FileVersion>1.0.0.0</FileVersion>
     <Version>0.6.0</Version>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <Copyright>Copyright (c) 2021 seeker3600</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/seeker3600/WindowStretch</PackageProjectUrl>
+    <Authors>seeker3600</Authors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +36,10 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
