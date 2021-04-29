@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using System.Windows.Forms;
 using WindowStretch.Model;
 
 #pragma warning disable IDE1006 // 命名スタイル
@@ -43,10 +44,12 @@ namespace WindowStretch.Main
             // WindowRectのバインド
             model.WindowRect.Value = Bounds;
             model.WindowRect
-                .Where(newRect => Location != newRect.Location)
                 .Subscribe(newRect => Location = newRect.Location);
 
-            LocationChanged += (_, __) => model.WindowRect.Value = Bounds;
+            LocationChanged += (_, __) =>
+            {
+                if (WindowState != FormWindowState.Minimized) model.WindowRect.Value = Bounds;
+            };
         }
 
         private Action RefreshSize;
