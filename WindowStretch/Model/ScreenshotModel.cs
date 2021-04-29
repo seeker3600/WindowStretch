@@ -67,11 +67,9 @@ namespace WindowStretch.Model
                 .Repeat()
                 .Subscribe()
                 .AddTo(Disposer);
-
-            Load();
         }
 
-        private void Load()
+        public void Load()
         {
             SaveFolder.Value = Default.ShotSaveFolder;
             OpenViewer.Value = Default.ShotOpenViewer;

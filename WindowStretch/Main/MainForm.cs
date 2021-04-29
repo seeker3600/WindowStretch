@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using WindowStretch.Model;
+using WindowStretch.Properties;
 
 #pragma warning disable IDE1006 // 命名スタイル
 
@@ -14,11 +15,10 @@ namespace WindowStretch.Main
         /// コンポーネントの <paramref name="propertyName"/> と
         /// <paramref name="dataSource"/> の <c>Value</c> プロパティをバインドする。
         /// </summary>
-        public static Binding Bind(string propertyName, object dataSource) =>
+        private static Binding Bind(string propertyName, object dataSource) =>
             new Binding(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
 
-        private readonly WindowCtlModel Ctl = new WindowCtlModel();
-
+        /// <summary>ステータスに表示する文字列のオブザーバ</summary>
         private IObserver<string> StatusDrain;
 
         public MainForm()
@@ -43,8 +43,10 @@ namespace WindowStretch.Main
 
         private void SetupMainForm()
         {
+            var model = new WindowCtlModel();
+
             // WindowState, Visible のバインド
-            Ctl.WindowVisible
+            model.WindowVisible
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(visible =>
                 {
@@ -61,37 +63,34 @@ namespace WindowStretch.Main
                     }
                 });
 
+            Resize += (_, __) => model.WindowState.Value = WindowState;
+            showToolMitem.Click += (_, __) => model.WindowState.Value = FormWindowState.Normal;
+
+            notifyIcon1.MouseClick += (_, e) =>
+            {
+                if (e.Button.HasFlag(MouseButtons.Left))
+                    model.WindowState.Value = FormWindowState.Normal;
+            };
+
             // ステータスラベルのバインド
-            Ctl.StatusSink
+            model.StatusSink
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(msg => statusLbl.Text = msg);
 
-            StatusDrain = Ctl.StatusDrain;
+            StatusDrain = model.StatusDrain;
 
-            Ctl.Load();
-
-            FormClosed += (_, __) => Ctl.Save();
-        }
-
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            Ctl.WindowState.Value = WindowState;
-        }
-
-        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button.HasFlag(MouseButtons.Left))
-                Ctl.WindowState.Value = FormWindowState.Normal;
-        }
-
-        private void showToolMitem_Click(object sender, EventArgs e)
-        {
-            Ctl.WindowState.Value = FormWindowState.Normal;
+            // モデルのバインド
+            FormClosed += (_, __) => model.Dispose();
         }
 
         private void exitMItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings.Default.Save();
         }
     }
 }

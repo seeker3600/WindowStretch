@@ -12,15 +12,19 @@ namespace WindowStretch.Main
         {
             var model = new ScreenshotModel();
 
+            // モデルのバインド
             scrshotSaveTxt.DataBindings.Add(Bind(nameof(scrshotSaveTxt.Text), model.SaveFolder));
             scrshotTakeAndOpenChk.DataBindings.Add(Bind(nameof(scrshotTakeAndOpenChk.Checked), model.OpenViewer));
             model.StatusMsg.Subscribe(StatusDrain);
 
             takeScrshotBtn.Click += (_, __) => model.SaveToSpecified.Execute();
             scrshotDragLbl.MouseDown += (_, e) => model.DragAreaMouseMove.Execute(e);
-            FormClosed += (_, __) => model.Dispose();
 
             model.CompleteSaveToTemp += DragImageFileFromArea;
+
+            // データの読み込み
+            model.Load();
+            FormClosed += (_, __) => model.Dispose();
         }
 
         private void selectScrshotFolderBtn_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
@@ -12,15 +13,16 @@ namespace WindowStretch.Model
     using static FormWindowState;
     using static Settings;
 
-    public class WindowCtlModel
+    public class WindowCtlModel : IDisposable
     {
-        public ReactivePropertySlim<FormWindowState> WindowState { get; } = new ReactivePropertySlim<FormWindowState>();
+        public ReactiveProperty<FormWindowState> WindowState { get; } =
+            Default.ToReactivePropertyAsSynchronized(conf => conf.WindowState);
 
         public ReadOnlyReactivePropertySlim<bool> WindowVisible { get; }
 
         public IObserver<string> StatusDrain => Status;
 
-        private Subject<string> Status = new Subject<string>();
+        private readonly Subject<string> Status = new Subject<string>();
 
         public ReadOnlyReactivePropertySlim<string> StatusSink { get; }
 
@@ -28,7 +30,7 @@ namespace WindowStretch.Model
         {
             WindowVisible = WindowState
                 .Select(state => state != Minimized)
-                .ToReadOnlyReactivePropertySlim(mode: ReactivePropertyMode.DistinctUntilChanged);
+                .ToReadOnlyReactivePropertySlim();//mode: ReactivePropertyMode.DistinctUntilChanged
 
             // ステータスラベルのバインド
             StatusSink = Status
@@ -37,16 +39,8 @@ namespace WindowStretch.Model
                 .ToReadOnlyReactivePropertySlim();
         }
 
-        public void Load()
+        public void Dispose()
         {
-            WindowState.Value = Default.WindowState;
-        }
-
-        public void Save()
-        {
-            Default.WindowState = WindowState.Value;
-
-            Default.Save();
         }
     }
 }

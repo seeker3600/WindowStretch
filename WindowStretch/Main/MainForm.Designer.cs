@@ -275,7 +275,6 @@ namespace WindowStretch.Main
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "WindowStretch";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
             // notifyIconMenu
             // 
@@ -300,7 +299,6 @@ namespace WindowStretch.Main
             this.showToolMitem.Name = "showToolMitem";
             this.showToolMitem.Size = new System.Drawing.Size(205, 22);
             this.showToolMitem.Text = "ツールの設定を表示";
-            this.showToolMitem.Click += new System.EventHandler(this.showToolMitem_Click);
             // 
             // gameStartMItem
             // 
@@ -620,8 +618,8 @@ namespace WindowStretch.Main
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WindowStretch";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);

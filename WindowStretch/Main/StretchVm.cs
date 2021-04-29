@@ -10,6 +10,9 @@ namespace WindowStretch.Main
     {
         private void SetupStretchModel()
         {
+            var model = new StretchModel();
+
+            // コンポーネントを初期設定
             modeBoxW.DisplayMember = "Text";
             modeBoxW.ValueMember = "Mode";
             modeBoxW.DataSource = StretchModel.ModeEntries();
@@ -18,8 +21,7 @@ namespace WindowStretch.Main
             modeBoxT.ValueMember = "Mode";
             modeBoxT.DataSource = StretchModel.ModeEntries();
 
-            var model = new StretchModel();
-
+            // モデルのバインド
             modeBoxW.DataBindings.Add(Bind(nameof(modeBoxW.SelectedValue), model.Wide.Mode));
             alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Checked), model.Wide.AlwaysTop));
             alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Enabled), model.Wide.AlwaysTopEnabled));
@@ -34,17 +36,20 @@ namespace WindowStretch.Main
 
             model.StatusMsg.Subscribe(StatusDrain);
 
+            RefreshSize = model.Refresh;
+            watchTimer.Tick += (_, __) => model.Tick();
+
+            // WindowRectのバインド
             model.WindowRect.Value = Bounds;
             model.WindowRect
                 .Where(newRect => Location != newRect.Location)
                 .Subscribe(newRect => Location = newRect.Location);
 
-            model.Load();
-
-            RefreshSize = model.Refresh;
             LocationChanged += (_, __) => model.WindowRect.Value = Bounds;
-            watchTimer.Tick += (_, __) => model.Tick();
-            FormClosed += (_, __) => model.Save();
+
+            // データの読み込み
+            model.Load();
+            FormClosed += (_, __) => model.Dispose();
         }
 
         private Action RefreshSize;

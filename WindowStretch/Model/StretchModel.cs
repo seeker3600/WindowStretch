@@ -13,7 +13,7 @@ namespace WindowStretch.Model
 {
     using static Settings;
 
-    public class StretchModel
+    public class StretchModel : IDisposable
     {
         public static List<StretchModeEntry> ModeEntries() => StretchModeEntry.Entries();
 
@@ -81,7 +81,7 @@ namespace WindowStretch.Model
             Tall.AllowExcess.Value = Default.TallAllowExcess;
         }
 
-        public void Save()
+        private void Save()
         {
             Default.WideMode = Wide.Mode.Value;
             Default.WideAlwaysTop = Wide.AlwaysTop.Value;
@@ -91,6 +91,11 @@ namespace WindowStretch.Model
             Default.TallAllowExcess = Tall.AllowExcess.Value;
 
             Default.Save();
+        }
+
+        public void Dispose()
+        {
+            Save();
         }
     }
 

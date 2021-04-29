@@ -8,7 +8,7 @@ namespace WindowStretch.Model
 {
     using static Settings;
 
-    public class StartModel
+    public class StartModel : IDisposable
     {
         public ReactivePropertySlim<string> Uri { get; } = new ReactivePropertySlim<string>();
 
@@ -26,7 +26,7 @@ namespace WindowStretch.Model
             if (StartWithMe.Value) Start();
         }
 
-        public void Save()
+        private void Save()
         {
             Default.StartAppUri = Uri.Value;
             Default.StartWithMe = StartWithMe.Value;
@@ -51,6 +51,11 @@ namespace WindowStretch.Model
             {
                 Status.OnNext("アプリの起動に失敗しました。タイプミス、管理者権限などを確認してください。");
             }
+        }
+
+        public void Dispose()
+        {
+            Save();
         }
     }
 }
