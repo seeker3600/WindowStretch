@@ -1,4 +1,5 @@
 ﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using System;
 using System.Diagnostics;
 using System.Reactive.Subjects;
@@ -6,32 +7,21 @@ using WindowStretch.Properties;
 
 namespace WindowStretch.Model
 {
-    using static Settings;
-
     public class StartModel : IDisposable
     {
-        public ReactivePropertySlim<string> Uri { get; } = new ReactivePropertySlim<string>();
+        public ReactiveProperty<string> Uri { get; } =
+            Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.StartAppUri);
 
-        public ReactivePropertySlim<bool> StartWithMe { get; } = new ReactivePropertySlim<bool>();
+        public ReactiveProperty<bool> StartWithMe { get; } =
+            Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.StartWithMe);
 
         public IObservable<string> StatusMsg => Status;
 
         private readonly Subject<string> Status = new Subject<string>();
 
-        public void Load()
+        public void OnLoad()
         {
-            Uri.Value = Default.StartAppUri;
-            StartWithMe.Value = Default.StartWithMe;
-
             if (StartWithMe.Value) Start();
-        }
-
-        private void Save()
-        {
-            Default.StartAppUri = Uri.Value;
-            Default.StartWithMe = StartWithMe.Value;
-
-            Default.Save();
         }
 
         public void Start()
@@ -55,7 +45,6 @@ namespace WindowStretch.Model
 
         public void Dispose()
         {
-            Save();
         }
     }
 }

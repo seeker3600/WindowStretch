@@ -19,12 +19,10 @@ namespace WindowStretch.Main
 
             takeScrshotBtn.Click += (_, __) => model.SaveToSpecified.Execute();
             scrshotDragLbl.MouseDown += (_, e) => model.DragAreaMouseMove.Execute(e);
-
-            model.CompleteSaveToTemp += DragImageFileFromArea;
-
-            // データの読み込み
-            model.Load();
             FormClosed += (_, __) => model.Dispose();
+
+            // ドラッグ処理をバインド
+            model.CompleteSaveToTemp += DragImageFileFromArea;
         }
 
         private void selectScrshotFolderBtn_Click(object sender, EventArgs e)

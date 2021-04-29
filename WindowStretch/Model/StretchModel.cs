@@ -1,8 +1,10 @@
 ﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Forms;
@@ -11,15 +13,13 @@ using WindowStretch.Properties;
 
 namespace WindowStretch.Model
 {
-    using static Settings;
-
     public class StretchModel : IDisposable
     {
         public static List<StretchModeEntry> ModeEntries() => StretchModeEntry.Entries();
 
-        public StretchPatternVm Wide { get; } = new StretchPatternVm();
+        public StretchPatternVm Wide { get; } = new StretchPatternVm(c => c.WideMode, c => c.WideAlwaysTop, c => c.WideAllowExcess);
 
-        public StretchPatternVm Tall { get; } = new StretchPatternVm();
+        public StretchPatternVm Tall { get; } = new StretchPatternVm(c => c.TallMode, c => c.TallAlwaysTop, c => c.TallAllowExcess);
 
         public IObservable<string> StatusMsg => Status;
 
@@ -71,48 +71,32 @@ namespace WindowStretch.Model
             }
         }
 
-        public void Load()
-        {
-            Wide.Mode.Value = Default.WideMode;
-            Wide.AlwaysTop.Value = Default.WideAlwaysTop;
-            Wide.AllowExcess.Value = Default.WideAllowExcess;
-            Tall.Mode.Value = Default.TallMode;
-            Tall.AlwaysTop.Value = Default.TallAlwaysTop;
-            Tall.AllowExcess.Value = Default.TallAllowExcess;
-        }
-
-        private void Save()
-        {
-            Default.WideMode = Wide.Mode.Value;
-            Default.WideAlwaysTop = Wide.AlwaysTop.Value;
-            Default.WideAllowExcess = Wide.AllowExcess.Value;
-            Default.TallMode = Tall.Mode.Value;
-            Default.TallAlwaysTop = Tall.AlwaysTop.Value;
-            Default.TallAllowExcess = Tall.AllowExcess.Value;
-
-            Default.Save();
-        }
-
         public void Dispose()
         {
-            Save();
         }
     }
 
     public class StretchPatternVm
     {
-        public ReactivePropertySlim<StretchMode> Mode { get; } = new ReactivePropertySlim<StretchMode>();
+        public ReactiveProperty<StretchMode> Mode { get; }
 
-        public ReactivePropertySlim<bool> AlwaysTop { get; } = new ReactivePropertySlim<bool>();
+        public ReactiveProperty<bool> AlwaysTop { get; }
 
-        public ReactivePropertySlim<bool> AllowExcess { get; } = new ReactivePropertySlim<bool>();
+        public ReactiveProperty<bool> AllowExcess { get; }
 
         public ReadOnlyReactivePropertySlim<bool> AlwaysTopEnabled { get; }
 
         public ReadOnlyReactivePropertySlim<bool> AllowExcessEnabled { get; }
 
-        public StretchPatternVm()
+        internal StretchPatternVm(
+            Expression<Func<Settings, StretchMode>> mode,
+            Expression<Func<Settings, bool>> alwaysTop,
+            Expression<Func<Settings, bool>> allowExcess)
         {
+            Mode = Settings.Default.ToReactivePropertyAsSynchronized(mode);
+            AlwaysTop = Settings.Default.ToReactivePropertyAsSynchronized(alwaysTop);
+            AllowExcess = Settings.Default.ToReactivePropertyAsSynchronized(allowExcess);
+
             AlwaysTopEnabled = Mode
                 .Select(m => m != StretchMode.FullScreen && m != StretchMode.None)
                 .ToReadOnlyReactivePropertySlim();

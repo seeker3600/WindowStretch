@@ -17,10 +17,10 @@ namespace WindowStretch.Main
 
             startBtn.Click += (_, __) => model.Start();
             gameStartMItem.Click += (_, __) => model.Start();
-
-            // データの読み込み
-            model.Load();
             FormClosed += (_, __) => model.Dispose();
+
+            // ロード完了時の処理を実行
+            model.OnLoad();
         }
     }
 }

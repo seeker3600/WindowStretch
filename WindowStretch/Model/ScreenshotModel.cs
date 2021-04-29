@@ -12,13 +12,13 @@ using WindowStretch.Properties;
 
 namespace WindowStretch.Model
 {
-    using static Settings;
-
     public sealed class ScreenshotModel : IDisposable
     {
-        public ReactivePropertySlim<string> SaveFolder { get; } = new ReactivePropertySlim<string>();
+        public ReactiveProperty<string> SaveFolder { get; } =
+            Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.ShotSaveFolder);
 
-        public ReactivePropertySlim<bool> OpenViewer { get; } = new ReactivePropertySlim<bool>();
+        public ReactiveProperty<bool> OpenViewer { get; } =
+            Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.ShotOpenViewer);
 
         public ReactiveCommand SaveToSpecified { get; } = new ReactiveCommand();
 
@@ -69,20 +69,6 @@ namespace WindowStretch.Model
                 .AddTo(Disposer);
         }
 
-        public void Load()
-        {
-            SaveFolder.Value = Default.ShotSaveFolder;
-            OpenViewer.Value = Default.ShotOpenViewer;
-        }
-
-        private void Save()
-        {
-            Default.ShotSaveFolder = SaveFolder.Value;
-            Default.ShotOpenViewer = OpenViewer.Value;
-
-            Default.Save();
-        }
-
         private void OpenImageFile(string filename)
         {
             if (OpenViewer.Value) ScreenshotUtils.OpenFileUseShell(filename);
@@ -92,7 +78,6 @@ namespace WindowStretch.Model
 
         public void Dispose()
         {
-            Save();
             Disposer.Dispose();
         }
     }

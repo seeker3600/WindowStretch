@@ -38,6 +38,7 @@ namespace WindowStretch.Main
 
             RefreshSize = model.Refresh;
             watchTimer.Tick += (_, __) => model.Tick();
+            FormClosed += (_, __) => model.Dispose();
 
             // WindowRectのバインド
             model.WindowRect.Value = Bounds;
@@ -46,10 +47,6 @@ namespace WindowStretch.Main
                 .Subscribe(newRect => Location = newRect.Location);
 
             LocationChanged += (_, __) => model.WindowRect.Value = Bounds;
-
-            // データの読み込み
-            model.Load();
-            FormClosed += (_, __) => model.Dispose();
         }
 
         private Action RefreshSize;

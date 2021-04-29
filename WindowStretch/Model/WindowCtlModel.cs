@@ -11,12 +11,11 @@ using WindowStretch.Properties;
 namespace WindowStretch.Model
 {
     using static FormWindowState;
-    using static Settings;
 
     public class WindowCtlModel : IDisposable
     {
         public ReactiveProperty<FormWindowState> WindowState { get; } =
-            Default.ToReactivePropertyAsSynchronized(conf => conf.WindowState);
+            Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.WindowState);
 
         public ReadOnlyReactivePropertySlim<bool> WindowVisible { get; }
 
@@ -30,7 +29,7 @@ namespace WindowStretch.Model
         {
             WindowVisible = WindowState
                 .Select(state => state != Minimized)
-                .ToReadOnlyReactivePropertySlim();//mode: ReactivePropertyMode.DistinctUntilChanged
+                .ToReadOnlyReactivePropertySlim();
 
             // ステータスラベルのバインド
             StatusSink = Status
