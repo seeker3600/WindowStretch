@@ -1,7 +1,6 @@
 ﻿using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reactive.Linq;
@@ -32,12 +31,6 @@ namespace WindowStretch.Model
 
         public void Refresh() => BeforeSize = null;
 
-#if DEBUG
-        public const string ProcessName = "Haribote";
-#else
-        public const string ProcessName = "umamusume";
-#endif
-
         public void Tick()
         {
             if (Control.MouseButtons.HasFlag(MouseButtons.Left))
@@ -46,34 +39,35 @@ namespace WindowStretch.Model
                 return;
             }
 
-            var proc = Process.GetProcessesByName(ProcessName).FirstOrDefault();
-            var hwnd = proc?.MainWindowHandle ?? IntPtr.Zero; // WaitForInputIdleは「権限がない」エラーになった
+            var procName = WindowUtils.ProcessName;
+            var hwndN = WindowUtils.GetHwnd();
 
-            if (hwnd == IntPtr.Zero)
+            if (hwndN is IntPtr hwnd)
             {
-                Status.OnNext($"アプリ {ProcessName} が見つかりません。");
-                return;
-            }
-
-            try
-            {
-                var size = StretchUtils.GetWindowSize(hwnd);
-
-                if (BeforeSize != size)
+                try
                 {
-                    var ptnVm = size.Width >= size.Height ? Wide : Tall;
-                    BeforeSize = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
+                    var size = StretchUtils.GetWindowSize(hwnd);
 
-                    Status.OnNext($"アプリ {ProcessName} のウィンドウサイズを変更しました。");
+                    if (BeforeSize != size)
+                    {
+                        var ptnVm = size.Width >= size.Height ? Wide : Tall;
+                        BeforeSize = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
+
+                        Status.OnNext($"アプリ {procName} のウィンドウサイズを変更しました。");
+                    }
+                    else
+                        Status.OnNext($"アプリ {procName} を監視しています。");
+
+                    WindowRect.Value = OverlapUtils.GetNonOverlap(hwnd, WindowRect.Value);
                 }
-                else
-                    Status.OnNext($"アプリ {ProcessName} を監視しています。");
-
-                WindowRect.Value = OverlapUtils.GetNonOverlap(hwnd, WindowRect.Value);
+                catch (Exception)
+                {
+                    Status.OnNext($"アプリ {procName} の監視が失敗しました。管理者権限が必要かもしれません。");
+                }
             }
-            catch (Exception)
+            else
             {
-                Status.OnNext($"アプリ {ProcessName} の監視が失敗しました。管理者権限が必要かもしれません。");
+                Status.OnNext($"アプリ {procName} が見つかりません。");
             }
         }
 

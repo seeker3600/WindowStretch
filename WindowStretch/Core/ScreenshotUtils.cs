@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -16,7 +17,8 @@ namespace WindowStretch.Core
         /// <returns>保存したスクリーンショット。フルパス</returns>
         public static string Take(string foldername)
         {
-            var hwndIp = WindowUtils.GetHwnd();
+            var hwndIp = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
+
             var bmp = CaptureScreenshot(hwndIp);
             var filename = Path.Combine(foldername, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.png");
 
@@ -62,6 +64,19 @@ namespace WindowStretch.Core
 
                 return bmp;
             }
+        }
+
+        /// <summary>
+        /// 指定されたファイルを、デフォルトアプリで開く。
+        /// </summary>
+        public static void OpenFileUseShell(string filename)
+        {
+            var info = new ProcessStartInfo(filename)
+            {
+                UseShellExecute = true
+            };
+
+            Process.Start(info);
         }
     }
 }

@@ -87,7 +87,7 @@ namespace WindowStretch.Model
 
         private void OpenImageFile(string filename)
         {
-            if (OpenViewer.Value) WindowUtils.ExecuteUsingShell(filename);
+            if (OpenViewer.Value) ScreenshotUtils.OpenFileUseShell(filename);
         }
 
         private readonly CompositeDisposable Disposer = new CompositeDisposable();
