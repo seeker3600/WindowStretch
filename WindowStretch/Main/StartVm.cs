@@ -7,22 +7,19 @@ namespace WindowStretch.Main
 {
     public partial class MainForm
     {
-        private readonly StartModel SttVm = new StartModel();
-
         private void SetupStartModel()
         {
-            appUriTxt.DataBindings.Add(Bind(nameof(appUriTxt.Text), SttVm.Uri));
-            startWithMeChk.DataBindings.Add(Bind(nameof(startWithMeChk.Checked), SttVm.StartWithMe));
-            SttVm.StatusMsg.Subscribe(StatusDrain);
+            var model = new StartModel();
 
-            SttVm.Load();
+            appUriTxt.DataBindings.Add(Bind(nameof(appUriTxt.Text), model.Uri));
+            startWithMeChk.DataBindings.Add(Bind(nameof(startWithMeChk.Checked), model.StartWithMe));
+            model.StatusMsg.Subscribe(StatusDrain);
 
-            FormClosed += (_, __) => SttVm.Save();
-        }
+            model.Load();
 
-        private void startBtn_Click(object sender, EventArgs e)
-        {
-            SttVm.Start();
+            startBtn.Click += (_, __) => model.Start();
+            gameStartMItem.Click += (_, __) => model.Start();
+            FormClosed += (_, __) => model.Save();
         }
     }
 }

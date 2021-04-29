@@ -8,8 +8,6 @@ namespace WindowStretch.Main
 {
     public partial class MainForm
     {
-        private readonly StretchModel SreVm = new StretchModel();
-
         private void SetupStretchModel()
         {
             modeBoxW.DisplayMember = "Text";
@@ -20,42 +18,40 @@ namespace WindowStretch.Main
             modeBoxT.ValueMember = "Mode";
             modeBoxT.DataSource = StretchModel.ModeEntries();
 
-            modeBoxW.DataBindings.Add(Bind(nameof(modeBoxW.SelectedValue), SreVm.Wide.Mode));
-            alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Checked), SreVm.Wide.AlwaysTop));
-            alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Enabled), SreVm.Wide.AlwaysTopEnabled));
-            allowExcessChkW.DataBindings.Add(Bind(nameof(allowExcessChkW.Checked), SreVm.Wide.AllowExcess));
-            allowExcessChkW.DataBindings.Add(Bind(nameof(allowExcessChkW.Enabled), SreVm.Wide.AllowExcessEnabled));
+            var model = new StretchModel();
 
-            modeBoxT.DataBindings.Add(Bind(nameof(modeBoxT.SelectedValue), SreVm.Tall.Mode));
-            alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Checked), SreVm.Tall.AlwaysTop));
-            alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Enabled), SreVm.Tall.AlwaysTopEnabled));
-            allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Checked), SreVm.Tall.AllowExcess));
-            allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Enabled), SreVm.Tall.AllowExcessEnabled));
+            modeBoxW.DataBindings.Add(Bind(nameof(modeBoxW.SelectedValue), model.Wide.Mode));
+            alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Checked), model.Wide.AlwaysTop));
+            alwaysTopChkW.DataBindings.Add(Bind(nameof(alwaysTopChkW.Enabled), model.Wide.AlwaysTopEnabled));
+            allowExcessChkW.DataBindings.Add(Bind(nameof(allowExcessChkW.Checked), model.Wide.AllowExcess));
+            allowExcessChkW.DataBindings.Add(Bind(nameof(allowExcessChkW.Enabled), model.Wide.AllowExcessEnabled));
 
-            SreVm.StatusMsg.Subscribe(StatusDrain);
+            modeBoxT.DataBindings.Add(Bind(nameof(modeBoxT.SelectedValue), model.Tall.Mode));
+            alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Checked), model.Tall.AlwaysTop));
+            alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Enabled), model.Tall.AlwaysTopEnabled));
+            allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Checked), model.Tall.AllowExcess));
+            allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Enabled), model.Tall.AllowExcessEnabled));
 
-            SreVm.WindowRect
+            model.StatusMsg.Subscribe(StatusDrain);
+
+            model.WindowRect.Value = Bounds;
+            model.WindowRect
                 .Where(newRect => Location != newRect.Location)
                 .Subscribe(newRect => Location = newRect.Location);
 
-            SreVm.Load();
+            model.Load();
 
-            FormClosed += (_, __) => SreVm.Save();
+            RefreshSize = model.Refresh;
+            LocationChanged += (_, __) => model.WindowRect.Value = Bounds;
+            watchTimer.Tick += (_, __) => model.Tick();
+            FormClosed += (_, __) => model.Save();
         }
 
-        private void MainForm_LocationChanged(object sender, EventArgs e)
-        {
-            SreVm.WindowRect.Value = Bounds;
-        }
-
-        private void watchTimer_Tick(object sender, EventArgs e)
-        {
-            SreVm.Tick();
-        }
+        private Action RefreshSize;
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
-            SreVm.Refresh();
+            RefreshSize?.Invoke();
         }
 
     }

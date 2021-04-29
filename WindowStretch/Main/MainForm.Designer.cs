@@ -70,11 +70,11 @@ namespace WindowStretch.Main
             this.takeScrshotBtn = new System.Windows.Forms.Button();
             this.scrshotDragLbl = new System.Windows.Forms.Label();
             this.scrshotTakeAndOpenChk = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.statusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.scrshotFolderDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -90,8 +90,8 @@ namespace WindowStretch.Main
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
-            this.statusBar.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateBtn
@@ -268,7 +268,6 @@ namespace WindowStretch.Main
             // 
             this.watchTimer.Enabled = true;
             this.watchTimer.Interval = 1000;
-            this.watchTimer.Tick += new System.EventHandler(this.watchTimer_Tick);
             // 
             // notifyIcon1
             // 
@@ -308,7 +307,6 @@ namespace WindowStretch.Main
             this.gameStartMItem.Name = "gameStartMItem";
             this.gameStartMItem.Size = new System.Drawing.Size(205, 22);
             this.gameStartMItem.Text = "ゲームを起動する";
-            this.gameStartMItem.Click += new System.EventHandler(this.startBtn_Click);
             // 
             // toolStripSeparator1
             // 
@@ -399,7 +397,6 @@ namespace WindowStretch.Main
             this.startBtn.TabIndex = 1;
             this.startBtn.Text = "起動する";
             this.startBtn.UseVisualStyleBackColor = true;
-            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
             // 
             // startWithMeChk
             // 
@@ -563,28 +560,6 @@ namespace WindowStretch.Main
             this.scrshotTakeAndOpenChk.Text = "撮影時に画像をビューワで開く";
             this.scrshotTakeAndOpenChk.UseVisualStyleBackColor = true;
             // 
-            // statusBar
-            // 
-            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLbl});
-            this.statusBar.Location = new System.Drawing.Point(0, 178);
-            this.statusBar.Name = "statusBar";
-            this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
-            this.statusBar.Size = new System.Drawing.Size(444, 22);
-            this.statusBar.SizingGrip = false;
-            this.statusBar.TabIndex = 4;
-            this.statusBar.Text = "sss";
-            // 
-            // statusLbl
-            // 
-            this.statusLbl.Name = "statusLbl";
-            this.statusLbl.Size = new System.Drawing.Size(51, 17);
-            this.statusLbl.Text = "ステータス";
-            // 
-            // scrshotFolderDlg
-            // 
-            this.scrshotFolderDlg.Description = "スクリーンショットを保存するフォルダを指定してください。";
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.textBox1);
@@ -609,6 +584,28 @@ namespace WindowStretch.Main
             this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.WordWrap = false;
             // 
+            // statusBar
+            // 
+            this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLbl});
+            this.statusBar.Location = new System.Drawing.Point(0, 178);
+            this.statusBar.Name = "statusBar";
+            this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
+            this.statusBar.Size = new System.Drawing.Size(444, 22);
+            this.statusBar.SizingGrip = false;
+            this.statusBar.TabIndex = 4;
+            this.statusBar.Text = "sss";
+            // 
+            // statusLbl
+            // 
+            this.statusLbl.Name = "statusLbl";
+            this.statusLbl.Size = new System.Drawing.Size(51, 17);
+            this.statusLbl.Text = "ステータス";
+            // 
+            // scrshotFolderDlg
+            // 
+            this.scrshotFolderDlg.Description = "スクリーンショットを保存するフォルダを指定してください。";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -624,7 +621,6 @@ namespace WindowStretch.Main
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WindowStretch";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -652,10 +648,10 @@ namespace WindowStretch.Main
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
-            this.statusBar.ResumeLayout(false);
-            this.statusBar.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.statusBar.ResumeLayout(false);
+            this.statusBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
