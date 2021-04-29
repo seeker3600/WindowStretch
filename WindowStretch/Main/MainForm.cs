@@ -56,6 +56,7 @@ namespace WindowStretch.Main
             // ステータスラベルのバインド
             Observable.Merge(states)
                 .DistinctUntilChanged()
+                .ThrottleNoIgnore(TimeSpan.FromSeconds(1))
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(msg => statusLbl.Text = msg);
 
