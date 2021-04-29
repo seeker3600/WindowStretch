@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -11,7 +10,16 @@ namespace WindowStretch.Main
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// コンポーネントの <paramref name="propertyName"/> と
+        /// <paramref name="dataSource"/> の <c>Value</c> プロパティをバインドする。
+        /// </summary>
+        public static Binding Bind(string propertyName, object dataSource) =>
+            new Binding(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
+
         private readonly WindowCtlModel Ctl = new WindowCtlModel();
+
+        private IObserver<string> StatusDrain;
 
         public MainForm()
         {
@@ -20,6 +28,9 @@ namespace WindowStretch.Main
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // メイン画面のバインド
+            SetupMainForm();
+
             // サイズ変更タブのバインド
             SetupStretchModel();
 
@@ -27,13 +38,10 @@ namespace WindowStretch.Main
             SetupStartModel();
 
             // スクリーンショットタブのバインド
-            var sts3 = SetupScreenshotModel();
-
-            // メイン画面のバインド
-            SetupMainForm(SreVm.StatusMsg, SttVm.StatusMsg, sts3);
+            SetupScreenshotModel();
         }
 
-        private void SetupMainForm(params IObservable<string>[] states)
+        private void SetupMainForm()
         {
             // WindowState, Visible のバインド
             Ctl.WindowVisible
@@ -54,11 +62,11 @@ namespace WindowStretch.Main
                 });
 
             // ステータスラベルのバインド
-            Observable.Merge(states)
-                .DistinctUntilChanged()
-                .ThrottleNoIgnore(TimeSpan.FromSeconds(1))
+            Ctl.StatusSink
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(msg => statusLbl.Text = msg);
+
+            StatusDrain = Ctl.StatusDrain;
 
             Ctl.Load();
 

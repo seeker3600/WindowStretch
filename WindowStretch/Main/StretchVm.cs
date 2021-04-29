@@ -6,8 +6,6 @@ using WindowStretch.Model;
 
 namespace WindowStretch.Main
 {
-    using static Extension;
-
     public partial class MainForm
     {
         private readonly StretchModel SreVm = new StretchModel();
@@ -33,6 +31,8 @@ namespace WindowStretch.Main
             alwaysTopChkT.DataBindings.Add(Bind(nameof(alwaysTopChkT.Enabled), SreVm.Tall.AlwaysTopEnabled));
             allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Checked), SreVm.Tall.AllowExcess));
             allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Enabled), SreVm.Tall.AllowExcessEnabled));
+
+            SreVm.StatusMsg.Subscribe(StatusDrain);
 
             SreVm.WindowRect
                 .Where(newRect => Location != newRect.Location)

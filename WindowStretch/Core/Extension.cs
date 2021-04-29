@@ -1,19 +1,11 @@
 ﻿using Reactive.Bindings;
 using System;
 using System.Reactive.Linq;
-using System.Windows.Forms;
 
-namespace WindowStretch.Main
+namespace WindowStretch.Core
 {
     public static class Extension
     {
-        /// <summary>
-        /// コンポーネントの <paramref name="propertyName"/> と
-        /// <paramref name="dataSource"/> の <c>Value</c> プロパティをバインドする。
-        /// </summary>
-        public static Binding Bind(string propertyName, object dataSource) =>
-            new Binding(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
-
         /// <summary>
         /// データを最低 <paramref name="interval"/> の期間を置いて後続に流す。
         /// </summary>

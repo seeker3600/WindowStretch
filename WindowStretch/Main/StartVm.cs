@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Reactive.Linq;
 using WindowStretch.Model;
 
 #pragma warning disable IDE1006 // 命名スタイル
 
 namespace WindowStretch.Main
 {
-    using static Extension;
-
     public partial class MainForm
     {
         private readonly StartModel SttVm = new StartModel();
@@ -16,6 +13,7 @@ namespace WindowStretch.Main
         {
             appUriTxt.DataBindings.Add(Bind(nameof(appUriTxt.Text), SttVm.Uri));
             startWithMeChk.DataBindings.Add(Bind(nameof(startWithMeChk.Checked), SttVm.StartWithMe));
+            SttVm.StatusMsg.Subscribe(StatusDrain);
 
             SttVm.Load();
 

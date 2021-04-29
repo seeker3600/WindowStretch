@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reactive.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using WindowStretch.Model;
 
@@ -8,24 +6,21 @@ using WindowStretch.Model;
 
 namespace WindowStretch.Main
 {
-    using static Extension;
-
     public partial class MainForm
     {
-        private IObservable<string> SetupScreenshotModel()
+        private void SetupScreenshotModel()
         {
             var model = new ScreenshotModel();
 
             scrshotSaveTxt.DataBindings.Add(Bind(nameof(scrshotSaveTxt.Text), model.SaveFolder));
             scrshotTakeAndOpenChk.DataBindings.Add(Bind(nameof(scrshotTakeAndOpenChk.Checked), model.OpenViewer));
+            model.StatusMsg.Subscribe(StatusDrain);
 
             takeScrshotBtn.Click += (_, __) => model.SaveToSpecified.Execute();
             scrshotDragLbl.MouseDown += (_, e) => model.DragAreaMouseMove.Execute(e);
             FormClosed += (_, __) => model.Dispose();
 
             model.CompleteSaveToTemp += DragImageFileFromArea;
-
-            return model.StatusMsg;
         }
 
         private void selectScrshotFolderBtn_Click(object sender, EventArgs e)
