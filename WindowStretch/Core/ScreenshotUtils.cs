@@ -52,6 +52,14 @@ namespace WindowStretch.Core
         /// </summary>
         private static Bitmap CaptureScreenshot(IntPtr hwndIp)
         {
+            try
+            {
+                PInvoke.SetForegroundWindow(new HWND(hwndIp));
+            }
+            catch (Exception)
+            {
+            }
+
             //Bitmapの作成
             var bounds = GetClientRect(new HWND(hwndIp));
             var bmp = new Bitmap(bounds.Width, bounds.Height);
