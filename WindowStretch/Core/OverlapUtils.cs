@@ -18,9 +18,9 @@ namespace WindowStretch.Core
         /// <paramref name="move"/>の移動先。同じ位置を返すことがある。重なりが解消しないことがある。
         /// 大きさは変更しない。
         /// </returns>
-        public static Rectangle GetNonOverlap(IntPtr hwndIp, Rectangle move)
+        public static Rectangle GetNonOverlap(HWND hwnd, Rectangle move)
         {
-            if (!PInvoke.GetWindowRect(new HWND(hwndIp), out var f))
+            if (!PInvoke.GetWindowRect(hwnd, out var f))
                 throw new InvalidOperationException(nameof(PInvoke.GetWindowRect));
 
             var fix = Rectangle.FromLTRB(f.left, f.top, f.right, f.bottom);
@@ -28,7 +28,7 @@ namespace WindowStretch.Core
             // 重なってなければそのままの位置
             if (!fix.IntersectsWith(move)) return move;
 
-            var area = Screen.FromHandle(hwndIp).Bounds;
+            var area = Screen.FromHandle(hwnd).Bounds;
             if (fix.Contains(area)) return move;
 
             // 移動方向を判定する

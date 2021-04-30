@@ -17,9 +17,9 @@ namespace WindowStretch.Core
         /// <returns>保存したスクリーンショット。フルパス</returns>
         public static string Take(string foldername)
         {
-            var hwndIp = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
+            var hwnd = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
 
-            var bmp = CaptureScreenshot(hwndIp);
+            var bmp = CaptureScreenshot(hwnd);
             var filename = Path.Combine(foldername, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.png");
 
             bmp.Save(filename, ImageFormat.Png);
@@ -50,18 +50,18 @@ namespace WindowStretch.Core
         /// <summary>
         /// 指定されたウィンドウのスクリーンショットを取得する。
         /// </summary>
-        private static Bitmap CaptureScreenshot(IntPtr hwndIp)
+        private static Bitmap CaptureScreenshot(HWND hwnd)
         {
             try
             {
-                PInvoke.SetForegroundWindow(new HWND(hwndIp));
+                PInvoke.SetForegroundWindow(hwnd);
             }
             catch (Exception)
             {
             }
 
             //Bitmapの作成
-            var bounds = GetClientRect(new HWND(hwndIp));
+            var bounds = GetClientRect(hwnd);
             var bmp = new Bitmap(bounds.Width, bounds.Height);
 
             //Graphicsの作成

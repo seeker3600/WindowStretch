@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using Microsoft.Windows.Sdk;
+﻿using Microsoft.Windows.Sdk;
+using System;
 using System.Drawing;
-using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace WindowStretch.Core
 {
@@ -18,10 +17,8 @@ namespace WindowStretch.Core
         /// 権限の不足で、実際にはサイズが変更できていないかもしれない。
         /// </returns>
         /// <exception cref="InvalidOperationException">WindowsAPI呼び出しに失敗した。</exception>
-        public static Size Stretch(IntPtr hwndIp, StretchPattern pat)
+        public static Size Stretch(HWND hwnd, StretchPattern pat)
         {
-            var hwnd = new HWND(hwndIp);
-
             Rectangle rect;
             bool alwaysTop = pat.AlwaysTop;
             bool resetPosition = false;
@@ -62,9 +59,9 @@ namespace WindowStretch.Core
         /// <summary>
         /// 指定されたウィンドウのサイズを取得する。
         /// </summary>
-        public static Size GetWindowSize(IntPtr hwndIp)
+        public static Size GetWindowSize(HWND hwnd)
         {
-            if (!PInvoke.GetWindowRect(new HWND(hwndIp), out var rect))
+            if (!PInvoke.GetWindowRect(hwnd, out var rect))
                 throw new InvalidOperationException(nameof(PInvoke.GetWindowRect));
 
             return new Size(rect.right - rect.left, rect.bottom - rect.top);

@@ -1,4 +1,5 @@
-﻿using Reactive.Bindings;
+﻿using Microsoft.Windows.Sdk;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace WindowStretch.Model
             var procName = WindowUtils.ProcessName;
             var hwndN = WindowUtils.GetHwnd();
 
-            if (hwndN is IntPtr hwnd)
+            if (hwndN is HWND hwnd)
             {
                 try
                 {
