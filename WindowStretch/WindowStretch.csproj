@@ -13,14 +13,17 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/seeker3600/WindowStretch</PackageProjectUrl>
     <Authors>seeker3600</Authors>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="4.0.0-alpha5" />
     <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.1.445-beta">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="ReactiveProperty" Version="7.8.3" />
+    <PackageReference Include="ScreenRecorderLib" Version="3.1.1" />
     <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
 

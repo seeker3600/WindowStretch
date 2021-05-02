@@ -27,9 +27,9 @@ namespace WindowStretch.Main
 
         private void selectScrshotFolderBtn_Click(object sender, EventArgs e)
         {
-            scrshotFolderDlg.SelectedPath = scrshotSaveTxt.Text;
-            if (scrshotFolderDlg.ShowDialog() == DialogResult.OK)
-                scrshotSaveTxt.Text = scrshotFolderDlg.SelectedPath;
+            folderSelectDlg.SelectedPath = scrshotSaveTxt.Text;
+            if (folderSelectDlg.ShowDialog() == DialogResult.OK)
+                scrshotSaveTxt.Text = folderSelectDlg.SelectedPath;
         }
 
         private void DragImageFileFromArea(string filename)

@@ -166,5 +166,17 @@ namespace WindowStretch.Properties {
                 this["ShotOpenViewer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RecordSaveFolder {
+            get {
+                return ((string)(this["RecordSaveFolder"]));
+            }
+            set {
+                this["RecordSaveFolder"] = value;
+            }
+        }
     }
 }

@@ -39,6 +39,9 @@ namespace WindowStretch.Main
 
             // スクリーンショットタブのバインド
             SetupScreenshotModel();
+
+            // 録画タブのバインド
+            SetupRecordModel();
         }
 
         private void SetupMainForm()
