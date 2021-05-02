@@ -11,13 +11,6 @@ namespace WindowStretch.Main
 {
     public partial class MainForm : Form
     {
-        /// <summary>
-        /// コンポーネントの <paramref name="propertyName"/> と
-        /// <paramref name="dataSource"/> の <c>Value</c> プロパティをバインドする。
-        /// </summary>
-        private static Binding Bind(string propertyName, object dataSource) =>
-            new Binding(propertyName, dataSource, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
-
         /// <summary>ステータスに表示する文字列のオブザーバ</summary>
         private IObserver<string> StatusDrain;
 

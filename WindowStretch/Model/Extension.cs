@@ -2,7 +2,7 @@
 using System;
 using System.Reactive.Linq;
 
-namespace WindowStretch.Core
+namespace WindowStretch.Model
 {
     public static class Extension
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using WindowStretch.Model;
+using static WindowStretch.Main.Binder;
 
 #pragma warning disable IDE1006 // 命名スタイル
 

@@ -1,7 +1,7 @@
-﻿using Reactive.Bindings;
-using System;
+﻿using System;
 using System.Windows.Forms;
 using WindowStretch.Model;
+using static WindowStretch.Main.Binder;
 
 #pragma warning disable IDE1006 // 命名スタイル
 
@@ -15,8 +15,8 @@ namespace WindowStretch.Main
 
             // モデルのバインド
             recordSaveTxt.DataBindings.Add(Bind(nameof(recordSaveTxt.Text), model.SaveFolder));
-            Bind(recordStartBtn, model.StartRecord);
-            Bind(recordEndBtn, model.EndRecord);
+            recordStartBtn.Bind(model.StartRecord);
+            recordEndBtn.Bind(model.EndRecord);
         }
 
         private void selectRecordFolderBtn_Click(object sender, EventArgs e)
@@ -24,21 +24,6 @@ namespace WindowStretch.Main
             folderSelectDlg.SelectedPath = recordSaveTxt.Text;
             if (folderSelectDlg.ShowDialog() == DialogResult.OK)
                 recordSaveTxt.Text = folderSelectDlg.SelectedPath;
-        }
-
-        private void Bind(Button button, ReactiveCommand command)
-        {
-            button.Enabled = command.CanExecute();
-
-            command.CanExecuteChanged += (_, __) =>
-            {
-                BeginInvoke((Action)delegate ()
-                {
-                    button.Enabled = command.CanExecute();
-                });
-            };
-
-            button.Click += (_, __) => command.Execute();
         }
     }
 }
