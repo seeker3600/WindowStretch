@@ -70,7 +70,7 @@ namespace WindowStretch.Main
             this.takeScrshotBtn = new System.Windows.Forms.Button();
             this.scrshotDragLbl = new System.Windows.Forms.Label();
             this.scrshotTakeAndOpenChk = new System.Windows.Forms.CheckBox();
-            this.captureTab = new System.Windows.Forms.TabPage();
+            this.recordTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -100,7 +100,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
-            this.captureTab.SuspendLayout();
+            this.recordTab.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
@@ -339,7 +339,7 @@ namespace WindowStretch.Main
             this.mainTabs.Controls.Add(this.resizeTab);
             this.mainTabs.Controls.Add(this.startTab);
             this.mainTabs.Controls.Add(this.screenshotTab);
-            this.mainTabs.Controls.Add(this.captureTab);
+            this.mainTabs.Controls.Add(this.recordTab);
             this.mainTabs.Controls.Add(this.licenseTab);
             this.mainTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabs.Location = new System.Drawing.Point(0, 0);
@@ -575,16 +575,17 @@ namespace WindowStretch.Main
             this.scrshotTakeAndOpenChk.Text = "撮影時に画像をビューワで開く";
             this.scrshotTakeAndOpenChk.UseVisualStyleBackColor = true;
             // 
-            // captureTab
+            // recordTab
             // 
-            this.captureTab.Controls.Add(this.tableLayoutPanel8);
-            this.captureTab.Location = new System.Drawing.Point(4, 22);
-            this.captureTab.Name = "captureTab";
-            this.captureTab.Padding = new System.Windows.Forms.Padding(3);
-            this.captureTab.Size = new System.Drawing.Size(436, 152);
-            this.captureTab.TabIndex = 4;
-            this.captureTab.Text = "録画";
-            this.captureTab.UseVisualStyleBackColor = true;
+            this.recordTab.Controls.Add(this.tableLayoutPanel8);
+            this.recordTab.Location = new System.Drawing.Point(4, 22);
+            this.recordTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.recordTab.Name = "recordTab";
+            this.recordTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.recordTab.Size = new System.Drawing.Size(436, 152);
+            this.recordTab.TabIndex = 4;
+            this.recordTab.Text = "録画";
+            this.recordTab.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel8
             // 
@@ -593,13 +594,13 @@ namespace WindowStretch.Main
             this.tableLayoutPanel8.Controls.Add(this.groupBox3, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.groupBox4, 0, 1);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 2);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(430, 146);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(430, 148);
             this.tableLayoutPanel8.TabIndex = 5;
             // 
             // groupBox3
@@ -716,8 +717,9 @@ namespace WindowStretch.Main
             // 
             this.licenseTab.Controls.Add(this.textBox1);
             this.licenseTab.Location = new System.Drawing.Point(4, 22);
+            this.licenseTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.licenseTab.Name = "licenseTab";
-            this.licenseTab.Padding = new System.Windows.Forms.Padding(3);
+            this.licenseTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.licenseTab.Size = new System.Drawing.Size(436, 152);
             this.licenseTab.TabIndex = 3;
             this.licenseTab.Text = "ライセンス";
@@ -726,12 +728,12 @@ namespace WindowStretch.Main
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Location = new System.Drawing.Point(3, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(430, 146);
+            this.textBox1.Size = new System.Drawing.Size(430, 148);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.WordWrap = false;
@@ -800,7 +802,7 @@ namespace WindowStretch.Main
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
-            this.captureTab.ResumeLayout(false);
+            this.recordTab.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -864,7 +866,7 @@ namespace WindowStretch.Main
         private System.Windows.Forms.FolderBrowserDialog folderSelectDlg;
         private System.Windows.Forms.TabPage licenseTab;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TabPage captureTab;
+        private System.Windows.Forms.TabPage recordTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
