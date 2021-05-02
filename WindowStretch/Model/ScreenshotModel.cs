@@ -47,8 +47,7 @@ namespace WindowStretch.Model
             DragAreaMouseMove
                 .Where(e => e.Button.HasFlag(MouseButtons.Left))
                 .Select(_ => ScreenshotUtils.Take(Path.GetTempPath()))
-                .ObserveOn(SynchronizationContext.Current)
-                .Do(f => CompleteSaveToTemp?.Invoke(f))
+                .Do(f => CompleteSaveToTemp(f))
                 .Catch(Observable.Return(""))
                 .Repeat()
                 .Subscribe(result)

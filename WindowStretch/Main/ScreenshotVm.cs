@@ -35,8 +35,11 @@ namespace WindowStretch.Main
 
         private void DragImageFileFromArea(string filename)
         {
-            var dataObj = new DataObject(DataFormats.FileDrop, new[] { filename });
-            scrshotDragLbl.DoDragDrop(dataObj, DragDropEffects.Copy);
+            BeginInvoke((Action)delegate ()
+            {
+                var dataObj = new DataObject(DataFormats.FileDrop, new[] { filename });
+                scrshotDragLbl.DoDragDrop(dataObj, DragDropEffects.Copy);
+            });
         }
     }
 }
