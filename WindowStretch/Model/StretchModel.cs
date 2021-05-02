@@ -52,7 +52,8 @@ namespace WindowStretch.Model
                     if (BeforeSize != size)
                     {
                         var ptnVm = size.Width >= size.Height ? Wide : Tall;
-                        BeforeSize = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
+                        var stretched = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
+                        BeforeSize = stretched == Size.Empty ? size : stretched;
 
                         Status.OnNext($"アプリ {procName} のウィンドウサイズを変更しました。");
                     }
