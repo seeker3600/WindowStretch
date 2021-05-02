@@ -38,6 +38,8 @@ namespace WindowStretch.Model
             StartRecord
                 .ObserveOn(TaskPoolScheduler.Default)
                 .SelectMany(_ => DoRecord())
+                .CatchIgnore((Exception _) => Status.OnNext("録画に失敗しました。"))
+                .Repeat()
                 .Subscribe();
         }
 
@@ -79,19 +81,26 @@ namespace WindowStretch.Model
                 }
             }))
             {
-                var filename = Path.Combine(SaveFolder.Value, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.mp4");
+                try
+                {
+                    var filename = Path.Combine(SaveFolder.Value, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.mp4");
 
-                recorder.Record(filename);
-                Recording.OnNext(true);
-                Status.OnNext("録画を開始しました。");
+                    recorder.Record(filename);
+                    Recording.OnNext(true);
+                    Status.OnNext("録画を開始しました。");
 
-                await EndRecord;
+                    await EndRecord;
 
-                recorder.Stop();
-                Recording.OnNext(false);
-                Status.OnNext("録画を終了しました。");
+                    recorder.Stop();
+                    Recording.OnNext(false);
+                    Status.OnNext("録画を終了しました。");
 
-                return filename;
+                    return filename;
+                }
+                finally
+                {
+                    Recording.OnNext(false);
+                }
             }
         }
 

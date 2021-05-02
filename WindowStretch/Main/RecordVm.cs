@@ -17,6 +17,7 @@ namespace WindowStretch.Main
             recordSaveTxt.DataBindings.Add(Bind(nameof(recordSaveTxt.Text), model.SaveFolder));
             recordStartBtn.Bind(model.StartRecord);
             recordEndBtn.Bind(model.EndRecord);
+            model.StatusMsg.Subscribe(StatusDrain);
         }
 
         private void selectRecordFolderBtn_Click(object sender, EventArgs e)
