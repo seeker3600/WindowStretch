@@ -7,7 +7,7 @@ $archive_file = "$publish_base_path\WindowStretch.zip"
 Remove-Item $publish_path -Recurse -Force
 Remove-Item $archive_file
 
-dotnet publish -o $publish_path -c Release -p:ApplicationManifest=app.manifest
+dotnet publish -o $publish_path -c Release -p:ApplicationManifest=app.manifest -p:Platform="x64"
 
 Get-ChildItem $publish_path |
     where { $_.Extension -ne ".pdb" } | 

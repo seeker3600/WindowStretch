@@ -45,6 +45,8 @@ namespace WindowStretch.Model
 
         private async Task<string> DoRecord()
         {
+            Status.OnNext("準備しています...");
+
             var hwnd = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
             var volume = GetVolume();
 
@@ -52,33 +54,36 @@ namespace WindowStretch.Model
             {
                 RecorderMode = RecorderMode.Video,
                 IsHardwareEncodingEnabled = true,
+                IsThrottlingDisabled = false,
+                IsLowLatencyEnabled = false,
+                IsMp4FastStartEnabled = false,
                 DisplayOptions = new DisplayOptions
                 {
-                    WindowHandle = hwnd
+                    WindowHandle = hwnd,
                 },
                 RecorderApi = RecorderApi.WindowsGraphicsCapture,
                 AudioOptions = new AudioOptions
                 {
                     IsAudioEnabled = true,
                     Channels = AudioChannels.Stereo,
-                    Bitrate = AudioBitrate.bitrate_192kbps,
+                    Bitrate = AudioBitrate.bitrate_128kbps,
                     IsInputDeviceEnabled = false,
                     InputVolume = 0.0f,
                     OutputVolume = 1.0f / volume * 2,
                 },
                 VideoOptions = new VideoOptions
                 {
-                    //BitrateMode = BitrateControlMode.UnconstrainedVBR,
-                    //Bitrate = 8000 * 1000,
+                    BitrateMode = BitrateControlMode.UnconstrainedVBR,
+                    Bitrate = 8 * 1000 * 1000,
                     Framerate = 60,
-                    IsFixedFramerate = true,
-                    EncoderProfile = H264Profile.High
+                    IsFixedFramerate = false,
+                    EncoderProfile = H264Profile.Main
                 },
                 MouseOptions = new MouseOptions
                 {
                     IsMouseClicksDetected = false,
-                    IsMousePointerEnabled = true,
-                }
+                    IsMousePointerEnabled = false,
+                },
             }))
             {
                 try
