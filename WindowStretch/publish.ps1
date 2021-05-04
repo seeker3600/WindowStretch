@@ -9,6 +9,8 @@ Remove-Item $archive_file
 
 dotnet publish -o $publish_path -c Release -p:ApplicationManifest=app.manifest -p:Platform="x64"
 
+Start-Sleep -Seconds 1
+
 Get-ChildItem $publish_path |
     where { $_.Extension -ne ".pdb" } | 
     Compress-Archive -DestinationPath $archive_file
