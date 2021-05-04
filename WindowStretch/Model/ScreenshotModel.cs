@@ -5,7 +5,6 @@ using System.IO;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading;
 using System.Windows.Forms;
 using WindowStretch.Core;
 using WindowStretch.Properties;
@@ -16,6 +15,8 @@ namespace WindowStretch.Model
     {
         public ReactiveProperty<string> SaveFolder { get; } =
             Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.ShotSaveFolder);
+
+        public ReactiveCommand OpenSaveFolder { get; } = new ReactiveCommand();
 
         public ReactiveProperty<bool> OpenViewer { get; } =
             Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.ShotOpenViewer);
@@ -66,11 +67,18 @@ namespace WindowStretch.Model
                 .Repeat()
                 .Subscribe()
                 .AddTo(Disposer);
+
+            OpenSaveFolder
+                .Select(_ => SaveFolder.Value)
+                .StartProcess()
+                .Select(r => r ? "フォルダを開きました。" : "フォルダを開けませんでした。")
+                .Subscribe(status)
+                .AddTo(Disposer);
         }
 
         private void OpenImageFile(string filename)
         {
-            if (OpenViewer.Value) ScreenshotUtils.OpenFileUseShell(filename);
+            if (OpenViewer.Value) ShellUtils.StartProcess(filename);
         }
 
         private readonly CompositeDisposable Disposer = new CompositeDisposable();

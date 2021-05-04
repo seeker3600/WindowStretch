@@ -3,6 +3,7 @@ using Reactive.Bindings.Extensions;
 using System;
 using System.Diagnostics;
 using System.Reactive.Subjects;
+using WindowStretch.Core;
 using WindowStretch.Properties;
 
 namespace WindowStretch.Model
@@ -28,13 +29,7 @@ namespace WindowStretch.Model
         {
             try
             {
-                var info = new ProcessStartInfo(Uri.Value)
-                {
-                    UseShellExecute = true
-                };
-
-                Process.Start(info);
-
+                ShellUtils.StartProcess(Uri.Value);
                 Status.OnNext("アプリを起動しました。");
             }
             catch (Exception)

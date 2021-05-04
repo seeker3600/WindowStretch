@@ -73,18 +73,5 @@ namespace WindowStretch.Core
                 return bmp;
             }
         }
-
-        /// <summary>
-        /// 指定されたファイルを、デフォルトアプリで開く。
-        /// </summary>
-        public static void OpenFileUseShell(string filename)
-        {
-            var info = new ProcessStartInfo(filename)
-            {
-                UseShellExecute = true
-            };
-
-            Process.Start(info);
-        }
     }
 }

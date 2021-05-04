@@ -27,6 +27,8 @@ namespace WindowStretch.Model
         public ReactiveProperty<string> SaveFolder { get; } =
             Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.RecordSaveFolder);
 
+        public ReactiveCommand OpenSaveFolder { get; } = new ReactiveCommand();
+
         private readonly Subject<ModelState> State = new Subject<ModelState>();
 
         public ReactiveCommand StartRecord { get; }
@@ -49,6 +51,12 @@ namespace WindowStretch.Model
                 .CatchIgnore((Exception _) => Status.OnNext("録画に失敗しました。"))
                 .Repeat()
                 .Subscribe();
+
+            OpenSaveFolder
+                .Select(_ => SaveFolder.Value)
+                .StartProcess()
+                .Select(r => r ? "フォルダを開きました。" : "フォルダを開けませんでした。")
+                .Subscribe(Status);
         }
 
         private async Task<string> DoRecord()

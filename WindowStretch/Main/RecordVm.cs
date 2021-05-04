@@ -17,6 +17,7 @@ namespace WindowStretch.Main
             recordSaveTxt.DataBindings.Add(Bind(nameof(recordSaveTxt.Text), model.SaveFolder));
             recordStartBtn.Bind(model.StartRecord);
             recordEndBtn.Bind(model.EndRecord);
+            exploreVideoBtn.Bind(model.OpenSaveFolder);
             model.StatusMsg.Subscribe(StatusDrain);
         }
 

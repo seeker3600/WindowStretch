@@ -16,6 +16,7 @@ namespace WindowStretch.Main
             // モデルのバインド
             scrshotSaveTxt.DataBindings.Add(Bind(nameof(scrshotSaveTxt.Text), model.SaveFolder));
             scrshotTakeAndOpenChk.DataBindings.Add(Bind(nameof(scrshotTakeAndOpenChk.Checked), model.OpenViewer));
+            exploreScrshotBtn.Bind(model.OpenSaveFolder);
             model.StatusMsg.Subscribe(StatusDrain);
 
             takeScrshotBtn.Click += (_, __) => model.SaveToSpecified.Execute();
