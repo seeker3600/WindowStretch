@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading;
 using System.Windows.Forms;
 using WindowStretch.Model;
@@ -12,7 +13,7 @@ namespace WindowStretch.Main
     public partial class MainForm : Form
     {
         /// <summary>ステータスに表示する文字列のオブザーバ</summary>
-        private IObserver<string> StatusDrain;
+        private readonly Subject<string> StatusDrain = new Subject<string>();
 
         public MainForm()
         {
@@ -69,11 +70,9 @@ namespace WindowStretch.Main
             };
 
             // ステータスラベルのバインド
-            model.StatusSink
+            StatusDrain
                 .ObserveOn(SynchronizationContext.Current)
-                .Subscribe(msg => statusLbl.Text = msg);
-
-            StatusDrain = model.StatusDrain;
+                .Subscribe(msg => functionStatusLbl.Text = msg);
 
             // モデルのバインド
             FormClosed += (_, __) => model.Dispose();

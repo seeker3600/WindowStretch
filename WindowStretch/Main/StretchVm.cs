@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using WindowStretch.Model;
 using static WindowStretch.Main.Binder;
@@ -36,15 +37,19 @@ namespace WindowStretch.Main
             allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Checked), model.Tall.AllowExcess));
             allowExcessChkT.DataBindings.Add(Bind(nameof(allowExcessChkT.Enabled), model.Tall.AllowExcessEnabled));
 
-            model.StatusMsg.Subscribe(StatusDrain);
-
             RefreshSize = model.Refresh;
             watchTimer.Tick += (_, __) => model.Tick();
             FormClosed += (_, __) => model.Dispose();
 
+            // ステータスのバインド
+            model.StatusMsg
+                .ObserveOn(SynchronizationContext.Current)
+                .Subscribe(s => stretchStatusLbl.Text = s);
+
             // WindowRectのバインド
             model.WindowRect.Value = Bounds;
             model.WindowRect
+                .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(newRect => Location = newRect.Location);
 
             LocationChanged += (_, __) =>

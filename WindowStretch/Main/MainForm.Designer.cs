@@ -65,6 +65,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.scrshotSaveTxt = new System.Windows.Forms.TextBox();
             this.selectScrshotFolderBtn = new System.Windows.Forms.Button();
+            this.exploreScrshotBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.takeScrshotBtn = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.recordSaveTxt = new System.Windows.Forms.TextBox();
             this.selectRecordFolderBtn = new System.Windows.Forms.Button();
+            this.exploreVideoBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.recordEndBtn = new System.Windows.Forms.Button();
@@ -83,10 +85,9 @@ namespace WindowStretch.Main
             this.licenseTab = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.statusLbl = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stretchStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
+            this.functionStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderSelectDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.exploreScrshotBtn = new System.Windows.Forms.Button();
-            this.exploreVideoBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -140,7 +141,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(430, 148);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(430, 146);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -348,7 +349,7 @@ namespace WindowStretch.Main
             this.mainTabs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mainTabs.Name = "mainTabs";
             this.mainTabs.SelectedIndex = 0;
-            this.mainTabs.Size = new System.Drawing.Size(444, 178);
+            this.mainTabs.Size = new System.Drawing.Size(444, 176);
             this.mainTabs.TabIndex = 3;
             // 
             // resizeTab
@@ -358,7 +359,7 @@ namespace WindowStretch.Main
             this.resizeTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.resizeTab.Name = "resizeTab";
             this.resizeTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.resizeTab.Size = new System.Drawing.Size(436, 152);
+            this.resizeTab.Size = new System.Drawing.Size(436, 150);
             this.resizeTab.TabIndex = 1;
             this.resizeTab.Text = "サイズの自動調整";
             this.resizeTab.UseVisualStyleBackColor = true;
@@ -507,6 +508,15 @@ namespace WindowStretch.Main
             this.selectScrshotFolderBtn.Text = "フォルダの選択...";
             this.selectScrshotFolderBtn.UseVisualStyleBackColor = true;
             this.selectScrshotFolderBtn.Click += new System.EventHandler(this.selectScrshotFolderBtn_Click);
+            // 
+            // exploreScrshotBtn
+            // 
+            this.exploreScrshotBtn.Location = new System.Drawing.Point(294, 28);
+            this.exploreScrshotBtn.Name = "exploreScrshotBtn";
+            this.exploreScrshotBtn.Size = new System.Drawing.Size(121, 21);
+            this.exploreScrshotBtn.TabIndex = 3;
+            this.exploreScrshotBtn.Text = "エクスプローラで開く...";
+            this.exploreScrshotBtn.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -659,6 +669,15 @@ namespace WindowStretch.Main
             this.selectRecordFolderBtn.UseVisualStyleBackColor = true;
             this.selectRecordFolderBtn.Click += new System.EventHandler(this.selectRecordFolderBtn_Click);
             // 
+            // exploreVideoBtn
+            // 
+            this.exploreVideoBtn.Location = new System.Drawing.Point(294, 28);
+            this.exploreVideoBtn.Name = "exploreVideoBtn";
+            this.exploreVideoBtn.Size = new System.Drawing.Size(121, 21);
+            this.exploreVideoBtn.TabIndex = 3;
+            this.exploreVideoBtn.Text = "エクスプローラで開く...";
+            this.exploreVideoBtn.UseVisualStyleBackColor = true;
+            // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -742,42 +761,36 @@ namespace WindowStretch.Main
             // statusBar
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLbl});
-            this.statusBar.Location = new System.Drawing.Point(0, 178);
+            this.stretchStatusLbl,
+            this.functionStatusLbl});
+            this.statusBar.Location = new System.Drawing.Point(0, 176);
             this.statusBar.Name = "statusBar";
             this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
-            this.statusBar.Size = new System.Drawing.Size(444, 22);
+            this.statusBar.Size = new System.Drawing.Size(444, 24);
             this.statusBar.SizingGrip = false;
             this.statusBar.TabIndex = 4;
             this.statusBar.Text = "sss";
             // 
-            // statusLbl
+            // stretchStatusLbl
             // 
-            this.statusLbl.Name = "statusLbl";
-            this.statusLbl.Size = new System.Drawing.Size(51, 17);
-            this.statusLbl.Text = "ステータス";
+            this.stretchStatusLbl.AutoSize = false;
+            this.stretchStatusLbl.Name = "stretchStatusLbl";
+            this.stretchStatusLbl.Size = new System.Drawing.Size(220, 19);
+            this.stretchStatusLbl.Text = "ステータス";
+            this.stretchStatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // functionStatusLbl
+            // 
+            this.functionStatusLbl.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.functionStatusLbl.Name = "functionStatusLbl";
+            this.functionStatusLbl.Size = new System.Drawing.Size(180, 19);
+            this.functionStatusLbl.Spring = true;
+            this.functionStatusLbl.Text = "ステータス";
+            this.functionStatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // folderSelectDlg
             // 
             this.folderSelectDlg.Description = "保存するフォルダを指定してください。";
-            // 
-            // exploreScrshotBtn
-            // 
-            this.exploreScrshotBtn.Location = new System.Drawing.Point(294, 28);
-            this.exploreScrshotBtn.Name = "exploreScrshotBtn";
-            this.exploreScrshotBtn.Size = new System.Drawing.Size(121, 21);
-            this.exploreScrshotBtn.TabIndex = 3;
-            this.exploreScrshotBtn.Text = "エクスプローラで開く...";
-            this.exploreScrshotBtn.UseVisualStyleBackColor = true;
-            // 
-            // exploreVideoBtn
-            // 
-            this.exploreVideoBtn.Location = new System.Drawing.Point(294, 28);
-            this.exploreVideoBtn.Name = "exploreVideoBtn";
-            this.exploreVideoBtn.Size = new System.Drawing.Size(121, 21);
-            this.exploreVideoBtn.TabIndex = 3;
-            this.exploreVideoBtn.Text = "エクスプローラで開く...";
-            this.exploreVideoBtn.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -860,7 +873,7 @@ namespace WindowStretch.Main
         private System.Windows.Forms.TabPage startTab;
         private System.Windows.Forms.TabPage resizeTab;
         private System.Windows.Forms.StatusStrip statusBar;
-        private System.Windows.Forms.ToolStripStatusLabel statusLbl;
+        private System.Windows.Forms.ToolStripStatusLabel stretchStatusLbl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TextBox appUriTxt;
         private System.Windows.Forms.CheckBox startWithMeChk;
@@ -897,6 +910,7 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Button recordStartBtn;
         private System.Windows.Forms.Button exploreScrshotBtn;
         private System.Windows.Forms.Button exploreVideoBtn;
+        private System.Windows.Forms.ToolStripStatusLabel functionStatusLbl;
     }
 }
 
