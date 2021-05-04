@@ -16,10 +16,18 @@ namespace WindowStretch.Model
 {
     public class RecordModel : IDisposable
     {
+        private enum ModelState
+        {
+            Ready,
+            Starting,
+            Recording,
+            Stopping
+        }
+
         public ReactiveProperty<string> SaveFolder { get; } =
             Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.RecordSaveFolder);
 
-        private readonly Subject<bool> Recording = new Subject<bool>();
+        private readonly Subject<ModelState> State = new Subject<ModelState>();
 
         public ReactiveCommand StartRecord { get; }
 
@@ -31,9 +39,9 @@ namespace WindowStretch.Model
 
         public RecordModel()
         {
-            StartRecord = Recording.Select(b => !b).ToReactiveCommand();
-            EndRecord = Recording.ToReactiveCommand();
-            Recording.OnNext(false);
+            StartRecord = State.Select(s => s == ModelState.Ready).ToReactiveCommand();
+            EndRecord = State.Select(s => s == ModelState.Recording).ToReactiveCommand();
+            State.OnNext(ModelState.Ready);
 
             StartRecord
                 .ObserveOn(TaskPoolScheduler.Default)
@@ -45,67 +53,68 @@ namespace WindowStretch.Model
 
         private async Task<string> DoRecord()
         {
-            Status.OnNext("準備しています...");
-
-            var hwnd = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
-            var volume = GetVolume();
-
-            using (var recorder = Recorder.CreateRecorder(new RecorderOptions()
+            try
             {
-                RecorderMode = RecorderMode.Video,
-                IsHardwareEncodingEnabled = true,
-                IsThrottlingDisabled = false,
-                IsLowLatencyEnabled = false,
-                IsMp4FastStartEnabled = false,
-                DisplayOptions = new DisplayOptions
+                State.OnNext(ModelState.Starting);
+                Status.OnNext("準備しています...");
+
+                var hwnd = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
+                var volume = GetVolume();
+
+                using (var recorder = Recorder.CreateRecorder(new RecorderOptions()
                 {
-                    WindowHandle = hwnd,
-                },
-                RecorderApi = RecorderApi.WindowsGraphicsCapture,
-                AudioOptions = new AudioOptions
-                {
-                    IsAudioEnabled = true,
-                    Channels = AudioChannels.Stereo,
-                    Bitrate = AudioBitrate.bitrate_128kbps,
-                    IsInputDeviceEnabled = false,
-                    InputVolume = 0.0f,
-                    OutputVolume = 1.0f / volume * 2,
-                },
-                VideoOptions = new VideoOptions
-                {
-                    BitrateMode = BitrateControlMode.UnconstrainedVBR,
-                    Bitrate = 8 * 1000 * 1000,
-                    Framerate = 60,
-                    IsFixedFramerate = false,
-                    EncoderProfile = H264Profile.Main
-                },
-                MouseOptions = new MouseOptions
-                {
-                    IsMouseClicksDetected = false,
-                    IsMousePointerEnabled = false,
-                },
-            }))
-            {
-                try
+                    RecorderMode = RecorderMode.Video,
+                    IsHardwareEncodingEnabled = true,
+                    IsThrottlingDisabled = false,
+                    IsLowLatencyEnabled = false,
+                    IsMp4FastStartEnabled = false,
+                    DisplayOptions = new DisplayOptions
+                    {
+                        WindowHandle = hwnd,
+                    },
+                    RecorderApi = RecorderApi.WindowsGraphicsCapture,
+                    AudioOptions = new AudioOptions
+                    {
+                        IsAudioEnabled = true,
+                        Channels = AudioChannels.Stereo,
+                        Bitrate = AudioBitrate.bitrate_128kbps,
+                        IsInputDeviceEnabled = false,
+                        InputVolume = 0.0f,
+                        OutputVolume = 1.0f / volume * 2,
+                    },
+                    VideoOptions = new VideoOptions
+                    {
+                        BitrateMode = BitrateControlMode.UnconstrainedVBR,
+                        Bitrate = 4 * 1000 * 1000,
+                        Framerate = 60,
+                        IsFixedFramerate = false,
+                        EncoderProfile = H264Profile.Main
+                    },
+                    MouseOptions = new MouseOptions
+                    {
+                        IsMouseClicksDetected = false,
+                        IsMousePointerEnabled = false,
+                    },
+                }))
                 {
                     var filename = Path.Combine(SaveFolder.Value, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.mp4");
 
                     recorder.Record(filename);
-                    Recording.OnNext(true);
+                    State.OnNext(ModelState.Recording);
                     Status.OnNext("録画を開始しました。");
 
                     await EndRecord;
 
+                    State.OnNext(ModelState.Stopping);
                     recorder.Stop();
-                    Recording.OnNext(false);
                     Status.OnNext("録画を終了しました。");
 
                     return filename;
                 }
-                finally
-                {
-                    Recording.OnNext(false);
-                }
+            }
+            finally
+            {
+                State.OnNext(ModelState.Ready);
             }
         }
 
