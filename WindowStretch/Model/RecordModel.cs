@@ -65,7 +65,7 @@ namespace WindowStretch.Model
                 {
                     RecorderMode = RecorderMode.Video,
                     IsHardwareEncodingEnabled = true,
-                    IsThrottlingDisabled = false,
+                    IsThrottlingDisabled = true,
                     IsLowLatencyEnabled = false,
                     IsMp4FastStartEnabled = false,
                     DisplayOptions = new DisplayOptions
@@ -86,9 +86,9 @@ namespace WindowStretch.Model
                     {
                         BitrateMode = BitrateControlMode.UnconstrainedVBR,
                         Bitrate = 4 * 1000 * 1000,
-                        Framerate = 60,
+                        Framerate = 120,
                         IsFixedFramerate = false,
-                        EncoderProfile = H264Profile.Main
+                        EncoderProfile = H264Profile.High
                     },
                     MouseOptions = new MouseOptions
                     {
