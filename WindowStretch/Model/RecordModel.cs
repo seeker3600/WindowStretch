@@ -88,13 +88,13 @@ namespace WindowStretch.Model
                         Bitrate = AudioBitrate.bitrate_128kbps,
                         IsInputDeviceEnabled = false,
                         InputVolume = 0.0f,
-                        OutputVolume = 1.0f / volume * 2,
+                        OutputVolume = 1.0f / volume * 3, // TODO x3ってなんだよ
                     },
                     VideoOptions = new VideoOptions
                     {
                         BitrateMode = BitrateControlMode.UnconstrainedVBR,
                         Bitrate = 4 * 1000 * 1000,
-                        Framerate = 120,
+                        Framerate = 120, // TODO これより下げるとコマ落ちする、なんでだ
                         IsFixedFramerate = false,
                         EncoderProfile = H264Profile.High
                     },
