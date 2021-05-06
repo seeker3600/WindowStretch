@@ -51,6 +51,8 @@ namespace WindowStretch.Model
 
                     if (BeforeSize != size)
                     {
+                        StretchUtils.ResetAlwaysTop(hwnd);
+
                         var ptnVm = size.Width >= size.Height ? Wide : Tall;
                         var stretched = StretchUtils.Stretch(hwnd, ptnVm.ToPattern());
                         BeforeSize = stretched == Size.Empty ? size : stretched;

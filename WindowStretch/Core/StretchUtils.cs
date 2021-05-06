@@ -10,6 +10,18 @@ namespace WindowStretch.Core
     public static class StretchUtils
     {
         /// <summary>
+        /// 指定されたウィンドウの最前面表示を取り消す。すでに最前面表示出ない場合は何も起こらない。
+        /// </summary>
+        public static void ResetAlwaysTop(HWND hwnd)
+        {
+            var hwndTop = Constants.HWND_NOTOPMOST;
+            var flags = SetWindowPos_uFlags.SWP_NOMOVE | SetWindowPos_uFlags.SWP_NOSIZE;
+
+            if (!PInvoke.SetWindowPos(hwnd, hwndTop, 0, 0, 0, 0, flags))
+                throw new InvalidOperationException(nameof(PInvoke.SetWindowPos));
+        }
+
+        /// <summary>
         /// 指定されたウィンドウを、パターンに従ってサイズ変更する。
         /// </summary>
         /// <returns>
