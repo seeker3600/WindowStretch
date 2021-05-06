@@ -40,22 +40,12 @@ namespace WindowStretch.Main
             RefreshSize = model.Refresh;
             watchTimer.Tick += (_, __) => model.Tick();
             FormClosed += (_, __) => model.Dispose();
+            model.StatusMsg.Subscribe(_ => TargetResized.Execute());
 
             // ステータスのバインド
             model.StatusMsg
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(s => stretchStatusLbl.Text = s);
-
-            // WindowRectのバインド
-            model.WindowRect.Value = Bounds;
-            model.WindowRect
-                .ObserveOn(SynchronizationContext.Current)
-                .Subscribe(newRect => Location = newRect.Location);
-
-            LocationChanged += (_, __) =>
-            {
-                if (WindowState != FormWindowState.Minimized) model.WindowRect.Value = Bounds;
-            };
         }
 
         private Action RefreshSize;

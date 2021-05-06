@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Reactive.Bindings;
+using System;
+using System.Drawing;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
@@ -73,6 +75,17 @@ namespace WindowStretch.Main
             StatusDrain
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(msg => functionStatusLbl.Text = msg);
+
+            // Locationのバインド
+            model.NonOverlapPosition
+                .ObserveOn(SynchronizationContext.Current)
+                .Subscribe(newLoc => Location = newLoc);
+
+            ResizeEnd += (_, __) =>
+            {
+                if (WindowState != FormWindowState.Minimized) // && model.CheckAndMoveToolWnd.CanExecute()
+                    model.CheckAndMoveToolWnd.Execute(Bounds);
+            };
 
             // モデルのバインド
             FormClosed += (_, __) => model.Dispose();

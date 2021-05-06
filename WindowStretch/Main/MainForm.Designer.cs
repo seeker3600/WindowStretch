@@ -371,7 +371,7 @@ namespace WindowStretch.Main
             this.startTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.startTab.Name = "startTab";
             this.startTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.startTab.Size = new System.Drawing.Size(436, 152);
+            this.startTab.Size = new System.Drawing.Size(436, 150);
             this.startTab.TabIndex = 0;
             this.startTab.Text = "対象アプリの起動";
             this.startTab.UseVisualStyleBackColor = true;
@@ -433,7 +433,7 @@ namespace WindowStretch.Main
             this.screenshotTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.screenshotTab.Name = "screenshotTab";
             this.screenshotTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.screenshotTab.Size = new System.Drawing.Size(436, 152);
+            this.screenshotTab.Size = new System.Drawing.Size(436, 150);
             this.screenshotTab.TabIndex = 2;
             this.screenshotTab.Text = "スクリーンショット";
             this.screenshotTab.UseVisualStyleBackColor = true;
@@ -451,7 +451,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel7.RowCount = 2;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(430, 148);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(430, 146);
             this.tableLayoutPanel7.TabIndex = 4;
             // 
             // groupBox2
@@ -593,7 +593,7 @@ namespace WindowStretch.Main
             this.recordTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.recordTab.Name = "recordTab";
             this.recordTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.recordTab.Size = new System.Drawing.Size(436, 152);
+            this.recordTab.Size = new System.Drawing.Size(436, 150);
             this.recordTab.TabIndex = 4;
             this.recordTab.Text = "録画";
             this.recordTab.UseVisualStyleBackColor = true;
@@ -611,7 +611,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel8.RowCount = 2;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(430, 148);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(430, 146);
             this.tableLayoutPanel8.TabIndex = 5;
             // 
             // groupBox3
@@ -740,7 +740,7 @@ namespace WindowStretch.Main
             this.licenseTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.licenseTab.Name = "licenseTab";
             this.licenseTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.licenseTab.Size = new System.Drawing.Size(436, 152);
+            this.licenseTab.Size = new System.Drawing.Size(436, 150);
             this.licenseTab.TabIndex = 3;
             this.licenseTab.Text = "ライセンス";
             this.licenseTab.UseVisualStyleBackColor = true;
@@ -753,7 +753,7 @@ namespace WindowStretch.Main
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(430, 148);
+            this.textBox1.Size = new System.Drawing.Size(430, 146);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.WordWrap = false;
@@ -783,7 +783,7 @@ namespace WindowStretch.Main
             // 
             this.functionStatusLbl.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.functionStatusLbl.Name = "functionStatusLbl";
-            this.functionStatusLbl.Size = new System.Drawing.Size(180, 19);
+            this.functionStatusLbl.Size = new System.Drawing.Size(211, 19);
             this.functionStatusLbl.Spring = true;
             this.functionStatusLbl.Text = "ステータス";
             this.functionStatusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

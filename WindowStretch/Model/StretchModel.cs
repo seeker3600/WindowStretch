@@ -26,8 +26,6 @@ namespace WindowStretch.Model
 
         private readonly Subject<string> Status = new Subject<string>();
 
-        public ReactivePropertySlim<Rectangle> WindowRect { get; } = new ReactivePropertySlim<Rectangle>();
-
         private Size? BeforeSize = null;
 
         public void Refresh() => BeforeSize = null;
@@ -61,8 +59,6 @@ namespace WindowStretch.Model
                     }
                     else
                         Status.OnNext($"アプリ {procName} を監視しています。");
-
-                    WindowRect.Value = OverlapUtils.GetNonOverlap(hwnd, WindowRect.Value);
                 }
                 catch (Exception)
                 {
