@@ -40,7 +40,6 @@ namespace WindowStretch.Main
             RefreshSize = model.Refresh;
             watchTimer.Tick += (_, __) => model.Tick();
             FormClosed += (_, __) => model.Dispose();
-            model.StatusMsg.Subscribe(_ => TargetResized.Execute());
 
             // ステータスのバインド
             model.StatusMsg
