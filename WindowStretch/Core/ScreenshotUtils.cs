@@ -17,7 +17,7 @@ namespace WindowStretch.Core
         /// <returns>保存したスクリーンショット。フルパス</returns>
         public static string Take(string foldername)
         {
-            var hwnd = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
+            var hwnd = TargetAppUtils.GetHwnd() ?? throw new InvalidOperationException();
 
             var bmp = CaptureScreenshot(hwnd);
             var filename = Path.Combine(foldername, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.png");

@@ -5,7 +5,7 @@ using Microsoft.Windows.Sdk;
 
 namespace WindowStretch.Core
 {
-    public static class WindowUtils
+    public static class TargetAppUtils
     {
 
         /// <summary>処理の対象になるアプリのプロセス名。</summary>

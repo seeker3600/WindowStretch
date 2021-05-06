@@ -66,7 +66,7 @@ namespace WindowStretch.Model
                 State.OnNext(ModelState.Starting);
                 Status.OnNext("準備しています...");
 
-                var hwnd = WindowUtils.GetHwnd() ?? throw new InvalidOperationException();
+                var hwnd = TargetAppUtils.GetHwnd() ?? throw new InvalidOperationException();
                 var volume = GetVolume();
 
                 using (var recorder = Recorder.CreateRecorder(new RecorderOptions()
