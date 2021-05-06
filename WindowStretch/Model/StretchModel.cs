@@ -40,8 +40,8 @@ namespace WindowStretch.Model
                 return;
             }
 
-            var procName = WindowUtils.ProcessName;
-            var hwndN = WindowUtils.GetHwnd();
+            var procName = TargetAppUtils.ProcessName;
+            var hwndN = TargetAppUtils.GetHwnd();
 
             if (hwndN is HWND hwnd)
             {
