@@ -3,6 +3,7 @@ GetClientRect
 SetWindowPos
 ClientToScreen
 SetForegroundWindow
+GetWindowInfo
 HWND_BOTTOM
 HWND_NOTOPMOST
 HWND_TOP
