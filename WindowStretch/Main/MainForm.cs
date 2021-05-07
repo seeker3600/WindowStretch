@@ -81,11 +81,10 @@ namespace WindowStretch.Main
                 .ObserveOn(SynchronizationContext.Current)
                 .Subscribe(newLoc => Location = newLoc);
 
-            ResizeEnd += (_, __) =>
-            {
-                if (WindowState != FormWindowState.Minimized) // && model.CheckAndMoveToolWnd.CanExecute()
-                    model.CheckAndMoveToolWnd.Execute(Bounds);
-            };
+            model.ReMoveWhenToolResized.Execute(Bounds);
+
+            ResizeEnd += (_, __) => model.ReMoveWhenToolResized.Execute(Bounds);
+            watchTimer.Tick += (_, __) => model.ReMoveWhenToolResized.Execute(Rectangle.Empty);
 
             // モデルのバインド
             FormClosed += (_, __) => model.Dispose();

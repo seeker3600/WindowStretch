@@ -12,6 +12,7 @@ using WindowStretch.Properties;
 namespace WindowStretch.Model
 {
     using static FormWindowState;
+    using static ReactivePropertyMode;
 
     public class WindowCtlModel : IDisposable
     {
@@ -20,7 +21,7 @@ namespace WindowStretch.Model
 
         public ReadOnlyReactivePropertySlim<bool> WindowVisible { get; }
 
-        public ReactiveCommand<Rectangle> CheckAndMoveToolWnd { get; }
+        public ReactiveCommand<Rectangle> ReMoveWhenToolResized { get; } = new ReactiveCommand<Rectangle>();
 
         public ReadOnlyReactivePropertySlim<Point> NonOverlapPosition { get; }
 
@@ -30,18 +31,23 @@ namespace WindowStretch.Model
                 .Select(state => state != Minimized)
                 .ToReadOnlyReactivePropertySlim();
 
-            CheckAndMoveToolWnd =
-                WindowVisible.ToReactiveCommand<Rectangle>();
-
-            NonOverlapPosition = CheckAndMoveToolWnd
+            NonOverlapPosition = ReMoveWhenToolResized
+                .Where(ValidTrigger)
                 .Merge(WindowVisible.Where(v => v).Select(_ => Rectangle.Empty))
                 .Scan(Rectangle.Empty, SelectLastNonEmpty)
-                .Where(r => !r.IsEmpty && r.Location != NonOverlapPosition.Value)
                 .Select(MoveToNonOverlapPosition)
                 .Where(p => p.HasValue)
                 .Select(p => p.Value)
-                .ToReadOnlyReactivePropertySlim(
-                    mode: ReactivePropertyMode.DistinctUntilChanged | ReactivePropertyMode.IgnoreException);
+                .ToReadOnlyReactivePropertySlim(mode: DistinctUntilChanged | IgnoreException);
+        }
+
+        private bool ValidTrigger(Rectangle r)
+        {
+            if (!WindowVisible.Value) return false;
+            if (!r.IsEmpty && NonOverlapPosition.Value == r.Location) return false;
+            if (Control.MouseButtons.HasFlag(MouseButtons.Left)) return false;
+
+            return true;
         }
 
         private Rectangle SelectLastNonEmpty(Rectangle acc, Rectangle r)
@@ -54,6 +60,8 @@ namespace WindowStretch.Model
         {
             try
             {
+                if (now.IsEmpty) return null;
+
                 var hwndN = TargetAppUtils.GetHwnd();
                 if (!(hwndN is HWND hwnd)) return null;
 
