@@ -54,6 +54,8 @@ namespace WindowStretch.Main
                         Visible = true;
                         WindowState = FormWindowState.Normal;
                         Activate();
+
+                        model.WindowViewed.Execute(Bounds);
                     }
                     else
                     {
@@ -77,14 +79,12 @@ namespace WindowStretch.Main
                 .Subscribe(msg => functionStatusLbl.Text = msg);
 
             // Locationのバインド
-            model.NonOverlapPosition
+            model.NonOverlapLocation
                 .ObserveOn(SynchronizationContext.Current)
-                .Subscribe(newLoc => Location = newLoc);
+                .Subscribe(newLoc => Location = newLoc.Location);
 
-            model.ReMoveWhenToolResized.Execute(Bounds);
-
-            ResizeEnd += (_, __) => model.ReMoveWhenToolResized.Execute(Bounds);
-            watchTimer.Tick += (_, __) => model.ReMoveWhenToolResized.Execute(Rectangle.Empty);
+            ResizeEnd += (_, __) => model.WindowResized.Execute(Bounds);
+            watchTimer.Tick += (_, __) => model.TimerTick.Execute(Bounds);
 
             // モデルのバインド
             FormClosed += (_, __) => model.Dispose();

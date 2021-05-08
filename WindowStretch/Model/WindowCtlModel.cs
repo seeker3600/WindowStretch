@@ -21,9 +21,13 @@ namespace WindowStretch.Model
 
         public ReadOnlyReactivePropertySlim<bool> WindowVisible { get; }
 
-        public ReactiveCommand<Rectangle> ReMoveWhenToolResized { get; } = new ReactiveCommand<Rectangle>();
+        public ReactiveCommand<Rectangle> WindowViewed { get; } = new ReactiveCommand<Rectangle>();
 
-        public ReadOnlyReactivePropertySlim<Point> NonOverlapPosition { get; }
+        public ReactiveCommand<Rectangle> WindowResized { get; } = new ReactiveCommand<Rectangle>();
+
+        public ReactiveCommand<Rectangle> TimerTick { get; } = new ReactiveCommand<Rectangle>();
+
+        public ReadOnlyReactivePropertySlim<Rectangle> NonOverlapLocation { get; }
 
         public WindowCtlModel()
         {
@@ -31,32 +35,29 @@ namespace WindowStretch.Model
                 .Select(state => state != Minimized)
                 .ToReadOnlyReactivePropertySlim();
 
-            NonOverlapPosition = ReMoveWhenToolResized
-                .Where(ValidTrigger)
-                .Merge(WindowVisible.Where(v => v).Select(_ => Rectangle.Empty))
-                .Scan(Rectangle.Empty, SelectLastNonEmpty)
+            var a = WindowViewed.Where(r => ValidTrigger(r, true, true));
+            var b = WindowResized.Where(r => ValidTrigger(r, false, false));
+            var c = TimerTick.Where(r => ValidTrigger(r, false, true));
+
+            NonOverlapLocation = Observable
+                .Merge(a, b, c)
                 .Select(MoveToNonOverlapPosition)
                 .Where(p => p.HasValue)
                 .Select(p => p.Value)
                 .ToReadOnlyReactivePropertySlim(mode: DistinctUntilChanged | IgnoreException);
         }
 
-        private bool ValidTrigger(Rectangle r)
+        private bool ValidTrigger(Rectangle r, bool ignoreMouse, bool ignoreLastLoc)
         {
+            if (r.IsEmpty) return false;
             if (!WindowVisible.Value) return false;
-            if (!r.IsEmpty && NonOverlapPosition.Value == r.Location) return false;
-            if (Control.MouseButtons.HasFlag(MouseButtons.Left)) return false;
+            if (!ignoreMouse && Control.MouseButtons.HasFlag(MouseButtons.Left)) return false;
+            if (!ignoreLastLoc && NonOverlapLocation.Value == r) return false;
 
             return true;
         }
 
-        private Rectangle SelectLastNonEmpty(Rectangle acc, Rectangle r)
-        {
-            if (acc.IsEmpty) return r;
-            return r.IsEmpty ? acc : r;
-        }
-
-        private Point? MoveToNonOverlapPosition(Rectangle now)
+        private Rectangle? MoveToNonOverlapPosition(Rectangle now)
         {
             try
             {
@@ -65,7 +66,7 @@ namespace WindowStretch.Model
                 var hwndN = TargetAppUtils.GetHwnd();
                 if (!(hwndN is HWND hwnd)) return null;
 
-                return OverlapUtils.GetNonOverlap(hwnd, now).Location;
+                return OverlapUtils.GetNonOverlap(hwnd, now);
             }
             catch (Exception)
             {
