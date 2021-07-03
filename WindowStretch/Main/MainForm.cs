@@ -1,6 +1,4 @@
-﻿using Reactive.Bindings;
-using System;
-using System.Drawing;
+﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
@@ -45,32 +43,39 @@ namespace WindowStretch.Main
             var model = new WindowCtlModel();
 
             // WindowState, Visible のバインド
-            model.WindowVisible
-                .ObserveOn(SynchronizationContext.Current)
-                .Subscribe(visible =>
-                {
-                    if (visible)
-                    {
-                        Visible = true;
-                        WindowState = FormWindowState.Normal;
-                        Activate();
-
-                        model.WindowViewed.Execute(Bounds);
-                    }
-                    else
-                    {
-                        WindowState = FormWindowState.Minimized;
-                        Visible = false;
-                    }
-                });
-
-            Resize += (_, __) => model.WindowState.Value = WindowState;
-            showToolMitem.Click += (_, __) => model.WindowState.Value = FormWindowState.Normal;
-
-            notifyIcon1.MouseClick += (_, e) =>
+            Shown += (___, _____) =>
             {
-                if (e.Button.HasFlag(MouseButtons.Left))
-                    model.WindowState.Value = FormWindowState.Normal;
+                model.WindowVisible
+                    .ObserveOn(SynchronizationContext.Current)
+                    .Subscribe(visible =>
+                    {
+                        if (visible)
+                        {
+                            Visible = true;
+                            WindowState = FormWindowState.Normal;
+
+                            Activate();
+                            BringToFront();
+
+                            model.WindowViewed.Execute(Bounds);
+                        }
+                        else
+                        {
+                            WindowState = FormWindowState.Minimized;
+                            Visible = false;
+                        }
+                    });
+
+                model.WindowState.ForceNotify();
+
+                Resize += (_, __) => model.WindowState.Value = WindowState;
+                showToolMitem.Click += (_, __) => model.WindowState.Value = FormWindowState.Normal;
+
+                notifyIcon1.MouseClick += (_, e) =>
+                {
+                    if (e.Button.HasFlag(MouseButtons.Left))
+                        model.WindowState.Value = FormWindowState.Normal;
+                };
             };
 
             // ステータスラベルのバインド
