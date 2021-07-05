@@ -12,7 +12,7 @@ namespace WindowStretch.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -176,6 +176,44 @@ namespace WindowStretch.Properties {
             }
             set {
                 this["RecordSaveFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ScaleEnabled {
+            get {
+                return ((bool)(this["ScaleEnabled"]));
+            }
+            set {
+                this["ScaleEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<RectangleF xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <Location>
+    <X>0.3075</X>
+    <Y>0.111</Y>
+  </Location>
+  <Size>
+    <Width>0.4054</Width>
+    <Height>0.031</Height>
+  </Size>
+  <X>0.3075</X>
+  <Y>0.111</Y>
+  <Width>0.4054</Width>
+  <Height>0.031</Height>
+</RectangleF>")]
+        public global::System.Drawing.RectangleF ScaleRect {
+            get {
+                return ((global::System.Drawing.RectangleF)(this["ScaleRect"]));
+            }
+            set {
+                this["ScaleRect"] = value;
             }
         }
     }

@@ -88,6 +88,8 @@ namespace WindowStretch.Main
             this.stretchStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.functionStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderSelectDlg = new System.Windows.Forms.FolderBrowserDialog();
+            this.scaleTab = new System.Windows.Forms.TabPage();
+            this.scaleEnableChk = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -111,6 +113,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel10.SuspendLayout();
             this.licenseTab.SuspendLayout();
             this.statusBar.SuspendLayout();
+            this.scaleTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateBtn
@@ -343,6 +346,7 @@ namespace WindowStretch.Main
             this.mainTabs.Controls.Add(this.startTab);
             this.mainTabs.Controls.Add(this.screenshotTab);
             this.mainTabs.Controls.Add(this.recordTab);
+            this.mainTabs.Controls.Add(this.scaleTab);
             this.mainTabs.Controls.Add(this.licenseTab);
             this.mainTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabs.Location = new System.Drawing.Point(0, 0);
@@ -792,6 +796,27 @@ namespace WindowStretch.Main
             // 
             this.folderSelectDlg.Description = "保存するフォルダを指定してください。";
             // 
+            // scaleTab
+            // 
+            this.scaleTab.Controls.Add(this.scaleEnableChk);
+            this.scaleTab.Location = new System.Drawing.Point(4, 22);
+            this.scaleTab.Name = "scaleTab";
+            this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
+            this.scaleTab.Size = new System.Drawing.Size(436, 150);
+            this.scaleTab.TabIndex = 5;
+            this.scaleTab.Text = "目盛り";
+            this.scaleTab.UseVisualStyleBackColor = true;
+            // 
+            // scaleEnableChk
+            // 
+            this.scaleEnableChk.AutoSize = true;
+            this.scaleEnableChk.Location = new System.Drawing.Point(6, 6);
+            this.scaleEnableChk.Name = "scaleEnableChk";
+            this.scaleEnableChk.Size = new System.Drawing.Size(108, 16);
+            this.scaleEnableChk.TabIndex = 0;
+            this.scaleEnableChk.Text = "目盛りを表示する";
+            this.scaleEnableChk.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -848,6 +873,8 @@ namespace WindowStretch.Main
             this.licenseTab.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
+            this.scaleTab.ResumeLayout(false);
+            this.scaleTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -911,6 +938,8 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Button exploreScrshotBtn;
         private System.Windows.Forms.Button exploreVideoBtn;
         private System.Windows.Forms.ToolStripStatusLabel functionStatusLbl;
+        private System.Windows.Forms.TabPage scaleTab;
+        private System.Windows.Forms.CheckBox scaleEnableChk;
     }
 }
 

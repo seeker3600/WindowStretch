@@ -41,5 +41,25 @@
     <Setting Name="RecordSaveFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ScaleEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ScaleRect" Type="System.Drawing.RectangleF" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;RectangleF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Location&gt;
+    &lt;X&gt;0.3075&lt;/X&gt;
+    &lt;Y&gt;0.111&lt;/Y&gt;
+  &lt;/Location&gt;
+  &lt;Size&gt;
+    &lt;Width&gt;0.4054&lt;/Width&gt;
+    &lt;Height&gt;0.031&lt;/Height&gt;
+  &lt;/Size&gt;
+  &lt;X&gt;0.3075&lt;/X&gt;
+  &lt;Y&gt;0.111&lt;/Y&gt;
+  &lt;Width&gt;0.4054&lt;/Width&gt;
+  &lt;Height&gt;0.031&lt;/Height&gt;
+&lt;/RectangleF&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

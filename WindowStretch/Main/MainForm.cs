@@ -36,6 +36,9 @@ namespace WindowStretch.Main
 
             // 録画タブのバインド
             SetupRecordModel();
+
+            // 目盛りタブのバインド
+            SetupScaleOverlayModel();
         }
 
         private void SetupMainForm()
