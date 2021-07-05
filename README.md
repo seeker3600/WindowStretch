@@ -3,7 +3,7 @@
 
 ## インストール
 
-[こちら](https://github.com/seeker3600/WindowStretch/releases/download/v0.7.0/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
+[こちら](https://github.com/seeker3600/WindowStretch/releases/download/v0.8.0/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
 
 * Windows8.1、または 10 の古いバージョンをご利用の方は、 [.net framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-web-installer) をインストールする必要があります。
 * Windows 10 April 2018 Update (1803) より前のバージョンをご利用の場合、録画機能は使用できません。
@@ -52,6 +52,14 @@
 	* 「エクスプローラで開く」ボタンを押して、フォルダが開けるか確認できます。
 * 録画中の音はすべて録音されます。ほかのソフトが音を出さないか注意してください。
 
+### 「目盛り」タブ
+
+![scale](img/scale.png)
+
+* チェックを入れると、育成の体力ゲージの位置に目盛りを表示します。
+* ゲームで何をしているかに関係なく「表示するだけ」なので注意してください。
+	![scale_enabled](img/scale_enabled.png)
+
 
 ## 対応環境
 
@@ -60,7 +68,7 @@ Windows 10 Pro バージョン 2004 (x64) で動作を確認しています。
 
 ## TODO
 * [x] ツールを最小化しても非表示にならないことがある
-* [ ] 体力目盛り
+* [x] 体力目盛り
 * [ ] 録画のフレームレートを落としたい
 * [ ] ミュート
 * [x] ツールをトレイから出したら前面に出す
@@ -72,4 +80,4 @@ Windows 10 Pro バージョン 2004 (x64) で動作を確認しています。
 イシューやプルリク、 @seeker7200 (twitter) へどうぞ。
 
 ## ライセンス
-本ツールは暫定MITとします。関連ライブラリ等のライセンス整理は進行中です。
+MIT
