@@ -57,8 +57,9 @@ namespace WindowStretch.Main
                             Visible = true;
                             WindowState = FormWindowState.Normal;
 
+                            TopMost = true;
                             Activate();
-                            BringToFront();
+                            TopMost = false;
 
                             model.WindowViewed.Execute(Bounds);
                         }
