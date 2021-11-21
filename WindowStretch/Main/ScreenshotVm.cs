@@ -19,7 +19,10 @@ namespace WindowStretch.Main
             exploreScrshotBtn.Bind(model.OpenSaveFolder);
             model.StatusMsg.Subscribe(StatusDrain);
 
-            takeScrshotBtn.Click += (_, __) => model.SaveToSpecified.Execute();
+            takeScrshotBtn.Bind(model.SaveToSpecified);
+            startRollshotBtn.Bind(model.StartRollshot);
+            endRollshotBtn.Bind(model.EndRollshot);
+
             scrshotDragLbl.MouseDown += (_, e) => model.DragAreaMouseMove.Execute(e);
             FormClosed += (_, __) => model.Dispose();
 

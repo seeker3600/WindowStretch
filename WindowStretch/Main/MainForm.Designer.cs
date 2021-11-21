@@ -68,9 +68,11 @@ namespace WindowStretch.Main
             this.exploreScrshotBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.takeScrshotBtn = new System.Windows.Forms.Button();
             this.scrshotDragLbl = new System.Windows.Forms.Label();
             this.scrshotTakeAndOpenChk = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.takeScrshotBtn = new System.Windows.Forms.Button();
+            this.startRollshotBtn = new System.Windows.Forms.Button();
             this.recordTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -82,14 +84,15 @@ namespace WindowStretch.Main
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.recordEndBtn = new System.Windows.Forms.Button();
             this.recordStartBtn = new System.Windows.Forms.Button();
+            this.scaleTab = new System.Windows.Forms.TabPage();
+            this.scaleEnableChk = new System.Windows.Forms.CheckBox();
             this.licenseTab = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.stretchStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.functionStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderSelectDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.scaleTab = new System.Windows.Forms.TabPage();
-            this.scaleEnableChk = new System.Windows.Forms.CheckBox();
+            this.endRollshotBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -105,15 +108,16 @@ namespace WindowStretch.Main
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.recordTab.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
+            this.scaleTab.SuspendLayout();
             this.licenseTab.SuspendLayout();
             this.statusBar.SuspendLayout();
-            this.scaleTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // updateBtn
@@ -532,7 +536,7 @@ namespace WindowStretch.Main
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(424, 62);
+            this.groupBox1.Size = new System.Drawing.Size(424, 70);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "操作";
@@ -541,11 +545,11 @@ namespace WindowStretch.Main
             // 
             this.tableLayoutPanel6.AutoSize = true;
             this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.Controls.Add(this.takeScrshotBtn, 0, 0);
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel6.Controls.Add(this.scrshotDragLbl, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.scrshotTakeAndOpenChk, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel11, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 14);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -553,28 +557,17 @@ namespace WindowStretch.Main
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(418, 46);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(418, 55);
             this.tableLayoutPanel6.TabIndex = 1;
-            // 
-            // takeScrshotBtn
-            // 
-            this.takeScrshotBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.takeScrshotBtn.Location = new System.Drawing.Point(62, 2);
-            this.takeScrshotBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.takeScrshotBtn.Name = "takeScrshotBtn";
-            this.takeScrshotBtn.Size = new System.Drawing.Size(85, 22);
-            this.takeScrshotBtn.TabIndex = 0;
-            this.takeScrshotBtn.Text = "撮影";
-            this.takeScrshotBtn.UseVisualStyleBackColor = true;
             // 
             // scrshotDragLbl
             // 
             this.scrshotDragLbl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.scrshotDragLbl.AutoSize = true;
             this.scrshotDragLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scrshotDragLbl.Location = new System.Drawing.Point(215, 0);
+            this.scrshotDragLbl.Location = new System.Drawing.Point(255, 4);
             this.scrshotDragLbl.Name = "scrshotDragLbl";
-            this.scrshotDragLbl.Size = new System.Drawing.Size(197, 26);
+            this.scrshotDragLbl.Size = new System.Drawing.Size(157, 26);
             this.scrshotDragLbl.TabIndex = 1;
             this.scrshotDragLbl.Text = "ここからドラッグすると、ほかのアプリに画像を貼り付けます。";
             // 
@@ -582,13 +575,52 @@ namespace WindowStretch.Main
             // 
             this.scrshotTakeAndOpenChk.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.scrshotTakeAndOpenChk.AutoSize = true;
-            this.scrshotTakeAndOpenChk.Location = new System.Drawing.Point(22, 28);
+            this.scrshotTakeAndOpenChk.Location = new System.Drawing.Point(42, 37);
             this.scrshotTakeAndOpenChk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.scrshotTakeAndOpenChk.Name = "scrshotTakeAndOpenChk";
             this.scrshotTakeAndOpenChk.Size = new System.Drawing.Size(165, 16);
             this.scrshotTakeAndOpenChk.TabIndex = 2;
             this.scrshotTakeAndOpenChk.Text = "撮影時に画像をビューワで開く";
             this.scrshotTakeAndOpenChk.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.AutoSize = true;
+            this.tableLayoutPanel11.ColumnCount = 3;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel11.Controls.Add(this.takeScrshotBtn, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.startRollshotBtn, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this.endRollshotBtn, 2, 0);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 1;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(244, 29);
+            this.tableLayoutPanel11.TabIndex = 3;
+            // 
+            // takeScrshotBtn
+            // 
+            this.takeScrshotBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.takeScrshotBtn.Location = new System.Drawing.Point(6, 3);
+            this.takeScrshotBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.takeScrshotBtn.Name = "takeScrshotBtn";
+            this.takeScrshotBtn.Size = new System.Drawing.Size(85, 22);
+            this.takeScrshotBtn.TabIndex = 0;
+            this.takeScrshotBtn.Text = "撮影";
+            this.takeScrshotBtn.UseVisualStyleBackColor = true;
+            // 
+            // startRollshotBtn
+            // 
+            this.startRollshotBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.startRollshotBtn.Location = new System.Drawing.Point(103, 3);
+            this.startRollshotBtn.Name = "startRollshotBtn";
+            this.startRollshotBtn.Size = new System.Drawing.Size(85, 22);
+            this.startRollshotBtn.TabIndex = 1;
+            this.startRollshotBtn.Text = "スクロール撮影";
+            this.startRollshotBtn.UseVisualStyleBackColor = true;
             // 
             // recordTab
             // 
@@ -737,6 +769,27 @@ namespace WindowStretch.Main
             this.recordStartBtn.Text = "録画開始";
             this.recordStartBtn.UseVisualStyleBackColor = true;
             // 
+            // scaleTab
+            // 
+            this.scaleTab.Controls.Add(this.scaleEnableChk);
+            this.scaleTab.Location = new System.Drawing.Point(4, 22);
+            this.scaleTab.Name = "scaleTab";
+            this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
+            this.scaleTab.Size = new System.Drawing.Size(436, 150);
+            this.scaleTab.TabIndex = 5;
+            this.scaleTab.Text = "目盛り";
+            this.scaleTab.UseVisualStyleBackColor = true;
+            // 
+            // scaleEnableChk
+            // 
+            this.scaleEnableChk.AutoSize = true;
+            this.scaleEnableChk.Location = new System.Drawing.Point(6, 6);
+            this.scaleEnableChk.Name = "scaleEnableChk";
+            this.scaleEnableChk.Size = new System.Drawing.Size(108, 16);
+            this.scaleEnableChk.TabIndex = 0;
+            this.scaleEnableChk.Text = "目盛りを表示する";
+            this.scaleEnableChk.UseVisualStyleBackColor = true;
+            // 
             // licenseTab
             // 
             this.licenseTab.Controls.Add(this.textBox1);
@@ -796,26 +849,14 @@ namespace WindowStretch.Main
             // 
             this.folderSelectDlg.Description = "保存するフォルダを指定してください。";
             // 
-            // scaleTab
+            // endRollshotBtn
             // 
-            this.scaleTab.Controls.Add(this.scaleEnableChk);
-            this.scaleTab.Location = new System.Drawing.Point(4, 22);
-            this.scaleTab.Name = "scaleTab";
-            this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
-            this.scaleTab.Size = new System.Drawing.Size(436, 150);
-            this.scaleTab.TabIndex = 5;
-            this.scaleTab.Text = "目盛り";
-            this.scaleTab.UseVisualStyleBackColor = true;
-            // 
-            // scaleEnableChk
-            // 
-            this.scaleEnableChk.AutoSize = true;
-            this.scaleEnableChk.Location = new System.Drawing.Point(6, 6);
-            this.scaleEnableChk.Name = "scaleEnableChk";
-            this.scaleEnableChk.Size = new System.Drawing.Size(108, 16);
-            this.scaleEnableChk.TabIndex = 0;
-            this.scaleEnableChk.Text = "目盛りを表示する";
-            this.scaleEnableChk.UseVisualStyleBackColor = true;
+            this.endRollshotBtn.Location = new System.Drawing.Point(197, 3);
+            this.endRollshotBtn.Name = "endRollshotBtn";
+            this.endRollshotBtn.Size = new System.Drawing.Size(44, 23);
+            this.endRollshotBtn.TabIndex = 2;
+            this.endRollshotBtn.Text = "完了";
+            this.endRollshotBtn.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -859,6 +900,7 @@ namespace WindowStretch.Main
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            this.tableLayoutPanel11.ResumeLayout(false);
             this.recordTab.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
@@ -869,12 +911,12 @@ namespace WindowStretch.Main
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
+            this.scaleTab.ResumeLayout(false);
+            this.scaleTab.PerformLayout();
             this.licenseTab.ResumeLayout(false);
             this.licenseTab.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
-            this.scaleTab.ResumeLayout(false);
-            this.scaleTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -940,6 +982,9 @@ namespace WindowStretch.Main
         private System.Windows.Forms.ToolStripStatusLabel functionStatusLbl;
         private System.Windows.Forms.TabPage scaleTab;
         private System.Windows.Forms.CheckBox scaleEnableChk;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Button startRollshotBtn;
+        private System.Windows.Forms.Button endRollshotBtn;
     }
 }
 
