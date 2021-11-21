@@ -62,7 +62,7 @@ namespace WindowStretch.Model
 
             result
                 .Where(f => !string.IsNullOrEmpty(f))
-                .Delay(TimeSpan.FromSeconds(5))
+                .Delay(TimeSpan.FromSeconds(60))
                 .Do(File.Delete)
                 .Repeat()
                 .Subscribe()
