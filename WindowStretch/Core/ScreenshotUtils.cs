@@ -19,12 +19,23 @@ namespace WindowStretch.Core
         {
             var hwnd = TargetAppUtils.GetHwnd() ?? throw new InvalidOperationException();
 
+            using (var bmp = CaptureScreenshot(hwnd))
+            {
+                var filename = Path.Combine(foldername, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.png");
+
+                bmp.Save(filename, ImageFormat.Png);
+
+                return filename;
+            }
+        }
+
+        public static Bitmap Take()
+        {
+            var hwnd = TargetAppUtils.GetHwnd() ?? throw new InvalidOperationException();
+
             var bmp = CaptureScreenshot(hwnd);
-            var filename = Path.Combine(foldername, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss}.png");
 
-            bmp.Save(filename, ImageFormat.Png);
-
-            return filename;
+            return bmp;
         }
 
         /// <summary>
