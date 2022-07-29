@@ -131,7 +131,7 @@ namespace WindowStretch.Model
                         await Task.Delay(TimeSpan.FromMilliseconds(200));
                     }
 
-                    return p.Save(SaveFolder.Value);
+                    return p.SaveDefaultName(SaveFolder.Value);
                 }
             }
             finally
