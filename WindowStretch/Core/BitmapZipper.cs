@@ -7,22 +7,66 @@ using System.IO;
 
 namespace WindowStretch.Core
 {
+    class BodyResult
+    {
+        /// <summary>endはボディ部を含まない。</summary>
+        public readonly (int Start, int End) Left;
+
+        /// <summary>endはボディ部を含まない。</summary>
+        public readonly (int Start, int End) Right;
+
+        public BodyResult((int Start, int End) left, (int Start, int End) right)
+        {
+            Left = left;
+            Right = right;
+        }
+    }
+
     public class BitmapZipper : IDisposable
     {
+        /// <summary>閾値A。フッタとヘッダの検出を行う。</summary>
+        private static readonly float ThretholdA = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_A"), out var v) ? v : 0.038f;
+
+        /// <summary>閾値B。</summary>
+        private static readonly float ThretholdB = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_B"), out var v) ? v : 0.017388f;
+
+        /// <summary>ボディ部の重なり検出面。この範囲が閾値以下なら一致したとみなす。</summary>
+        private static readonly float DuplicationRange = float.TryParse(Environment.GetEnvironmentVariable("DRANGE"), out var v) ? v : 0.4f;
+
+        private const int TrimBytes = 25 * 3; // + 4
+
+        /// <summary>マージが正常に完了したときのイベント。引数のビットマップは変更しないこと。</summary>
         public event Action<Bitmap> CompleteMerege = _ => { };
 
+        /// <summary>マージ結果。</summary>
         private Bitmap Canvas = null;
 
-        private static readonly float ThretholdA = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_A"), out var v) ? v : 1e-4f;
+        /// <summary><see cref="Canvas"/> と前回の<c>bitmap</c>のボディ部。</summary>
+        private BodyResult LastResult = null;
 
-        private static readonly float ThretholdB = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_B"), out var v) ? v : 0.05f;
+        private readonly object Locker = new object();
+
+        private int No = 0;
+
+        public BitmapZipper()
+        {
+            Console.WriteLine($"THRETHOLD_A = {Environment.GetEnvironmentVariable("THRETHOLD_A")} -> {ThretholdA}");
+            Console.WriteLine($"THRETHOLD_B = {Environment.GetEnvironmentVariable("THRETHOLD_B")} -> {ThretholdB}");
+            Console.WriteLine($"DRANGE = {Environment.GetEnvironmentVariable("DRANGE")} -> {DuplicationRange}");
+        }
 
         public void Merge(Bitmap bitmap)
         {
-            if (Canvas == null)
-                MergeFirst(bitmap);
-            else
-                MergeSecond(bitmap);
+            lock (Locker)
+            {
+                if (Canvas == null)
+                    MergeFirst(bitmap);
+                else
+                    MergeSecond(bitmap);
+
+                //Canvas.Save($"{No:00000}.png");
+                No++;
+            }
         }
 
         private void MergeFirst(Bitmap bitmap)
@@ -38,25 +82,23 @@ namespace WindowStretch.Core
         {
             Debug.Assert(Canvas != null);
 
-            (int start, int end) body;
-            int duplication;
+            BodyResult body2;
 
             using (var canvasData = BitmapSpan.Wrap(Canvas))
             using (var argData = BitmapSpan.Wrap(bitmap))
             {
                 // 上下から比較してボディを検出
-                body = BodyRange(canvasData, argData, ThretholdA);
-
-                if (body.start == -1 || body.end == -1)
-                    return;
+                BodyResult body = BodyRange(canvasData, argData, ThretholdA, LastResult);
+                if (body == null) return;
 
                 // ボディ同士の被りを検出
-                duplication = LikestDuplicate(canvasData, argData, ThretholdB, body, 0.3f);
-                // duplication = body.end;
+                body2 = LikestDuplicate(canvasData, argData, ThretholdB, body, DuplicationRange);
+                if (body2 == null) return;
             }
 
-            // canvasのボディ直下、フッター直上にbitmapのボディ以降を挿入
-            var result = new Bitmap(Canvas.Width, duplication + bitmap.Height - body.start);
+            // canvasのボディ直下、フッター直上にbitmapのボディとフッタを貼り付け
+            var drawHeight = bitmap.Height - body2.Right.Start;
+            var result = new Bitmap(Canvas.Width, body2.Left.Start + drawHeight);
 
             try
             {
@@ -66,14 +108,16 @@ namespace WindowStretch.Core
 
                     g.DrawImage(
                         bitmap,
-                        new Rectangle(0, duplication, bitmap.Width, bitmap.Height - body.start),
-                        Rectangle.FromLTRB(0, body.start, bitmap.Width, bitmap.Height),
+                        new Rectangle(0, body2.Left.Start, bitmap.Width, drawHeight),
+                        Rectangle.FromLTRB(0, body2.Right.Start, bitmap.Width, bitmap.Height),
                         GraphicsUnit.Pixel);
                 }
 
                 var old = Canvas;
                 Canvas = result;
                 old.Dispose();
+
+                LastResult = body2;
             }
             catch (Exception)
             {
@@ -90,45 +134,43 @@ namespace WindowStretch.Core
         /// <param name="leftBmp">画像1。こちらの方が<paramref name="rightBmp"/>以上のサイズであること。</param>
         /// <param name="rightBmp">画像2。</param>
         /// <param name="threthold">同じ内容と判断する閾値。<c>0.0～1.0</c>の範囲を指定する。行単位において、白-白が<c>0.0</c>、黒-白が<c>1.0</c>を表す。</param>
-        /// <returns><paramref name="leftBmp"/>を基準としたボディ部の高さ方向のインデックス。endはボディ部を含まない。</returns>
-        private static (int start, int end) BodyRange(BitmapSpan leftBmp, BitmapSpan rightBmp, float threthold)
+        /// <param name="lastBodies">最後に貼り付けたボディ部の位置。ボディ部は小さくなっていくという前提。</param>
+        /// <returns>ボディ部の高さ方向のインデックス。</returns>
+        private static BodyResult BodyRange(BitmapSpan leftBmp, BitmapSpan rightBmp, float threthold, BodyResult lastBodies)
         {
             Debug.Assert(0.0f < threthold && threthold < 1.0f);
 
             var leftData = leftBmp.Data;
             var rightData = rightBmp.Data;
 
-            var thretholdRaw = (int)((leftData.Stride - 4) * 255.0f * threthold);  // 閾値の生の値。GetLineDistanceを参照。
+            var thretholdRaw = (int)((leftData.Stride - (TrimBytes * 2)) * 255.0f * threthold);                   // 閾値の生の値。GetLineDistanceを参照。
+            var scans = lastBodies ?? new BodyResult((0, leftData.Height), (0, rightData.Height));  // デフォルトは全体がスキャン対象
 
             Debug.Assert(thretholdRaw > 0);
 
-            var start = -1;
-
             // 上から1行ずつ比較する
-            for (int y = 0; y < leftData.Height && y < rightData.Height; y++)
+            for (int leftS = scans.Left.Start, rightS = scans.Right.Start; leftS < leftData.Height && rightS < rightData.Height; leftS++, rightS++)
             {
-                // 閾値チェック
-                if (GetLineDistance(leftBmp, rightBmp, y, y) >= thretholdRaw)
+                // ヘッダの閾値チェック
+                int dist1 = GetLineDistance(leftBmp, rightBmp, leftS, rightS);
+                if (dist1 >= thretholdRaw)
                 {
-                    start = y;
+                    // 下から1行ずつ比較する
+                    for (int leftE = scans.Left.End - 1, rightE = scans.Right.End - 1; leftE > leftS && rightE > rightS; leftE--, rightE--)
+                    {
+                        // フッタの閾値チェック
+                        int dist2 = GetLineDistance(leftBmp, rightBmp, leftE, rightE);
+                        if (dist2 >= thretholdRaw)
+                        {
+                            return new BodyResult((leftS, leftE), (rightS, rightE));
+                        }
+                    }
+
                     break;
                 }
             }
 
-            var end = -1;
-
-            // 下から1行ずつ比較する
-            for (int yl = leftData.Height - 1, yr = rightData.Height - 1; yl >= 0 && yr >= 0; yl--, yr--)
-            {
-                // 閾値チェック
-                if (GetLineDistance(leftBmp, rightBmp, yl, yr) >= thretholdRaw)
-                {
-                    end = yl + 1;
-                    break;
-                }
-            }
-
-            return (start, end);
+            return null;
         }
 
         /// <summary>
@@ -151,8 +193,8 @@ namespace WindowStretch.Core
             var rightStride = rightBmp.Data.Stride;
 
             // 後ろはパディングが入っていることがあるので、余裕を見て4バイト無視する
-            var strideLeft = left.Slice(leftStride * yl, leftStride - 4);
-            var strideRight = right.Slice(rightStride * yr, rightStride - 4);
+            var strideLeft = left.Slice(leftStride * yl + TrimBytes, leftStride - (TrimBytes * 2));
+            var strideRight = right.Slice(rightStride * yr + TrimBytes, rightStride - (TrimBytes * 2));
 
             int diff = 0;
             for (int i = 0; i < strideLeft.Length; i++)
@@ -171,52 +213,76 @@ namespace WindowStretch.Core
         /// <param name="leftBmp">画像1。こちらの方が<paramref name="rightBmp"/>以上のサイズであること。</param>
         /// <param name="rightBmp">画像2。</param>
         /// <param name="threthold">同じ内容と判断する閾値。<c>0.0～1.0</c>の範囲を指定する。重なり検出面単位において、白-白が<c>0.0</c>、黒-白が<c>1.0</c>を表す。</param>
-        /// <param name="body"><paramref name="leftBmp"/>を基準としたボディ部の高さ方向のインデックス。endはボディ部を含まない。</param>
+        /// <param name="body">ボディ部の高さ方向のインデックス。</param>
         /// <param name="d">重なり検出を試す面積の割合。<paramref name="rightBmp"/>を基準とする。<c>0.0～1.0</c>の範囲を指定する。この割合の面積が一致すれば一致したとみなす。</param>
-        /// <returns><paramref name="leftBmp"/>を基準としたY方向の位置。ここから<paramref name="rightBmp"/>のボディ部を開始するといい感じになる。</returns>
-        private static int LikestDuplicate(BitmapSpan leftBmp, BitmapSpan rightBmp, float threthold, (int start, int end) body, float d)
+        /// <returns>貼り付けるべき位置。Leftの位置にRightの内容以降を貼り付けるといい感じになる。</returns>
+        private static BodyResult LikestDuplicate(BitmapSpan leftBmp, BitmapSpan rightBmp, float threthold, BodyResult body, float d)
         {
             Debug.Assert(0.0f < threthold && threthold < 1.0f);
             Debug.Assert(0.0f < d && d < 1.0f);
 
-            var leftHeight = leftBmp.Data.Height;
-            var rightHeight = rightBmp.Data.Height;
-
-            var footerSize = leftHeight - body.end;
-            var rightBodySize = rightHeight - footerSize - body.start;
-
+            var rightBodySize = body.Right.End - body.Right.Start;                          // rightのボディの高さ
             var dup = (int)(rightBodySize * d);                                             // 重なり検出を試す高さ
-            var thretholdRaw = (int)((leftBmp.Data.Stride - 4) * dup * 255.0f * threthold); // 閾値の生の値。GetLineDistanceを参照。
-            var compareStart = leftHeight - rightHeight + body.start;                       // leftのボディ下部から、rightのボディ高さ分だけの範囲を比較する
+            var thretholdRaw = (int)((leftBmp.Data.Stride - (TrimBytes * 2)) * dup * 255.0f * threthold); // 閾値の生の値。GetLineDistanceを参照。
 
             Debug.Assert(thretholdRaw > 0);
             Debug.Assert(dup >= 10);
 
+            // leftのボディ下部から、rightのボディ高さ分だけの範囲を比較する
             var list = new List<(int y, int diff)>();
-            for (int yl = compareStart; yl < body.end - dup; yl++)
+            var diffs = new List<int>();
+            for (int yl = body.Left.End - rightBodySize; yl < body.Left.End - dup; yl++)
             {
                 int diff = 0;
 
                 // 重なり検出範囲の行をすべて比較
                 for (int y = 0; y < dup; y++)
                 {
-                    diff += GetLineDistance(leftBmp, rightBmp, yl + y, body.start + y);
+                    diff += GetLineDistance(leftBmp, rightBmp, yl + y, body.Right.Start + y);
 
                     // 違い過ぎる場合はループを切り上げる
-                    if (diff >= thretholdRaw)
-                        break;
+                    //if (diff >= thretholdRaw)
+                    //    break;
                 }
+
+                diffs.Add(diff);
 
                 // 区切りの候補となる位置をlistに追加
                 if (diff < thretholdRaw)
                     list.Add((yl, diff));
             }
 
-            // ボディ部に重なりがない場合、leftのボディの下にrightのボディを追加する
-            if (list.Count == 0)
-                return body.end;
+            // 重なりがある場合、一番それらしい位置から継ぎ足しを開始する
+            if (list.Count > 0)
+            {
+                var res = list.MinBy(t => t.diff).y;
+                return new BodyResult((res, res + rightBodySize), body.Right);
+            }
+            // 上にスクロールしている場合、キャンセルする
+            else
+            {
+                for (int yl = body.Left.End - rightBodySize; yl < body.Left.End - dup; yl++)
+                {
+                    int diff = 0;
 
-            return list.MinBy(t => t.diff).y;
+                    // 重なり検出範囲の行をすべて比較
+                    for (int y = 0; y < dup; y++)
+                    {
+                        diff += GetLineDistance(leftBmp, rightBmp, yl + y, body.Right.End - dup + y);
+
+                        // 違い過ぎる場合はループを切り上げる
+                        if (diff >= thretholdRaw)
+                            break;
+                    }
+
+                    // 区切りの候補となる位置をlistに追加
+                    if (diff < thretholdRaw)
+                        return null;
+                }
+            }
+
+            // ボディ部に重なりがない場合、leftのボディの下にrightのボディを追加する
+            return new BodyResult((body.Left.End, body.Left.End + rightBodySize), body.Right);
         }
 
         /// <summary>
@@ -226,12 +292,15 @@ namespace WindowStretch.Core
         /// <returns><paramref name="filename"/>をそのまま返す。</returns>
         public string SaveAs(string filename)
         {
-            if (Canvas == null)
-                throw new InvalidOperationException();
+            lock (Locker)
+            {
+                if (Canvas == null)
+                    throw new InvalidOperationException();
 
-            Canvas.Save(filename, ImageFormat.Png);
+                Canvas.Save(filename, ImageFormat.Png);
 
-            return filename;
+                return filename;
+            }
         }
 
         /// <summary>
@@ -247,7 +316,11 @@ namespace WindowStretch.Core
 
         public void Dispose()
         {
-            Canvas?.Dispose();
+            lock (Locker)
+            {
+                Canvas?.Dispose();
+                Canvas = null;
+            }
         }
     }
 }
