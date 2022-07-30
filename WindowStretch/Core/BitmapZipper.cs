@@ -27,12 +27,13 @@ namespace WindowStretch.Core
         /// <summary>閾値A。フッタとヘッダの検出を行う。</summary>
         private static readonly float ThretholdA = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_A"), out var v) ? v : 0.038f;
 
-        /// <summary>閾値B。</summary>
+        /// <summary>閾値B。ボディ部の重なりの検出を行う。</summary>
         private static readonly float ThretholdB = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_B"), out var v) ? v : 0.017388f;
 
         /// <summary>ボディ部の重なり検出面。この範囲が閾値以下なら一致したとみなす。</summary>
         private static readonly float DuplicationRange = float.TryParse(Environment.GetEnvironmentVariable("DRANGE"), out var v) ? v : 0.4f;
 
+        /// <summary>比較する際に両端を無視するバイト数。</summary>
         private const int TrimBytes = 25 * 3; // + 4
 
         /// <summary>マージが正常に完了したときのイベント。引数のビットマップは変更しないこと。</summary>
@@ -44,6 +45,7 @@ namespace WindowStretch.Core
         /// <summary><see cref="Canvas"/> と前回の<c>bitmap</c>のボディ部。</summary>
         private BodyResult LastResult = null;
 
+        /// <summary>処理の排他を行うオブジェクト。</summary>
         private readonly object Locker = new object();
 
         private int No = 0;
@@ -64,7 +66,7 @@ namespace WindowStretch.Core
                 else
                     MergeSecond(bitmap);
 
-                //Canvas.Save($"{No:00000}.png");
+                //bitmap.Save($"{No:00000}.png");
                 No++;
             }
         }
@@ -143,7 +145,8 @@ namespace WindowStretch.Core
             var leftData = leftBmp.Data;
             var rightData = rightBmp.Data;
 
-            var thretholdRaw = (int)((leftData.Stride - (TrimBytes * 2)) * 255.0f * threthold);                   // 閾値の生の値。GetLineDistanceを参照。
+            //threthold = thretholdRaw / (2090 * 255) =
+            var thretholdRaw = (int)((leftData.Stride - (TrimBytes * 2)) * 255.0f * threthold);     // 閾値の生の値。GetLineDistanceを参照。
             var scans = lastBodies ?? new BodyResult((0, leftData.Height), (0, rightData.Height));  // デフォルトは全体がスキャン対象
 
             Debug.Assert(thretholdRaw > 0);
@@ -221,9 +224,9 @@ namespace WindowStretch.Core
             Debug.Assert(0.0f < threthold && threthold < 1.0f);
             Debug.Assert(0.0f < d && d < 1.0f);
 
-            var rightBodySize = body.Right.End - body.Right.Start;                          // rightのボディの高さ
-            var dup = (int)(rightBodySize * d);                                             // 重なり検出を試す高さ
-            var thretholdRaw = (int)((leftBmp.Data.Stride - (TrimBytes * 2)) * dup * 255.0f * threthold); // 閾値の生の値。GetLineDistanceを参照。
+            var rightBodySize = body.Right.End - body.Right.Start;  // rightのボディの高さ
+            var dup = (int)(rightBodySize * d);                     // 重なり検出を試す高さ
+            var thretholdRaw = (int)((leftBmp.Data.Stride - (TrimBytes * 2)) * dup * 255.0f * threthold);   // 閾値の生の値。GetLineDistanceを参照。
 
             Debug.Assert(thretholdRaw > 0);
             Debug.Assert(dup >= 10);
