@@ -26,6 +26,7 @@ namespace WindowStretch.Core
 
     public class BitmapZipper : IDisposable
     {
+#if DEBUG
         /// <summary>閾値A。フッタとヘッダの検出を行う。</summary>
         private static readonly float ThretholdA = float.TryParse(Environment.GetEnvironmentVariable("THRETHOLD_A"), out var v) ? v : 0.038f;
 
@@ -35,8 +36,20 @@ namespace WindowStretch.Core
         /// <summary>ボディ部の重なり検出面。この範囲が閾値以下なら一致したとみなす。</summary>
         private static readonly float DuplicationRange = float.TryParse(Environment.GetEnvironmentVariable("DRANGE"), out var v) ? v : 0.4f;
 
-        /// <summary>ボディ部の重なり検出面。この範囲が閾値以下なら一致したとみなす。</summary>
+        /// <summary>デバッグ出力の内容。</summary>
         private static readonly string SaveInterResult = Environment.GetEnvironmentVariable("INTER") ?? "";
+
+        private int No = 0;
+#else
+        /// <summary>閾値A。フッタとヘッダの検出を行う。</summary>
+        private static readonly float ThretholdA = 0.038f;
+
+        /// <summary>閾値B。ボディ部の重なりの検出を行う。</summary>
+        private static readonly float ThretholdB = 0.040214f;
+
+        /// <summary>ボディ部の重なり検出面。この範囲が閾値以下なら一致したとみなす。</summary>
+        private static readonly float DuplicationRange = 0.4f;
+#endif
 
         /// <summary>
         /// 比較する際に両端を無視するバイト数。
@@ -56,13 +69,13 @@ namespace WindowStretch.Core
         /// <summary>処理の排他を行うオブジェクト。</summary>
         private readonly object Locker = new object();
 
-        private int No = 0;
-
         public BitmapZipper()
         {
+#if DEBUG
             Console.WriteLine($"THRETHOLD_A = {Environment.GetEnvironmentVariable("THRETHOLD_A")} -> {ThretholdA}");
             Console.WriteLine($"THRETHOLD_B = {Environment.GetEnvironmentVariable("THRETHOLD_B")} -> {ThretholdB}");
             Console.WriteLine($"DRANGE = {Environment.GetEnvironmentVariable("DRANGE")} -> {DuplicationRange}");
+#endif
         }
 
         public void Merge(Bitmap bitmap)
@@ -74,11 +87,13 @@ namespace WindowStretch.Core
                 else
                     MergeSecond(bitmap);
 
+#if DEBUG
                 if (SaveInterResult == "canvas")
                     Canvas.Save($"{No:00000}.png");
                 else if (SaveInterResult == "bitmap")
                     bitmap.Save($"{No:00000}.png");
                 No++;
+#endif
             }
         }
 
