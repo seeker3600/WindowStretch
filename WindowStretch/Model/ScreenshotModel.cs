@@ -1,6 +1,7 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
@@ -117,18 +118,24 @@ namespace WindowStretch.Model
                 Status.OnNext("撮影しています...");
 
                 var cont = true;
+                var sw = new Stopwatch();
 
                 using (EndRollshot.Subscribe(_ => cont = false))
                 using (var p = new BitmapZipper())
                 {
                     while (cont)
                     {
+                        sw.Restart();
+
                         using (var bitmap = ScreenshotUtils.Take())
                         {
                             p.Merge(bitmap);
                         }
 
-                        await Task.Delay(TimeSpan.FromMilliseconds(200));
+                        sw.Stop();
+                        var msecs = (int)(TimeSpan.FromMilliseconds(100) - sw.Elapsed).TotalMilliseconds;
+
+                        if (msecs > 0) await Task.Delay(msecs);
                     }
 
                     return p.SaveDefaultName(SaveFolder.Value);
