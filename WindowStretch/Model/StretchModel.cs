@@ -32,7 +32,7 @@ namespace WindowStretch.Model
 
         public void Tick()
         {
-            if (Control.MouseButtons.HasFlag(MouseButtons.Left))
+            if (Control.MouseButtons != MouseButtons.None)
             {
                 Status.OnNext($"監視を一時停止しています。");
                 return;

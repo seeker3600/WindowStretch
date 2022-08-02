@@ -99,10 +99,12 @@ namespace WindowStretch.Model
             StartRollshot
                 .ObserveOn(TaskPoolScheduler.Default)
                 .SelectMany(_ => DoRollshot())
-                .CatchIgnore((Exception _) => Status.OnNext("撮影に失敗しました。"))
+                .Do(OpenImageFile)
+                .Select(_ => "スクリーンショットを取得しました。")
+                .Catch(Observable.Return("スクリーンショットの取得に失敗しました。"))
                 .Repeat()
-                .Subscribe();
-
+                .Subscribe(Status)
+                .AddTo(Disposer);
         }
 
         private void OpenImageFile(string filename)
@@ -127,9 +129,12 @@ namespace WindowStretch.Model
                     {
                         sw.Restart();
 
-                        using (var bitmap = ScreenshotUtils.Take())
+                        if (Control.MouseButtons == MouseButtons.None)
                         {
-                            p.Merge(bitmap);
+                            using (var bitmap = ScreenshotUtils.Take())
+                            {
+                                p.Merge(bitmap);
+                            }
                         }
 
                         sw.Stop();

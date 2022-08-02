@@ -317,17 +317,20 @@ namespace WindowStretch.Core
                     list.Add((yl, diff));
             }
 
+            // 区切りの候補位置よりマッチする位置が上にあるか確認
+            // thretholdRaw2未満の一致がある場合、上にスクロールしている＝継ぎ足し不要と判定する
             var thretholdRaw2 = list.Count > 0 ? list.Min(t => t.diff) : thretholdRaw;
 
-            // 上にスクロールしている場合、キャンセルする
-            for (int yl = body.Left.End - rightBodySize; yl < body.Left.End - dup; yl++)
+            // body.Left.End - rightBodySize の位置から、さらに rightBodySize 分上までの範囲を比較する
+            var topLimit = Math.Max(body.Left.End - (rightBodySize * 2), 0);
+            for (int yl = body.Left.End - rightBodySize - 1; yl >= topLimit; yl--)
             {
                 int diff = 0;
 
                 // 重なり検出範囲の行をすべて比較
                 for (int y = 0; y < dup; y++)
                 {
-                    diff += GetLineDistance(leftBmp, rightBmp, yl + y, body.Right.End - dup + y);
+                    diff += GetLineDistance(leftBmp, rightBmp, yl + y, body.Right.Start + y);
 
                     // 違い過ぎる場合はループを切り上げる
                     if (diff >= thretholdRaw2)
