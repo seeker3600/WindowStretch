@@ -3,7 +3,7 @@
 
 ## インストール
 
-[こちら](https://github.com/seeker3600/WindowStretch/releases/download/v0.8.0/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
+[こちら](https://github.com/seeker3600/WindowStretch/releases/latest/download/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
 
 * Windows8.1、または 10 の古いバージョンをご利用の方は、 [.net framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-web-installer) をインストールする必要があります。
 * Windows 10 April 2018 Update (1803) より前のバージョンをご利用の場合、録画機能は使用できません。
