@@ -7,9 +7,9 @@
     <!--<Nullable>enable</Nullable>-->
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>0.8.0</Version>
+    <Version>0.9.0</Version>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-    <Copyright>Copyright (c) 2021 seeker3600</Copyright>
+    <Copyright>Copyright (c) 2021~ seeker3600</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/seeker3600/WindowStretch</PackageProjectUrl>
     <Authors>seeker3600</Authors>
