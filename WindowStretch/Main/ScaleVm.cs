@@ -15,6 +15,8 @@ namespace WindowStretch.Main
 
             // モデルのバインド
             scaleEnableChk.DataBindings.Add(Bind(nameof(scaleEnableChk.Checked), model.ScaleEnabled));
+            scaleAutoVisibleChk.DataBindings.Add(Bind(nameof(scaleAutoVisibleChk.Checked), model.ScaleAutoVisible));
+            scaleAutoVisibleChk.DataBindings.Add(Bind(nameof(scaleAutoVisibleChk.Enabled), model.ScaleEnabled));
 
             watchTimer.Tick += (_, __) => model.Tick();
         }

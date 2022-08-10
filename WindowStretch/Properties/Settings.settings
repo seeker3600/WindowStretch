@@ -48,18 +48,41 @@
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;RectangleF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;Location&gt;
-    &lt;X&gt;0.3075&lt;/X&gt;
-    &lt;Y&gt;0.111&lt;/Y&gt;
+    &lt;X&gt;0.315&lt;/X&gt;
+    &lt;Y&gt;0.107&lt;/Y&gt;
   &lt;/Location&gt;
   &lt;Size&gt;
-    &lt;Width&gt;0.4054&lt;/Width&gt;
-    &lt;Height&gt;0.031&lt;/Height&gt;
+    &lt;Width&gt;0.3985&lt;/Width&gt;
+    &lt;Height&gt;0.039&lt;/Height&gt;
   &lt;/Size&gt;
-  &lt;X&gt;0.3075&lt;/X&gt;
-  &lt;Y&gt;0.111&lt;/Y&gt;
-  &lt;Width&gt;0.4054&lt;/Width&gt;
-  &lt;Height&gt;0.031&lt;/Height&gt;
+  &lt;X&gt;0.315&lt;/X&gt;
+  &lt;Y&gt;0.107&lt;/Y&gt;
+  &lt;Width&gt;0.3985&lt;/Width&gt;
+  &lt;Height&gt;0.039&lt;/Height&gt;
 &lt;/RectangleF&gt;</Value>
+    </Setting>
+    <Setting Name="ScaleAutoVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ScaleVisibleRect" Type="System.Drawing.RectangleF" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;RectangleF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Location&gt;
+    &lt;X&gt;0.238434&lt;/X&gt;
+    &lt;Y&gt;0.116883&lt;/Y&gt;
+  &lt;/Location&gt;
+  &lt;Size&gt;
+    &lt;Width&gt;0.065836&lt;/Width&gt;
+    &lt;Height&gt;0.01998&lt;/Height&gt;
+  &lt;/Size&gt;
+  &lt;X&gt;0.238434&lt;/X&gt;
+  &lt;Y&gt;0.116883&lt;/Y&gt;
+  &lt;Width&gt;0.065836&lt;/Width&gt;
+  &lt;Height&gt;0.01998&lt;/Height&gt;
+&lt;/RectangleF&gt;</Value>
+    </Setting>
+    <Setting Name="ScaleVisibleHash" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">12297738877583017984</Value>
     </Setting>
   </Settings>
 </SettingsFile>

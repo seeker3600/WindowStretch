@@ -16,6 +16,9 @@ namespace WindowStretch.Model
         public ReactiveProperty<bool> ScaleEnabled { get; } =
             Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.ScaleEnabled);
 
+        public ReactiveProperty<bool> ScaleAutoVisible { get; } =
+            Settings.Default.ToReactivePropertyAsSynchronized(conf => conf.ScaleAutoVisible);
+
         public IObservable<string> StatusMsg => Status;
 
         private readonly Subject<string> Status = new Subject<string>();
@@ -48,6 +51,13 @@ namespace WindowStretch.Model
             {
                 try
                 {
+                    if (ScaleAutoVisible.Value && !ExistsStaminaGauge())
+                    {
+                        Scale.Visible = false;
+                        Status.OnNext($"体力ゲージが見つかりませんでした。");
+                        return;
+                    }
+
                     Scale.Visible = true;
                     var targetRect = WindowUtils.GetClientRectOnScreen(hwnd);
 
@@ -72,6 +82,18 @@ namespace WindowStretch.Model
             {
                 Scale.Visible = false;
                 Status.OnNext($"アプリ {procName} が見つかりません。");
+            }
+        }
+
+        private static bool ExistsStaminaGauge()
+        {
+            var templateHash = Settings.Default.ScaleVisibleHash;
+            var templateRect = Settings.Default.ScaleVisibleRect;
+
+            using (var bitmap = ScreenshotUtils.Take())
+            {
+                var hash = ImageSimilarityUtils.GetDHash(bitmap, templateRect);
+                return ImageSimilarityUtils.NearlyEquals(hash, templateHash);
             }
         }
 

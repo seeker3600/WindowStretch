@@ -73,6 +73,7 @@ namespace WindowStretch.Main
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.takeScrshotBtn = new System.Windows.Forms.Button();
             this.startRollshotBtn = new System.Windows.Forms.Button();
+            this.endRollshotBtn = new System.Windows.Forms.Button();
             this.recordTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -85,14 +86,15 @@ namespace WindowStretch.Main
             this.recordEndBtn = new System.Windows.Forms.Button();
             this.recordStartBtn = new System.Windows.Forms.Button();
             this.scaleTab = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.scaleEnableChk = new System.Windows.Forms.CheckBox();
+            this.scaleAutoVisibleChk = new System.Windows.Forms.CheckBox();
             this.licenseTab = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.stretchStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.functionStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.folderSelectDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.endRollshotBtn = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -116,6 +118,7 @@ namespace WindowStretch.Main
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.scaleTab.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.licenseTab.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.SuspendLayout();
@@ -622,6 +625,15 @@ namespace WindowStretch.Main
             this.startRollshotBtn.Text = "スクロール撮影";
             this.startRollshotBtn.UseVisualStyleBackColor = true;
             // 
+            // endRollshotBtn
+            // 
+            this.endRollshotBtn.Location = new System.Drawing.Point(197, 3);
+            this.endRollshotBtn.Name = "endRollshotBtn";
+            this.endRollshotBtn.Size = new System.Drawing.Size(44, 23);
+            this.endRollshotBtn.TabIndex = 2;
+            this.endRollshotBtn.Text = "完了";
+            this.endRollshotBtn.UseVisualStyleBackColor = true;
+            // 
             // recordTab
             // 
             this.recordTab.Controls.Add(this.tableLayoutPanel8);
@@ -771,7 +783,7 @@ namespace WindowStretch.Main
             // 
             // scaleTab
             // 
-            this.scaleTab.Controls.Add(this.scaleEnableChk);
+            this.scaleTab.Controls.Add(this.flowLayoutPanel1);
             this.scaleTab.Location = new System.Drawing.Point(4, 22);
             this.scaleTab.Name = "scaleTab";
             this.scaleTab.Padding = new System.Windows.Forms.Padding(3);
@@ -780,15 +792,36 @@ namespace WindowStretch.Main
             this.scaleTab.Text = "目盛り";
             this.scaleTab.UseVisualStyleBackColor = true;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.scaleEnableChk);
+            this.flowLayoutPanel1.Controls.Add(this.scaleAutoVisibleChk);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(430, 144);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
             // scaleEnableChk
             // 
             this.scaleEnableChk.AutoSize = true;
-            this.scaleEnableChk.Location = new System.Drawing.Point(6, 6);
+            this.scaleEnableChk.Location = new System.Drawing.Point(3, 3);
             this.scaleEnableChk.Name = "scaleEnableChk";
             this.scaleEnableChk.Size = new System.Drawing.Size(108, 16);
             this.scaleEnableChk.TabIndex = 0;
             this.scaleEnableChk.Text = "目盛りを表示する";
             this.scaleEnableChk.UseVisualStyleBackColor = true;
+            // 
+            // scaleAutoVisibleChk
+            // 
+            this.scaleAutoVisibleChk.AutoSize = true;
+            this.scaleAutoVisibleChk.Location = new System.Drawing.Point(3, 25);
+            this.scaleAutoVisibleChk.Name = "scaleAutoVisibleChk";
+            this.scaleAutoVisibleChk.Size = new System.Drawing.Size(199, 16);
+            this.scaleAutoVisibleChk.TabIndex = 1;
+            this.scaleAutoVisibleChk.Text = "目盛りの表示・非表示を自動で切替";
+            this.scaleAutoVisibleChk.UseVisualStyleBackColor = true;
             // 
             // licenseTab
             // 
@@ -849,15 +882,6 @@ namespace WindowStretch.Main
             // 
             this.folderSelectDlg.Description = "保存するフォルダを指定してください。";
             // 
-            // endRollshotBtn
-            // 
-            this.endRollshotBtn.Location = new System.Drawing.Point(197, 3);
-            this.endRollshotBtn.Name = "endRollshotBtn";
-            this.endRollshotBtn.Size = new System.Drawing.Size(44, 23);
-            this.endRollshotBtn.TabIndex = 2;
-            this.endRollshotBtn.Text = "完了";
-            this.endRollshotBtn.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -912,7 +936,8 @@ namespace WindowStretch.Main
             this.groupBox4.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.scaleTab.ResumeLayout(false);
-            this.scaleTab.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.licenseTab.ResumeLayout(false);
             this.licenseTab.PerformLayout();
             this.statusBar.ResumeLayout(false);
@@ -985,6 +1010,8 @@ namespace WindowStretch.Main
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.Button startRollshotBtn;
         private System.Windows.Forms.Button endRollshotBtn;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.CheckBox scaleAutoVisibleChk;
     }
 }
 

@@ -65,7 +65,7 @@ namespace WindowStretch.Core
         {
             try
             {
-                PInvoke.SetForegroundWindow(hwnd);
+                //PInvoke.SetForegroundWindow(hwnd);
             }
             catch (Exception)
             {

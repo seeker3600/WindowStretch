@@ -196,17 +196,17 @@ namespace WindowStretch.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <RectangleF xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <Location>
-    <X>0.3075</X>
-    <Y>0.111</Y>
+    <X>0.315</X>
+    <Y>0.107</Y>
   </Location>
   <Size>
-    <Width>0.4054</Width>
-    <Height>0.031</Height>
+    <Width>0.3985</Width>
+    <Height>0.039</Height>
   </Size>
-  <X>0.3075</X>
-  <Y>0.111</Y>
-  <Width>0.4054</Width>
-  <Height>0.031</Height>
+  <X>0.315</X>
+  <Y>0.107</Y>
+  <Width>0.3985</Width>
+  <Height>0.039</Height>
 </RectangleF>")]
         public global::System.Drawing.RectangleF ScaleRect {
             get {
@@ -214,6 +214,56 @@ namespace WindowStretch.Properties {
             }
             set {
                 this["ScaleRect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ScaleAutoVisible {
+            get {
+                return ((bool)(this["ScaleAutoVisible"]));
+            }
+            set {
+                this["ScaleAutoVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<RectangleF xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <Location>
+    <X>0.238434</X>
+    <Y>0.116883</Y>
+  </Location>
+  <Size>
+    <Width>0.065836</Width>
+    <Height>0.01998</Height>
+  </Size>
+  <X>0.238434</X>
+  <Y>0.116883</Y>
+  <Width>0.065836</Width>
+  <Height>0.01998</Height>
+</RectangleF>")]
+        public global::System.Drawing.RectangleF ScaleVisibleRect {
+            get {
+                return ((global::System.Drawing.RectangleF)(this["ScaleVisibleRect"]));
+            }
+            set {
+                this["ScaleVisibleRect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12297738877583017984")]
+        public ulong ScaleVisibleHash {
+            get {
+                return ((ulong)(this["ScaleVisibleHash"]));
+            }
+            set {
+                this["ScaleVisibleHash"] = value;
             }
         }
     }
