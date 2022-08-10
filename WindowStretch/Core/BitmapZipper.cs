@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 
 namespace WindowStretch.Core
 {
@@ -216,38 +217,33 @@ namespace WindowStretch.Core
         /// </returns>
         private static int GetLineDistance(BitmapSpan leftBmp, BitmapSpan rightBmp, int yl, int yr)
         {
-            var left = leftBmp.GetReadOnlySpan();
-            var right = rightBmp.GetReadOnlySpan();
-
             var leftStride = leftBmp.Data.Stride;
             var rightStride = rightBmp.Data.Stride;
 
-            var strideLeft = left.Slice(leftStride * yl + TrimBytes, leftStride - (TrimBytes * 2));
-            var strideRight = right.Slice(rightStride * yr + TrimBytes, rightStride - (TrimBytes * 2));
+            var strideLeft = leftBmp.GetReadOnlySpan().Slice(leftStride * yl + TrimBytes, leftStride - (TrimBytes * 2));
+            var strideRight = rightBmp.GetReadOnlySpan().Slice(rightStride * yr + TrimBytes, rightStride - (TrimBytes * 2));
+
+            // https://thegreatco.com/posts/20190403/
+            var vecsLeft = MemoryMarshal.Cast<byte, Vector<byte>>(strideLeft);
+            var vecsRight = MemoryMarshal.Cast<byte, Vector<byte>>(strideRight);
 
             var vectorLength = Vector<byte>.Count;
-            var diffTemp = Vector<ushort>.Zero;
+            var diffSum = Vector<ushort>.Zero;
 
-            var ary = new byte[vectorLength];
-            var tmp = ary.AsSpan();
-
-            for (int i = 0, c = strideLeft.Length - vectorLength; i < c; i += vectorLength)
+            for (int i = 0, c = strideLeft.Length / vectorLength; i < c; i++)
             {
-                // TODO .net 5以降は直接Spanを渡すことができる
-                strideLeft.Slice(i, vectorLength).CopyTo(tmp);
-                var leftVec = new Vector<byte>(ary);
-
-                strideRight.Slice(i, vectorLength).CopyTo(tmp);
-                var rightVec = new Vector<byte>(ary);
+                // TODO .net 5以降は直接Spanを渡して初期化できる
+                var leftVec = vecsLeft[i];
+                var rightVec = vecsRight[i];
 
                 var diffVec = Vector.Max(leftVec, rightVec) - Vector.Min(leftVec, rightVec);
                 Vector.Widen(diffVec, out var short1, out var short2);
 
-                diffTemp += short1 + short2;
+                diffSum += short1 + short2;
             }
 
             int diff = 0;
-            for (int i = 0; i < Vector<ushort>.Count; i++) diff += diffTemp[i];
+            for (int i = 0; i < Vector<ushort>.Count; i++) diff += diffSum[i];
 
             for (int i = strideLeft.Length / vectorLength * vectorLength; i < strideLeft.Length; i++)
             {
