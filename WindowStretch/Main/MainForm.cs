@@ -39,6 +39,9 @@ namespace WindowStretch.Main
 
             // 目盛りタブのバインド
             SetupScaleOverlayModel();
+
+            // アプリケーション終了イベントを登録
+            Application.ApplicationExit += MainForm_FormClosed;
         }
 
         private void SetupMainForm()
@@ -104,7 +107,7 @@ namespace WindowStretch.Main
             Close();
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void MainForm_FormClosed(object sender, EventArgs e)
         {
             Settings.Default.Save();
         }
