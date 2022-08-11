@@ -1,10 +1,22 @@
 # WindowStretch
-ゲーム画面のウィンドウサイズを、縦横比を維持しつつ最大化します。現在はDMM版「ウマ娘 プリティーダービー」用。
-プロジェクトサイトは[こちら](https://github.com/seeker3600/WindowStretch)
+ゲーム画面のウィンドウサイズ調整等を行います。現在はDMM版「ウマ娘 プリティーダービー」用。
+
+![size](img/size.png)
+
+## このツールにできること
+
+* ゲーム画面のウィンドウサイズを、縦横比を維持しつつ最大化します。縦長・横長の両方に対応します。
+    * サイズ指定は必要ありません。モニターに対して適切な位置・サイズを自動的に計算します。
+* ツールの起動と同時にゲームを起動できます。
+* ゲーム画面のスクリーンショットを撮影できます。
+    * スクロールする画面の全体を1枚の画像に撮影することもできます。
+* ゲーム画面を録画できます。
+* 育成画面の体力ゲージに目盛りを表示できます。
+	![scale_enabled](img/scale_enabled.png)
 
 ## インストール
 
-[こちら](https://github.com/seeker3600/WindowStretch/releases/latest/download/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
+[こちら](https://github.com/seeker3600/WindowStretch/releases/download/v0.8.0/WindowStretch.zip) から最新版をダウンロードし、zipファイルを解凍してください。
 
 * Windows8.1、または 10 の古いバージョンをご利用の方は、 [.net framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-web-installer) をインストールする必要があります。
 * Windows 10 April 2018 Update (1803) より前のバージョンをご利用の場合、録画機能は使用できません。
@@ -61,20 +73,22 @@
 
 ![scale](img/scale.png)
 
-* チェックを入れると、育成の体力ゲージの位置に目盛りを表示します。
+* 「目盛りを表示する」にチェックを入れると、育成の体力ゲージの位置に目盛りを表示します。
 * ゲームで何をしているかに関係なく「表示するだけ」なので注意してください。
 	![scale_enabled](img/scale_enabled.png)
-
+* 「目盛りの表示・非表示を自動で切替」にチェックを入れると、育成画面以外では目盛りを非表示にします。
+	* アオハル、メイクラにて動作を確認しています。
 
 ## 対応環境
 
-Windows 10 Pro バージョン 2004 (x64) で動作を確認しています。
-それ以外の環境で動く／動かない場合はご連絡ください。
+以下の環境で動作を確認しています。それ以外の環境で動く／動かない場合はご連絡ください。
+
+* Windows 10 Pro バージョン 21H1 (x64) 
+* Windows 11 Home バージョン 21H2 (x64) 
 
 ## TODO
 
 * フルスクリーン時は省電力機能を無効化
-* ゲージ表示の自動化
 * マルチモニター
 * ファン数計測
 * 録画周りの改善
@@ -85,32 +99,7 @@ Windows 10 Pro バージョン 2004 (x64) で動作を確認しています。
 
 ## 連絡
 イシューやプルリク、 @seeker7200 (twitter) へどうぞ。
+プロジェクトサイトは[こちら](https://github.com/seeker3600/WindowStretch)です。
 
 ## ライセンス
 MIT
-
-### 依存ソフトウェア
-
-* .NET Runtime
-    The MIT License (MIT)  Copyright (c) .NET Foundation and Contributors
-    ライセンス全文 - https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
-
-* Microsoft.Windows.CsWin32
-    The MIT License (MIT)  Copyright (c) Microsoft Corporation
-    ライセンス全文 - https://github.com/microsoft/CsWin32/blob/main/LICENSE
-
-    本ツール用の改変を行っています。内容は以下を参照してください。
-    https://github.com/seeker3600/CsWin32
-
-* ReactiveProperty
-    The MIT License (MIT)  Copyright (c) 2018 neuecc, xin9le, okazuki
-    ライセンス全文 - https://github.com/runceel/ReactiveProperty/blob/main/LICENSE.txt
-
-* ScreenRecorderLib
-    MIT License  Copyright (c) 2017 Sverre Skodje
-    ライセンス全文 - https://github.com/sskodje/ScreenRecorderLib/blob/master/LICENSE
-
-* AudioSwitcher
-    Microsoft Public License (Ms-PL) xenolightning
-    ライセンス全文 - https://github.com/xenolightning/AudioSwitcher/blob/master/LICENSE
-    プロジェクトサイト - https://github.com/xenolightning/AudioSwitcher
