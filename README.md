@@ -1,5 +1,6 @@
 # WindowStretch
 ゲーム画面のウィンドウサイズを、縦横比を維持しつつ最大化します。現在はDMM版「ウマ娘 プリティーダービー」用。
+プロジェクトサイトは[こちら](https://github.com/seeker3600/WindowStretch)
 
 ## インストール
 

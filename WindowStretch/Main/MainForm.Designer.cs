@@ -89,8 +89,6 @@ namespace WindowStretch.Main
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.scaleEnableChk = new System.Windows.Forms.CheckBox();
             this.scaleAutoVisibleChk = new System.Windows.Forms.CheckBox();
-            this.licenseTab = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.stretchStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.functionStatusLbl = new System.Windows.Forms.ToolStripStatusLabel();
@@ -119,7 +117,6 @@ namespace WindowStretch.Main
             this.tableLayoutPanel10.SuspendLayout();
             this.scaleTab.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.licenseTab.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -354,7 +351,6 @@ namespace WindowStretch.Main
             this.mainTabs.Controls.Add(this.screenshotTab);
             this.mainTabs.Controls.Add(this.recordTab);
             this.mainTabs.Controls.Add(this.scaleTab);
-            this.mainTabs.Controls.Add(this.licenseTab);
             this.mainTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabs.Location = new System.Drawing.Point(0, 0);
             this.mainTabs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -823,31 +819,6 @@ namespace WindowStretch.Main
             this.scaleAutoVisibleChk.Text = "目盛りの表示・非表示を自動で切替";
             this.scaleAutoVisibleChk.UseVisualStyleBackColor = true;
             // 
-            // licenseTab
-            // 
-            this.licenseTab.Controls.Add(this.textBox1);
-            this.licenseTab.Location = new System.Drawing.Point(4, 22);
-            this.licenseTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.licenseTab.Name = "licenseTab";
-            this.licenseTab.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.licenseTab.Size = new System.Drawing.Size(436, 150);
-            this.licenseTab.TabIndex = 3;
-            this.licenseTab.Text = "ライセンス";
-            this.licenseTab.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(430, 146);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
-            this.textBox1.WordWrap = false;
-            // 
             // statusBar
             // 
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -937,8 +908,6 @@ namespace WindowStretch.Main
             this.scaleTab.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.licenseTab.ResumeLayout(false);
-            this.licenseTab.PerformLayout();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
             this.ResumeLayout(false);
@@ -989,8 +958,6 @@ namespace WindowStretch.Main
         private System.Windows.Forms.Label scrshotDragLbl;
         private System.Windows.Forms.CheckBox scrshotTakeAndOpenChk;
         private System.Windows.Forms.FolderBrowserDialog folderSelectDlg;
-        private System.Windows.Forms.TabPage licenseTab;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TabPage recordTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.GroupBox groupBox3;
